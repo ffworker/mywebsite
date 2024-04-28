@@ -1,18 +1,51 @@
-var matrixCanvas = document.getElementById('matrixCanvas');
-var matrixHeader = document.getElementById('matrixHeader');
-matrixCanvas.height = matrixHeader.offsetHeight;
-matrixCanvas.width = matrixHeader.offsetWidth;
-var letters = Array(256).join(1).split('');
+// geting canvas by Boujjou Achraf
+        var c = document.getElementById("c");
+        var ctx = c.getContext("2d");
 
-function drawMatrix() {
-    matrixCanvas.getContext('2d').fillStyle='rgba(0,0,0,.05)';
-    matrixCanvas.getContext('2d').fillRect(0,0,matrixCanvas.width,matrixCanvas.height);
-    matrixCanvas.getContext('2d').fillStyle='#0F0';
-    letters.map(function(y_pos, index){
-        text = String.fromCharCode(3e4+Math.random()*33);
-        x_pos = index * 10;
-        matrixCanvas.getContext('2d').fillText(text, x_pos, y_pos);
-        letters[index] = (y_pos > 758 + Math.random() * 1e4) ? 0 : y_pos + 10;
-    });
-}
-setInterval(drawMatrix, 33);
+        //making the canvas full screen
+        c.height = window.innerHeight;
+        c.width = window.innerWidth;
+
+        //chinese characters - taken from the unicode charset
+        var matrix = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
+        //converting the string into an array of single characters
+        matrix = matrix.split("");
+
+        var font_size = 10;
+        var columns = c.width/font_size; //number of columns for the rain
+        //an array of drops - one per column
+        var drops = [];
+        //x below is the x coordinate
+        //1 = y co-ordinate of the drop(same for every drop initially)
+        for(var x = 0; x < columns; x++)
+            drops[x] = 1; 
+
+        //drawing the characters
+        function draw()
+        {
+            //Black BG for the canvas
+            //translucent BG to show trail
+            ctx.fillStyle = "rgba(0, 0, 0, 0.04)";
+            ctx.fillRect(0, 0, c.width, c.height);
+
+            ctx.fillStyle = "#f4427d";//green text
+            ctx.font = font_size + "px arial";
+            //looping over drops
+            for(var i = 0; i < drops.length; i++)
+            {
+                //a random chinese character to print
+                var text = matrix[Math.floor(Math.random()*matrix.length)];
+                //x = i*font_size, y = value of drops[i]*font_size
+                ctx.fillText(text, i*font_size, drops[i]*font_size);
+
+                //sending the drop back to the top randomly after it has crossed the screen
+                //adding a randomness to the reset to make the drops scattered on the Y axis
+                if(drops[i]*font_size > c.height && Math.random() > 0.975)
+                    drops[i] = 0;
+
+                //incrementing Y coordinate
+                drops[i]++;
+            }
+        }
+
+        setInterval(draw, 35);
