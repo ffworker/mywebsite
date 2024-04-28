@@ -14,12 +14,12 @@ header, section, footer {
     border: 1px solid lime;
 }
 
-#matrixHeader {
+matrixHeader {
     position: relative;
     z-index: 1;
 }
 
-#matrixCanvas {
+matrixCanvas {
     position: absolute;
     top: 0;
     left: 0;
