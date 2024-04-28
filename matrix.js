@@ -2,7 +2,6 @@ var matrixCanvas = document.getElementById('matrixCanvas');
 var matrixHeader = document.getElementById('matrixHeader');
 matrixCanvas.height = matrixHeader.offsetHeight;
 matrixCanvas.width = matrixHeader.offsetWidth;
-
 var letters = Array(256).join(1).split('');
 
 function drawMatrix() {
