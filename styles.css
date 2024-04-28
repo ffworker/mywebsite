@@ -1,5 +1,9 @@
-body{ background-color:#d2d2d2;}
-
-#canvas{ background-color:#000; display:block; margin:auto;}
-
-#logo{ display:none;}
+/*basic reset */
+            
+            *{
+                margin: 0;
+                padding: 0;
+            }
+            
+            body {background: black;}
+            canvas {display:block;}
