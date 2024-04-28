@@ -1,51 +1,39 @@
-// geting canvas by Boujjou Achraf
-        var c = document.getElementById("c");
-        var ctx = c.getContext("2d");
+const canvas = document.getElementById('canv');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+const ctx = canvas.getContext('2d');
+let cols = Math.floor(window.innerWidth / 20) + 1;
+let ypos = Array(cols).fill(0);
 
-        //making the canvas full screen
-        c.height = window.innerHeight;
-        c.width = window.innerWidth;
+ctx.fillStyle = '#000';
+ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        //chinese characters - taken from the unicode charset
-        var matrix = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
-        //converting the string into an array of single characters
-        matrix = matrix.split("");
+function matrix () {
+  const w = window.innerWidth;
+  const h = window.innerHeight;
+  
+  if (canvas.width !== w) {
+    canvas.width = w;
+    cols = Math.floor(window.innerWidth / 20) + 1;
+    ypos = Array(cols).fill(0);
+  }
+  if (canvas.height !== h) {
+    canvas.height = h;
+  }
 
-        var font_size = 10;
-        var columns = c.width/font_size; //number of columns for the rain
-        //an array of drops - one per column
-        var drops = [];
-        //x below is the x coordinate
-        //1 = y co-ordinate of the drop(same for every drop initially)
-        for(var x = 0; x < columns; x++)
-            drops[x] = 1; 
+  ctx.fillStyle = '#0001';
+  ctx.fillRect(0, 0, w, h);
 
-        //drawing the characters
-        function draw()
-        {
-            //Black BG for the canvas
-            //translucent BG to show trail
-            ctx.fillStyle = "rgba(0, 0, 0, 0.04)";
-            ctx.fillRect(0, 0, c.width, c.height);
+  ctx.fillStyle = '#0f0';
+  ctx.font = '15pt monospace';
 
-            ctx.fillStyle = "#f4427d";//green text
-            ctx.font = font_size + "px arial";
-            //looping over drops
-            for(var i = 0; i < drops.length; i++)
-            {
-                //a random chinese character to print
-                var text = matrix[Math.floor(Math.random()*matrix.length)];
-                //x = i*font_size, y = value of drops[i]*font_size
-                ctx.fillText(text, i*font_size, drops[i]*font_size);
+  ypos.forEach((y, ind) => {
+    const text = String.fromCharCode(Math.random() * 128);
+    const x = ind * 20;
+    ctx.fillText(text, x, y);
+    if (y > 100 + Math.random() * 10000) ypos[ind] = 0;
+    else ypos[ind] = y + 20;
+  });
+}
 
-                //sending the drop back to the top randomly after it has crossed the screen
-                //adding a randomness to the reset to make the drops scattered on the Y axis
-                if(drops[i]*font_size > c.height && Math.random() > 0.975)
-                    drops[i] = 0;
-
-                //incrementing Y coordinate
-                drops[i]++;
-            }
-        }
-
-        setInterval(draw, 35);
+setInterval(matrix, 50);
