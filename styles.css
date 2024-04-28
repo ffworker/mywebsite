@@ -52,6 +52,11 @@ nav ul li a {
     padding: 0.3rem 0.5rem;
 }
 
+/* Style visited links */
+nav ul li a:visited {
+    color: #fff; /* Set the visited link color to white */
+}
+
 nav ul li a:hover {
     background-color: #555;
 }
