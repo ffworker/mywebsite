@@ -25,7 +25,7 @@ header {
     color: #00FF00;
     padding: 1rem 0;
     text-align: center;
-    font-size: 30px
+    font-size: 30px;
 }
 
 /* Navigation */
@@ -73,7 +73,8 @@ footer {
     color: #fff;
 }
 
-gif {
+/* Styling for GIF */
+img.gif {
     max-width: 100%;
     height: auto;
     display: block;
