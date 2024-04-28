@@ -1,60 +1,24 @@
-/* Reset default margin and padding */
-body, h1, h2, h3, p, ul {
-    margin: 0;
-    padding: 0;
-    color: #00ff00; /* Neon green text color */
-}
-
-/* Basic styling for the page */
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #000;
-}
-
-.container {
-    width: 80%;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-header {
-    text-align: center;
-    padding: 50px 0;
-}
-
-header h1 {
-    font-size: 3rem;
-}
-
-nav ul {
-    list-style: none;
-    text-align: center;
-}
-
-nav ul li {
-    display: inline;
-    margin-right: 20px;
-}
-
-nav ul li a {
-    color: #00ff00; /* Neon green text color */
-    text-decoration: none;
-    font-weight: bold;
-}
-
-section {
-    padding: 50px 0;
-}
-
-footer {
-    text-align: center;
-    padding: 20px 0;
-}
-
-/* Responsive styles */
-@media (max-width: 768px) {
-    .container {
-        width: 90%;
-    }
-}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>About Me</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Website</h1>
+        <nav>
+            <a href="blog.html">Blog</a> |
+            <a href="projects.html">Projects</a> |
+            <a href="skills.html">Skills</a>
+        </nav>
+    </header>
+    <section>
+        <h2>About Me</h2>
+        <p>This section can contain information about you.</p>
+    </section>
+    <footer>
+        <p>Contact information and other details can go here.</p>
+    </footer>
+</body>
+</html>
