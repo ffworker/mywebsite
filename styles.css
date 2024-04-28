@@ -8,8 +8,8 @@ body, h1, h2, h3, p, ul {
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    background-color: #f8f8f8;
-    color: #333;
+    background-color: #000;
+    color: #00ff00; /* Neon green text color */
 }
 
 .container {
@@ -19,10 +19,12 @@ body {
 }
 
 header {
-    background-color: #007bff;
-    color: #fff;
     text-align: center;
     padding: 50px 0;
+}
+
+header h1 {
+    font-size: 3rem;
 }
 
 nav ul {
@@ -36,8 +38,9 @@ nav ul li {
 }
 
 nav ul li a {
-    color: #333;
+    color: #00ff00; /* Neon green text color */
     text-decoration: none;
+    font-weight: bold;
 }
 
 section {
@@ -47,8 +50,6 @@ section {
 footer {
     text-align: center;
     padding: 20px 0;
-    background-color: #333;
-    color: #fff;
 }
 
 /* Responsive styles */
