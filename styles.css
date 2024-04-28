@@ -14,11 +14,6 @@ header, section, footer {
     border: 1px solid lime;
 }
 
-            
-*{
-                margin: 0;
-                padding: 0;
-            }
-            
-            body {background: black;}
-            canvas {display:block;}
+canvas {
+    display:block;
+}
