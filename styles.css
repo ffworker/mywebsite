@@ -1,60 +1,15 @@
-/* Reset default margin and padding */
-body, h1, h2, h3, p, ul {
-    margin: 0;
-    padding: 0;
-    color: #00ff00; /* Neon green text color */
-}
-
-/* Basic styling for the page */
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #000;
+    background-color: black;
+    color: lime;
+    font-family: 'Courier New', Courier, monospace;
 }
 
-.container {
-    width: 80%;
-    margin: 0 auto;
-    padding: 20px;
+h1, h2, p {
+    margin: 0.5em 0;
 }
 
-header {
-    text-align: center;
-    padding: 50px 0;
-}
-
-header h1 {
-    font-size: 3rem;
-}
-
-nav ul {
-    list-style: none;
-    text-align: center;
-}
-
-nav ul li {
-    display: inline;
-    margin-right: 20px;
-}
-
-nav ul li a {
-    color: #00ff00; /* Neon green text color */
-    text-decoration: none;
-    font-weight: bold;
-}
-
-section {
-    padding: 50px 0;
-}
-
-footer {
-    text-align: center;
-    padding: 20px 0;
-}
-
-/* Responsive styles */
-@media (max-width: 768px) {
-    .container {
-        width: 90%;
-    }
+header, section, footer {
+    margin: 1em;
+    padding: 1em;
+    border: 1px solid lime;
 }
