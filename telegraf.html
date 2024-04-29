@@ -5,92 +5,148 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Raspberry Pi Paperless Setup</title>
     <!-- Bootstrap CSS from CDN -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">    
     <link href="styles.css" rel="stylesheet">
 </head>
 <body>
     <header>
         <nav>
-            <a href="index.html">Back / Return to Mainpage</a>
+            <a href=index.html>back / return to Mainpage</a>
         </nav>
     </header>
-    
-    <!-- Main Content -->
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-8 offset-md-2">
-                <section id="preparation">
-                    <h2>Vorbereitung</h2>
-                    <p>Falls Docker noch nicht vorhanden ist, folgen Sie diesen Schritten:</p>
-                    <ol>
-                        <li>li1</li>
-                        <div class="code-box">
-                            <pre id="docker-install">wget -q https://repos.influxdata.com/influxdata-archive_compat.key</pre>
-                            <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-install">Copy</button>
-                        </div>
-
-                        <li>li2</li>
-                        <div class="code-box">
-                            <pre id="docker-install-sudo">cat influxdata-archive_compat.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg > /dev/null</pre>
-                            <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-install-sudo">Copy</button>
-                        </div>
-
-                        <li>li3</li>
-                        <div class="code-box">
-                            <pre id="usermod-docker">echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] https://repos.influxdata.com/debian stable main' | sudo tee /etc/apt/sources.list.d/influxdata.list</pre>
-                            <button class="btn btn-primary copy-btn" data-clipboard-target="#usermod-docker">Copy</button>
-                        </div>
-
-                        <!-- Continue with other list items and code boxes -->
-
-                        <li>Li8</li>
-                        <div class="code-box">
-                            <pre id="li8"></pre>
-                            <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-test">Copy</button>
-                        </div>
-
-                        <li>Li9</li>
-                        <div class="code-box">
-                            <pre id="li9"></pre>
-                            <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-test">Copy</button>
-                        </div>
-                    </ol>
-                </section>
-
-                <section id="docker-compose-installation">
-                    <h2>Installation mit Docker-Compose</h2>
-                    <p>Installieren Sie Docker-Compose mit dem folgenden Befehl:</p>
+<!-- Main Content -->
+<div class="container mt-5">
+    </div>
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <section id="preparation">
+                <h2>Vorbereitung</h2>
+                <p>Falls Docker noch nicht vorhanden ist, folgen Sie diesen Schritten:</p>
+                <ol>
+                    <li>li1</li>
                     <div class="code-box">
-                        <pre id="docker-compose-install">sudo apt install docker-compose</pre>
-                        <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-compose-install">Copy</button>
+                        <pre id="docker-install">wget -q https://repos.influxdata.com/influxdata-archive_compat.key</pre>
+                        <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-install">Copy</button>
                     </div>
+                    
+                    <li>li2</li>
+                    <div class="code-box">
+                        <pre id="docker-install-sudo">cat influxdata-archive_compat.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg > /dev/null</pre>
+                        <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-install-sudo">Copy</button>
+                    </div>
+                    
+                    <li>li3</li>
+                    <div class="code-box">
+                        <pre id="usermod-docker">echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] https://repos.influxdata.com/debian stable main' | sudo tee /etc/apt/sources.list.d/influxdata.list</pre>
+                        <button class="btn btn-primary copy-btn" data-clipboard-target="#usermod-docker">Copy</button>
+                    </div>
+                    
+                    <li>Li4</li>
+                    <div class="code-box">
+                        <pre id="code-box">sudo rm -f /etc/apt/trusted.gpg.d/influxdb.gpg</pre>
+                        <button class="btn btn-primary copy-btn" data-clipboard-target="#newgrp-docker">Copy</button>
+                    </div>
+                    
+                    <li>Li5:</li>
+                    <div class="code-box">
+                        <pre id="docker-test">sudo apt-get update && sudo apt-get install apt-transport-https</pre>
+                        <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-test">Copy</button>
+                    </div>
+                  
+                  <li>Li6</li>
+                  <div class="code-box">
+                      <pre id="li6">sudo apt-get update && sudo apt-get install telegraf</pre>
+                      <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-test">Copy</button>
+                    
+                  <li>Li7</li>
+                  <div class="code-box">
+                      <pre id="li7">sudo nano /etc/telegraf/telegraf.conf</pre>
+                      <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-test">Copy</button>
+                    
+                  <li>Li8</li>
+                  <img src="telegraf-output.png" alt="Image Description" class="list-item-image">
+                  <div class="code-box">
+                      <pre id="li8"></pre>
+                      <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-test">Copy</button>
+                    
+                  <li>Li8</li>
+                  <div class="code-box">
+                  <img src="telegraf-input.png" alt="Image Description" class="list-item-image">
+                      <pre id="li9"></pre>
+                      <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-test">Copy</button>
+                </ol>
+            </section>
 
-                    <!-- Continue with other sections -->
+            <section id="docker-compose-installation">
+                <h2>Installation mit Docker-Compose</h2>
+                <p>Installieren Sie Docker-Compose mit dem folgenden Befehl:</p>
+                <div class="code-box">
+                    <pre id="docker-compose-install">sudo apt install docker-compose</pre>
+                    <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-compose-install">Copy</button>
+                </div>
 
-                </section>
-            </div>
+                <p>Optional: Fügen Sie Ihren Benutzer zur Docker-Gruppe hinzu:</p>
+                <div class="code-box">
+                    <pre id="usermod-docker-compose">sudo usermod -aG docker pi</pre>
+                    <button class="btn btn-primary copy-btn" data-clipboard-target="#usermod-docker-compose">Copy</button>
+                </div>
+
+                <h2>Das Installationsskript ausführen</h2>
+                <p>Führen Sie das Paperless-NGX-Installations-Skript aus:</p>
+                <div class="code-box">
+                    <pre id="install-paperless-ngx">bash -c "$(curl -L https://raw.githubusercontent.com/paperless-ngx/paperless-ngx/main/install-paperless-ngx.sh)"</pre>
+                    <button class="btn btn-primary copy-btn" data-clipboard-target="#install-paperless-ngx">Copy</button>
+                </div>
+
+                <h2>Beantworten Sie die Abfragen gemäß den Anweisungen:</h2>
+                <ul>
+                    <li><span class="bold-text">Enable Apache Tika [no/yes]:</span> Hier geht es um einen zusätzlichen Dienst, der auch Word-/LibreOffice-Dokumente in PDF-Dateien konvertieren kann. Meist wird es sich lohnen, an dieser Stelle „yes“ (ohne Anführungszeichen) zu tippen. Falls man einen Raspberry Pi unter 4-er/4GB einsetzt, sollte man es bei „no“ belassen und später derartige Dateien vorab mit anderen Programmen konvertieren.</li>
+                    <li><span class="bold-text">OCR language [eng]:</span> Meist wird man Dokumente mit deutschen Texten einstellen, daher hier „deu“ (ohne Anführungszeichen) tippen. Die Verwendungen von Dokumenten mit unterschiedlichen Sprachen stellt im Alltag meist ohnehin kein Problem dar: Intern verwendet Paperless-ngx eine „skip“-Funktion für alle Dokumente, die bereits über einen Text-Layer verfügen. Damit erspart sich das Programm die eigene OCR-Erkennung und ist flotter in der Verarbeitung.</li>
+                    <li><span class="bold-text">User ID [1000]:</span> bestätigen</li>
+                    <li><span class="bold-text">Group ID [1000]:</span> bestätigen</li>
+                    <li><span class="bold-text">Target folder [/home/pi/paperless-ngx]:</span> bestätigen</li>
+                    <li><span class="bold-text">Consume folder [/home/pi/paperless-ngx/consume]:</span> bestätigen</li>
+                    <li><span class="bold-text">Media folder []:</span> Könnte man bestätigen. Dann landen die verarbeiteten Dokumente allerdings im Docker-Bereich, zu dem man sich „hangeln“ muss, Berechtigungen setzen muss usw. Wesentlich besser ist es, man bringt Original-Dokumente und Archiv-Dokumente samt Ordnern und Unterordner direkt im Paperless-ngx-Verzeichnis unter – damit kann man später ungemein einfach Backups durchführen. Daher hier tippen: „/home/pi/paperless-ngx“ (ohne Anführungszeichen).</li>
+                    <li><span class="bold-text">Data folder []:</span> bestätigen</li>
+                    <li><span class="bold-text">Database folder []:</span> bestätigen</li>
+                    <li><span class="bold-text">Paperless username [pi]:</span> bestätigen</li>
+                    <li><span class="bold-text">Paperless password:</span> jetzt ein Passwort vergeben</li>
+                    <li><span class="bold-text">Paperless password again:</span> Passwort eintragen</li>
+                    <li><span class="bold-text">Email [pi@localhost]:</span> musterperson@web.de Die E-Mail-Adresse ist egal – es kann eine erfundene sein.</li>
+                    <li><span class="bold-text">Press any key to install:</span> geschafft</li>
+                </ul>
+
+                <h2>Nach der Installation</h2>
+                <p>Nach der Installation können Sie auf Paperless-NGX über die IP-Adresse Ihres Raspberry Pi zugreifen.</p>
+                <p>Verwenden Sie den Befehl <code>ip a</code> im Terminal, um die IP-Adresse zu finden.</p>
+                <p>Öffnen Sie dann einen Browser und geben Sie die IP-Adresse gefolgt von <code>:8000</code> ein, z.B. <code>192.168.1.100:8000</code>.</p>
+                <p>Melden Sie sich mit den gewählten Anmeldeinformationen an und beginnen Sie mit der Verwendung von Paperless-NGX!</p>
+            </section>
+            <script src="script.js"></script>
         </div>
     </div>
+</div>
 
-    <!-- Bootstrap JS and dependencies from CDN -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- Clipboard.js CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+<!-- Bootstrap JS and dependencies from CDN -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Clipboard.js CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
 
-    <script>
-        // Initialize Clipboard.js
-        var clipboard = new ClipboardJS('.copy-btn');
+<script>
+    // Initialize Clipboard.js
+    var clipboard = new ClipboardJS('.copy-btn');
 
-        // Show feedback on copy success
-        clipboard.on('success', function(e) {
-            e.trigger.textContent = 'Copied!';
-            setTimeout(function() {
-                e.trigger.textContent = 'Copy';
-            }, 2000);
-            e.clearSelection();
-        });
-    </script>
+    // Show feedback on copy success
+    clipboard.on('success', function(e) {
+        e.trigger.textContent = 'Copied!';
+        setTimeout(function() {
+            e.trigger.textContent = 'Copy';
+        }, 2000);
+        e.clearSelection();
+    });
+</script>
+
 </body>
 </html>
