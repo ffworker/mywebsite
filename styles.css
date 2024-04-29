@@ -127,14 +127,12 @@ li {
     bottom: 0;
     width: 100%;
 }
-/* Custom styles */
-        .meme-sysadmin-img {
-            float: right;
-            max-width: 400px;
-            margin-left: 20px;
-            margin-bottom: 20px;
-            clear: both;
-        }
+
+.meme-sysadmin-img {
+    width: 100%; /* Ensure the image fills its container width */
+    display: block; /* Ensure the image is displayed as a block element */
+    border-radius: 8px; /* Optional: Add border radius for rounded corners */
+}
 
 .dot-list {
     list-style-type: disc; /* Use filled circles for list items */
