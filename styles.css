@@ -85,3 +85,18 @@ img.gif {
     display: block;
     margin: 0 auto; /* Center the GIF horizontally */
 }
+
+/* Custom styles for code boxes */
+.code-box {
+    position: relative;
+    background-color: #f8f9fa;
+    border: 1px solid #343a40;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+.copy-btn {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
