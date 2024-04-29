@@ -110,3 +110,21 @@ li {
     font-weight: bold; /* Make text bold */
     font-size: 18px; /* Larger font size for bold text */
 }
+.container-fluid {
+    height: 100%; /* Fill entire viewport height */
+    display: flex;
+    flex-direction: row; /* Arrange containers side by side */
+}
+
+.left-container, .right-container {
+    height: 100%;
+    overflow-y: auto; /* Enable vertical scrolling if needed */
+    padding: 20px;
+}
+
+.content {
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
