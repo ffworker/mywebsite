@@ -1,18 +1,11 @@
-<script>
-// Get the video
-var video = document.getElementById("myVideo");
+// Initialize Clipboard.js
+var clipboard = new ClipboardJS('.copy-btn');
 
-// Get the button
-var btn = document.getElementById("myBtn");
-
-// Pause and play the video, and change the button text
-function myFunction() {
-  if (video.paused) {
-    video.play();
-    btn.innerHTML = "Pause";
-  } else {
-    video.pause();
-    btn.innerHTML = "Play";
-  }
-}
-</script>
+// Show feedback on copy success
+clipboard.on('success', function(e) {
+    e.trigger.textContent = 'Copied!';
+    setTimeout(function() {
+        e.trigger.textContent = 'Copy';
+    }, 2000);
+    e.clearSelection();
+});
