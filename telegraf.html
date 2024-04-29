@@ -20,59 +20,58 @@
     <div class="row">
         <div class="col-md-8 offset-md-2">
             <section id="preparation">
-                <h2>Vorbereitung</h2>
-                <p>Falls Docker noch nicht vorhanden ist, folgen Sie diesen Schritten:</p>
+                <h2>This is just a runback for setting up telegraf, just copy/paste the commands</h2>
                 <ol>
-                    <li>li1</li>
+                    <li>wget the archive key</li>
                     <div class="code-box">
                         <pre id="docker-install">wget -q https://repos.influxdata.com/influxdata-archive_compat.key</pre>
                         <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-install">Copy</button>
                     </div>
                     
-                    <li>li2</li>
+                    <li>Add influxkey to trusted</li>
                     <div class="code-box">
                         <pre id="docker-install-sudo">cat influxdata-archive_compat.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg > /dev/null</pre>
                         <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-install-sudo">Copy</button>
                     </div>
                     
-                    <li>li3</li>
+                    <li>Sign influxdb with downloaded key</li>
                     <div class="code-box">
                         <pre id="usermod-docker">echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] https://repos.influxdata.com/debian stable main' | sudo tee /etc/apt/sources.list.d/influxdata.list</pre>
                         <button class="btn btn-primary copy-btn" data-clipboard-target="#usermod-docker">Copy</button>
                     </div>
                     
-                    <li>Li4</li>
+                    <li>Remove the key from your system again for clean handling</li>
                     <div class="code-box">
                         <pre id="code-box">sudo rm -f /etc/apt/trusted.gpg.d/influxdb.gpg</pre>
                         <button class="btn btn-primary copy-btn" data-clipboard-target="#newgrp-docker">Copy</button>
                     </div>
                     
-                    <li>Li5:</li>
+                    <li>apt-get update for the newly setup packages:</li>
                     <div class="code-box">
                         <pre id="docker-test">sudo apt-get update && sudo apt-get install apt-transport-https</pre>
                         <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-test">Copy</button>
                     </div>
                   
-                  <li>Li6</li>
+                  <li>Install Telegraf</li>
                   <div class="code-box">
                       <pre id="li6">sudo apt-get update && sudo apt-get install telegraf</pre>
                       <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-test">Copy</button>
                     </div>
                     
-                  <li>Li7</li>
+                  <li>Path to the telegraf.conf Configuration-File. It is very big, so either scroll to the variables in the following Screenshots. Or use STRG+W (if using nano)</li>
                   <div class="code-box">
                       <pre id="li7">sudo nano /etc/telegraf/telegraf.conf</pre>
                       <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-test">Copy</button>
                     </div>
                     
-                  <li>Li8</li>
+                  <li>Uncomment [[outputs.influxdb]], uncomment "urls = ["http://127.0.0.1:8086"], uncomment "database ="telegraf" "</li>
                   <img src="telegraf-output.png" alt="Image Description" class="list-item-image">
                   <div class="code-box">
                       <pre id="li8"></pre>
                       <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-test">Copy</button>
                     </div>
                     
-                  <li>Li8</li>
+                  <li>You can either look for the entries, uncomment and adjust them or just create them under ###[[INPUTS]]### in the telegraf.conf File.</li>
                   <div class="code-box">
                   <img src="telegraf-input.png" alt="Image Description" class="list-item-image">
                       <pre id="li9"></pre>
