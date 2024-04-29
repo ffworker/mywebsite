@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raspberry Pi Paperless Setup</title>
+    <!-- Bootstrap CSS from CDN -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        .it-guy-img {
+            float: right;
+            max-width: 600px;
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">Raspberry Pi Paperless Setup</a>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container mt-5">
+    <section id="preparation">
+        <h2>Vorbereitung</h2>
+        <p>Falls Docker noch nicht vorhanden ist, folgen Sie diesen Schritten:</p>
+        <ol>
+            <li>Öffnen Sie das Terminal.</li>
+            <li>Führen Sie den folgenden Befehl aus, um Docker zu installieren:</li>
+            <pre>curl -fsSL https://get.docker.com -o get-docker.sh && chmod +x get-docker.sh</pre>
+            <li>Warten Sie etwa 1-2 Minuten und führen Sie dann aus:</li>
+            <pre>sudo ./get-docker.sh</pre>
+            <li>Fügen Sie Ihren Benutzer zur Docker-Gruppe hinzu:</li>
+            <pre>sudo usermod -aG docker pi</pre>
+            <li>Verwenden Sie den Befehl <code>newgrp docker</code>.</li>
+            <li>Führen Sie einen Test aus:</li>
+            <pre>docker run hello-world</pre>
+        </ol>
+    </section>
+
+    <section id="docker-compose-installation">
+        <h2>Installation mit Docker-Compose</h2>
+        <p>Installieren Sie Docker-Compose mit dem folgenden Befehl:</p>
+        <pre>sudo apt install docker-compose</pre>
+        <p>Optional: Fügen Sie Ihren Benutzer zur Docker-Gruppe hinzu:</p>
+        <pre>sudo usermod -aG docker pi</pre>
+    </section>
+
+    <section id="installation-script">
+        <h2>Das Installationsskript ausführen</h2>
+        <p>Führen Sie das Paperless-NGX-Installations-Skript aus:</p>
+        <pre>bash -c "$(curl -L https://raw.githubusercontent.com/paperless-ngx/paperless-ngx/main/install-paperless-ngx.sh)"</pre>
+        <p>Beantworten Sie die Abfragen gemäß den Anweisungen:</p>
+        <ul>
+            <li>URL: bestätigen</li>
+            <li>Port [8000]: bestätigen</li>
+            <li>Current time zone [Europe/Berlin]: bestätigen</li>
+            <li>Database [postgres]: bestätigen</li>
+            <li>Enable Apache Tika [no/yes]: entscheiden Sie je nach Bedarf</li>
+            <li>OCR language [eng/deu]: wählen Sie die Sprache</li>
+            <!-- Weitere Abfragen entsprechend einfügen -->
+        </ul>
+    </section>
+
+    <section id="post-installation">
+        <h2>Nach der Installation</h2>
+        <p>Nach der Installation können Sie auf Paperless-NGX über die IP-Adresse Ihres Raspberry Pi zugreifen.</p>
+        <p>Verwenden Sie den Befehl <code>ip a</code> im Terminal, um die IP-Adresse zu finden.</p>
+        <p>Öffnen Sie dann einen Browser und geben Sie die IP-Adresse gefolgt von <code>:8000</code> ein, z.B. <code>192.168.1.100:8000</code>.</p>
+        <p>Melden Sie sich mit den gewählten Anmeldeinformationen an und beginnen Sie mit der Verwendung von Paperless-NGX!</p>
+    </section>
+</div>
+
+<!-- Bootstrap JS and dependencies from CDN -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
