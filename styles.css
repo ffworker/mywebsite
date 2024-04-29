@@ -69,15 +69,6 @@ section {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Footer */
-footer {
-    text-align: center;
-    padding: 1rem 0;
-    background-color: #333;
-    color: #fff;
-}
-
-
 /* Custom styles for code boxes */
 .code-box {
     position: relative;
