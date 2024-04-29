@@ -1,3 +1,4 @@
+<!-- Main Content -->
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-8 offset-md-2">
@@ -5,14 +6,98 @@
                 <h2>Vorbereitung</h2>
                 <p>Falls Docker noch nicht vorhanden ist, folgen Sie diesen Schritten:</p>
                 <ol>
-                    <li>TITEL DER BOX</li>
+                    <li>Öffnen Sie das Terminal.</li>
                     <li>Führen Sie den folgenden Befehl aus, um Docker zu installieren:</li>
                     <div class="code-box">
-                        <pre id="docker-install">INSERT CODE HERE</pre>
+                        <pre id="docker-install">curl -fsSL https://get.docker.com -o get-docker.sh && chmod +x get-docker.sh</pre>
                         <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-install">Copy</button>
                     </div>
+                    
+                    <li>Warten Sie etwa 1-2 Minuten und führen Sie dann aus:</li>
+                    <div class="code-box">
+                        <pre id="docker-install-sudo">sudo ./get-docker.sh</pre>
+                        <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-install-sudo">Copy</button>
+                    </div>
+                    
+                    <li>Fügen Sie Ihren Benutzer zur Docker-Gruppe hinzu:</li>
+                    <div class="code-box">
+                        <pre id="usermod-docker">sudo usermod -aG docker pi</pre>
+                        <button class="btn btn-primary copy-btn" data-clipboard-target="#usermod-docker">Copy</button>
+                    </div>
+                    
+                    <li>Erstellen Sie eine neue Docker Gruppe.</li>
+                    <div class="code-box">
+                        <pre id="newgrp-docker">newgrp docker</pre>
+                        <button class="btn btn-primary copy-btn" data-clipboard-target="#newgrp-docker">Copy</button>
+                    </div>
+                    
+                    <li>Führen Sie einen Test aus:</li>
+                    <div class="code-box">
+                        <pre id="docker-test">docker run hello-world</pre>
+                        <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-test">Copy</button>
+                    </div>
                 </ol>
+            </section>
+
+            <section id="docker-compose-installation">
+                <h2>Installation mit Docker-Compose</h2>
+                <p>Installieren Sie Docker-Compose mit dem folgenden Befehl:</p>
+                <div class="code-box">
+                    <pre id="docker-compose-install">sudo apt install docker-compose</pre>
+                    <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-compose-install">Copy</button>
+                </div>
+
+                <p>Optional: Fügen Sie Ihren Benutzer zur Docker-Gruppe hinzu:</p>
+                <div class="code-box">
+                    <pre id="usermod-docker-compose">sudo usermod -aG docker pi</pre>
+                    <button class="btn btn-primary copy-btn" data-clipboard-target="#usermod-docker-compose">Copy</button>
+                </div>
+
+                <h2>Das Installationsskript ausführen</h2>
+                <p>Führen Sie das Paperless-NGX-Installations-Skript aus:</p>
+                <div class="code-box">
+                    <pre id="install-paperless-ngx">bash -c "$(curl -L https://raw.githubusercontent.com/paperless-ngx/paperless-ngx/main/install-paperless-ngx.sh)"</pre>
+                    <button class="btn btn-primary copy-btn" data-clipboard-target="#install-paperless-ngx">Copy</button>
+                </div>
+
+                <p>Beantworten Sie die Abfragen gemäß den Anweisungen:</p>
+                <ul>
+                    <li>URL: bestätigen</li>
+                    <li>Port [8000]: bestätigen</li>
+                    <li>Current time zone [Europe/Berlin]: bestätigen</li>
+                    <li>Database [postgres]: bestätigen</li>
+                    <li>Enable Apache Tika [no/yes]: entscheiden Sie je nach Bedarf</li>
+                    <li>OCR language [eng/deu]: wählen Sie die Sprache</li>
+                </ul>
+
+                <h2>Nach der Installation</h2>
+                <p>Nach der Installation können Sie auf Paperless-NGX über die IP-Adresse Ihres Raspberry Pi zugreifen.</p>
+                <p>Verwenden Sie den Befehl <code>ip a</code> im Terminal, um die IP-Adresse zu finden.</p>
+                <p>Öffnen Sie dann einen Browser und geben Sie die IP-Adresse gefolgt von <code>:8000</code> ein, z.B. <code>192.168.1.100:8000</code>.</p>
+                <p>Melden Sie sich mit den gewählten Anmeldeinformationen an und beginnen Sie mit der Verwendung von Paperless-NGX!</p>
             </section>
         </div>
     </div>
 </div>
+
+<!-- Bootstrap JS and dependencies from CDN -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    // Initialize Clipboard.js
+    var clipboard = new ClipboardJS('.copy-btn');
+
+    // Show feedback on copy success
+    clipboard.on('success', function(e) {
+        e.trigger.textContent = 'Copied!';
+        setTimeout(function() {
+            e.trigger.textContent = 'Copy';
+        }, 2000);
+        e.clearSelection();
+    });
+</script>
+
+</body>
+</html>
