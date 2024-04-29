@@ -19,6 +19,14 @@ body {
     overflow: hidden;
 }
 
+/* Footer */
+footer {
+    text-align: center;
+    padding: 1rem 0;
+    background-color: #333;
+    color: #fff;
+}
+
 /* Header */
 header {
     color: #00FF00;
