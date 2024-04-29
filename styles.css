@@ -77,13 +77,6 @@ footer {
     color: #fff;
 }
 
-/* Styling for GIF */
-img.gif {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 0 auto; /* Center the GIF horizontally */
-}
 
 /* Custom styles for code boxes */
 .code-box {
@@ -135,3 +128,10 @@ li {
     bottom: 0;
     width: 100%;
 }
+/* Custom styles */
+        .it-guy-img {
+            float: right;
+            max-width: 400px;
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
