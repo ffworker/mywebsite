@@ -88,14 +88,22 @@
                     <button class="btn btn-primary copy-btn" data-clipboard-target="#install-paperless-ngx">Copy</button>
                 </div>
 
-                <p>Beantworten Sie die Abfragen gemäß den Anweisungen:</p>
+                <h2>Beantworten Sie die Abfragen gemäß den Anweisungen:</h2>
                 <ul>
-                    <li>URL: bestätigen</li>
-                    <li>Port [8000]: bestätigen</li>
-                    <li>Current time zone [Europe/Berlin]: bestätigen</li>
-                    <li>Database [postgres]: bestätigen</li>
-                    <li>Enable Apache Tika [no/yes]: entscheiden Sie je nach Bedarf</li>
-                    <li>OCR language [eng/deu]: wählen Sie die Sprache</li>
+                    <li>Enable Apache Tika [no/yes]: Hier geht es um einen zusätzlichen Dienst, der auch Word-/LibreOffice-Dokumente in PDF-Dateien konvertieren kann. Meist wird es sich lohnen, an dieser Stelle „yes“ (ohne Anführungszeichen) zu tippen. Falls man einen Raspberry Pi unter 4-er/4GB einsetzt, sollte man es bei „no“ belassen und später derartige Dateien vorab mit anderen Programmen konvertieren.</li>
+                    <li>OCR language [eng]: Meist wird man Dokumente mit deutschen Texten einstellen, daher hier „deu“ (ohne Anführungszeichen) tippen. Die Verwendungen von Dokumenten mit unterschiedlichen Sprachen stellt im Alltag meist ohnehin kein Problem dar: Intern verwendet Paperless-ngx eine „skip“-Funktion für alle Dokumente, die bereits über einen Text-Layer verfügen. Damit erspart sich das Programm die eigene OCR-Erkennung und ist flotter in der Verarbeitung.</li>
+                    <li>User ID [1000]: bestätigen</li>
+                    <li>Group ID [1000]: bestätigen</li>
+                    <li>Target folder [/home/pi/paperless-ngx]: bestätigen</li>
+                    <li>Consume folder [/home/pi/paperless-ngx/consume]: bestätigen</li>
+                    <li>Media folder []: Könnte man bestätigen. Dann landen die verarbeiteten Dokumente allerdings im Docker-Bereich, zu dem man sich „hangeln“ muss, Berechtigungen setzen muss usw. Wesentlich besser ist es, man bringt Original-Dokumente und Archiv-Dokumente samt Ordnern und Unterordner direkt im Paperless-ngx-Verzeichnis unter – damit kann man später ungemein einfach Backups durchführen. Daher hier tippen: „/home/pi/paperless-ngx“ (ohne Anführungszeichen).</li>
+                    <li>Data folder []: bestätigen</li>
+                    <li>Database folder []: bestätigen</li>
+                    <li>Paperless username [pi]: bestätigen</li>
+                    <li>Paperless password: jetzt ein Passwort vergeben</li>
+                    <li>Paperless password again: Passwort eintragen</li>
+                    <li>Email [pi@localhost]: musterperson@web.de Die E-Mail-Adresse ist egal – es kann eine erfundene sein.</li>
+                    <li>Press any key to install: geschafft</li>
                 </ul>
 
                 <h2>Nach der Installation</h2>
