@@ -3,74 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to My Personal Website</title>
+    <title>Raspberry Pi Paperless Setup</title>
     <!-- Bootstrap CSS from CDN -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link href="styles.css" rel="stylesheet">
     <style>
-        /* Custom styles */
-        .it-guy-img {
-            float: right;
-            max-width: 400px;
-            margin-left: 20px;
+        /* Custom styles for code boxes */
+        .code-box {
+            position: relative;
+            background-color: #f8f9fa;
+            border: 1px solid #343a40;
+            border-radius: 4px;
+            padding: 10px;
             margin-bottom: 20px;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 5px;
+            right: 10px;
         }
     </style>
 </head>
 <body>
-
-<!-- Navigation Bar -->
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" href="#">My Website</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a class="nav-link" href="index.html">About Me</a></li>
-                <li class="nav-item"><a class="nav-link" href="skills.html">Skills</a></li>
-                <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
-                <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
 <!-- Main Content -->
 <div class="container mt-5">
     <div class="row">
-        <div class="col-md-8">
-            <section id="welcome">
-                <h2>Welcome to My Personal Website!</h2>
-                <p>Hello and welcome to my corner of the internet. I'm excited to share my journey and experiences with you.</p>
+        <div class="col-md-8 offset-md-2">
+            <section id="preparation">
+                <h2>Vorbereitung</h2>
+                <p>Falls Docker noch nicht vorhanden ist, folgen Sie diesen Schritten:</p>
+                <ol>
+                    <li>Öffnen Sie das Terminal.</li>
+                    <li>Führen Sie den folgenden Befehl aus, um Docker zu installieren:</li>
+                    <div class="code-box">
+                        <pre id="docker-install">curl -fsSL https://get.docker.com -o get-docker.sh && chmod +x get-docker.sh</pre>
+                        <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-install">Copy</button>
+                    </div>
+                    
+                    <li>Warten Sie etwa 1-2 Minuten und führen Sie dann aus:</li>
+                    <div class="code-box">
+                        <pre id="docker-install-sudo">sudo ./get-docker.sh</pre>
+                        <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-install-sudo">Copy</button>
+                    </div>
+                    
+                    <li>Fügen Sie Ihren Benutzer zur Docker-Gruppe hinzu:</li>
+                    <div class="code-box">
+                        <pre id="usermod-docker">sudo usermod -aG docker pi</pre>
+                        <button class="btn btn-primary copy-btn" data-clipboard-target="#usermod-docker">Copy</button>
+                    </div>
+                    
+                    <li>Erstellen Sie eine neue Docker Gruppe.</li>
+                    <div class="code-box">
+                        <pre id="newgrp-docker">newgrp docker</pre>
+                        <button class="btn btn-primary copy-btn" data-clipboard-target="#newgrp-docker">Copy</button>
+                    </div>
+                    
+                    <li>Führen Sie einen Test aus:</li>
+                    <div class="code-box">
+                        <pre id="docker-test">docker run hello-world</pre>
+                        <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-test">Copy</button>
+                    </div>
+                </ol>
             </section>
 
-            <section id="about">
-                <h2>About Me</h2>
-                <p>I am a passionate IT enthusiast with a love for web development and technology. This website is a showcase of my work and interests.</p>
-            </section>
+            <section id="docker-compose-installation">
+                <h2>Installation mit Docker-Compose</h2>
+                <p>Installieren Sie Docker-Compose mit dem folgenden Befehl:</p>
+                <div class="code-box">
+                    <pre id="docker-compose-install">sudo apt install docker-compose</pre>
+                    <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-compose-install">Copy</button>
+                </div>
 
-            <section id="skills">
-                <h2>Interests</h2>
-                <p>Outside of coding, I enjoy exploring new technologies, gaming, and spending time in nature.</p>
-            </section>
+                <p>Optional: Fügen Sie Ihren Benutzer zur Docker-Gruppe hinzu:</p>
+                <div class="code-box">
+                    <pre id="usermod-docker-compose">sudo usermod -aG docker pi</pre>
+                    <button class="btn btn-primary copy-btn" data-clipboard-target="#usermod-docker-compose">Copy</button>
+                </div>
 
-            <section id="projects">
-                <h2>Projects</h2>
-                <p>Check out some of the exciting projects I've been working on. From web applications to software development, I'm always learning and creating.</p>
-            </section>
+                <h2>Das Installationsskript ausführen</h2>
+                <p>Führen Sie das Paperless-NGX-Installations-Skript aus:</p>
+                <div class="code-box">
+                    <pre id="install-paperless-ngx">bash -c "$(curl -L https://raw.githubusercontent.com/paperless-ngx/paperless-ngx/main/install-paperless-ngx.sh)"</pre>
+                    <button class="btn btn-primary copy-btn" data-clipboard-target="#install-paperless-ngx">Copy</button>
+                </div>
 
-            <section id="contact">
-                <h2>Contact</h2>
-                <p>Want to get in touch? Feel free to reach out to me via email or connect with me on social media.
-                denniskappel@gmx.net
-                </p>
-            </section>
-        </div>
+                <p>Beantworten Sie die Abfragen gemäß den Anweisungen:</p>
+                <ul>
+                    <li>URL: bestätigen</li>
+                    <li>Port [8000]: bestätigen</li>
+                    <li>Current time zone [Europe/Berlin]: bestätigen</li>
+                    <li>Database [postgres]: bestätigen</li>
+                    <li>Enable Apache Tika [no/yes]: entscheiden Sie je nach Bedarf</li>
+                    <li>OCR language [eng/deu]: wählen Sie die Sprache</li>
+                </ul>
 
-        <div class="col-md-4">
-            <img src="meme-sysadmin.jpeg" alt="IT Guy Meme" class="meme-sysadmin-img">
-            <p class="text-muted">daily dosis!</p>
+                <h2>Nach der Installation</h2>
+                <p>Nach der Installation können Sie auf Paperless-NGX über die IP-Adresse Ihres Raspberry Pi zugreifen.</p>
+                <p>Verwenden Sie den Befehl <code>ip a</code> im Terminal, um die IP-Adresse zu finden.</p>
+                <p>Öffnen Sie dann einen Browser und geben Sie die IP-Adresse gefolgt von <code>:8000</code> ein, z.B. <code>192.168.1.100:8000</code>.</p>
+                <p>Melden Sie sich mit den gewählten Anmeldeinformationen an und beginnen Sie mit der Verwendung von Paperless-NGX!</p>
+            </section>
+            <script src="script.js"></script>
         </div>
     </div>
 </div>
@@ -79,6 +113,22 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Clipboard.js CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+
+<script>
+    // Initialize Clipboard.js
+    var clipboard = new ClipboardJS('.copy-btn');
+
+    // Show feedback on copy success
+    clipboard.on('success', function(e) {
+        e.trigger.textContent = 'Copied!';
+        setTimeout(function() {
+            e.trigger.textContent = 'Copy';
+        }, 2000);
+        e.clearSelection();
+    });
+</script>
 
 </body>
 </html>
