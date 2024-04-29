@@ -7,103 +7,73 @@
     <!-- Bootstrap CSS from CDN -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">    
     <link href="styles.css" rel="stylesheet">
+    <style>
+        /* Custom CSS for dot-list */
+        .dot-list {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+    </style>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" href="#">My Skills</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a class="nav-link" href="index.html">Back to Mainpage</a></li>
-                <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+            <div class="container">
+                <a class="navbar-brand" href="#">My Skills</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Back to Mainpage</a></li>
+                        <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
     </header>
-    <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-6 left-container">
-            <div class="content">
-                <h2>Skills</h2>
-        <section>
-        <ul class="dot-list">
-            <section id ="skill-python">
-            <li>Python</li>
-            </section>
-            
-            <section id ="skill-java">
-            <li>Java</li>
-            </section>
-            
-            <section id ="skill-html">
-            <li>HTML</li>
-            </section>
-            
-            <section id ="skill-css">
-            <li>CSS</li>
-            </section>
-            
-            <section id ="skill-docker">
-            <li>Docker</li>
-            </section>
-            
-            <section id ="skill-nmp">
-            <li>nmp</li>
-            </section>
-            
-            <section id ="skill-grafana">
-            <li>Grafana</li>
-            </section>
-            
-            <section id ="skill-nodered">
-            <li>Node-red</li>
-            </section>
-            
-            <section id ="skill-influxdb">
-            <li>Influxdb:1.8</li>
-            </section>
-            
-            <section id ="skill-Powershell">
-            <li>Powershell (scripting)</li>
-            </section>
-            
-        </ul>
-        </section>
-    </section>
-            </div>
-        </div>
-        <div class="col-md-6 right-container">
-            <!-- Right content here -->
-            <div class="content">
-                <h2>(running) Raspberry Pi's</h2>
-                <section>
-        <ul class="dot-list">           
-            <section id ="skill-raspberry">
-            <li>Pi 4 (Surveilance-Cam-Controller/FTP-Samba/Paperless-ngx/Portainer/...</li>
-            </section>
-            
-            <section id ="skill-raspberry-garden">
-            <li>Pi 3 - Autom. Bewässerungsanlage mit Sensorenüberwachung (DHT22/Hygrometer)</li>
-            </section>
 
-            <section id ="skill-raspberry-cam">
-            <li>Pi Zero W - Surveilance-Camera (public)</li>
-            </section>
-            
-        </ul>
-        </section>
-    </section>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="content">
+                    <h2>Skills</h2>
+                    <ul class="dot-list">
+                        <li>Python</li>
+                        <li>Java</li>
+                        <li>HTML</li>
+                        <li>CSS</li>
+                        <li>Docker</li>
+                        <li>nmp</li>
+                        <li>Grafana</li>
+                        <li>Node-red</li>
+                        <li>Influxdb:1.8</li>
+                        <li>Powershell (scripting)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="content">
+                    <h2>(running) Raspberry Pi's</h2>
+                    <ul class="dot-list">
+                        <li>Pi 4 (Surveillance-Cam-Controller/FTP-Samba/Paperless-ngx/Portainer/...)</li>
+                        <li>Pi 3 - Automated irrigation system with sensor monitoring (DHT22/Hygrometer)</li>
+                        <li>Pi Zero W - Surveillance Camera (public)</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-    </div>
-    <footer>
-        <p>denniskappel@gmx.net // https://github.com/ffworker</p>
+
+    <footer class="mt-5">
+        <div class="container">
+            <p>denniskappel@gmx.net // <a href="https://github.com/ffworker">https://github.com/ffworker</a></p>
+        </div>
     </footer>
+
+    <!-- Bootstrap JS and dependencies from CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
