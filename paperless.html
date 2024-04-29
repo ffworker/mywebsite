@@ -48,20 +48,25 @@
                         <pre id="docker-install">curl -fsSL https://get.docker.com -o get-docker.sh && chmod +x get-docker.sh</pre>
                         <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-install">Copy</button>
                     </div>
+                    
                     <li>Warten Sie etwa 1-2 Minuten und führen Sie dann aus:</li>
                     <div class="code-box">
                         <pre id="docker-install-sudo">sudo ./get-docker.sh</pre>
                         <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-install-sudo">Copy</button>
                     </div>
+                    
                     <li>Fügen Sie Ihren Benutzer zur Docker-Gruppe hinzu:</li>
                     <div class="code-box">
                         <pre id="usermod-docker">sudo usermod -aG docker pi</pre>
                         <button class="btn btn-primary copy-btn" data-clipboard-target="#usermod-docker">Copy</button>
                     </div>
+                    
                     <li>Verwenden Sie den Befehl <code>newgrp docker</code>.</li>
                     <div class="code-box">
                         <pre id="newgrp-docker>newgrp docker</pre>
                         <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-install">Copy</button>
+                    </div>
+                    
                     <li>Führen Sie einen Test aus:</li>
                     <div class="code-box">
                         <pre id="docker-test">docker run hello-world</pre>
