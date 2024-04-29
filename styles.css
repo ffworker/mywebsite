@@ -1,22 +1,24 @@
 /* Reset default browser styles */
-body,
-html {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
+html, body {
+    height: 100%; /* Ensure HTML and body fill the entire viewport height */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    overflow-x: hidden; /* Hide horizontal overflow */
 }
 
-/* Global styles */
 body {
-    background-color: #f8f8f8;
-    color: #333;
-    line-height: 1.6;
+    display: flex; /* Use flexbox to manage layout */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    background-color: #f8f9fa; /* Set background color */
 }
 
 .container {
-    width: 80%;
-    margin: 0 auto;
-    overflow: hidden;
+    width: 80%; /* Set the width of the content container */
+    max-width: 1200px; /* Limit maximum width of the container */
+    padding: 20px; /* Add padding for spacing */
+    background-color: #ffffff; /* Set background color of the container */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow for visual depth */
 }
 
 /* Header */
