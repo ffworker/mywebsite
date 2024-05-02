@@ -6,12 +6,12 @@
     <title>Raspberry Pi Paperless Setup</title>
     <!-- Bootstrap CSS from CDN -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">    
-    <link href="styles.css" rel="stylesheet">
+    <link href="../styles.css" rel="stylesheet">
 </head>
 <body>
     <header>
         <nav>
-            <a href=index.html>back / return to Mainpage</a>
+            <a href=../index.html>back / return to Mainpage</a>
         </nav>
     </header>
 <!-- Main Content -->
@@ -65,7 +65,7 @@
                     </div>
                     
                   <li>Uncomment [[outputs.influxdb]], uncomment "urls = ["http://127.0.0.1:8086"], uncomment "database ="telegraf" "</li>
-                  <img src="telegraf-output.png" alt="Image Description" class="list-item-image">
+                  <img src="../img/telegraf-output.png" alt="Image Description" class="list-item-image">
                   <div class="code-box">
                       <pre id="li8"></pre>
                       <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-test">Copy</button>
@@ -73,7 +73,7 @@
                     
                   <li>You can either look for the entries, uncomment and adjust them or just create them under ###[[INPUTS]]### in the telegraf.conf File.</li>
                   <div class="code-box">
-                  <img src="telegraf-input.png" alt="Image Description" class="list-item-image">
+                  <img src="../img/telegraf-input.png" alt="Image Description" class="list-item-image">
                       <pre id="li9"></pre>
                       <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-test">Copy</button>
                     </div>
@@ -89,9 +89,9 @@
 
 
 <footer class="mt-5">
-        <div class="container">
-            <p>denniskappel@gmx.net // <a href="https://github.com/ffworker">https://github.com/ffworker</a></p>
-        </div>
-    </footer>
+    <div class="container">
+        <p>denniskappel@gmx.net // <a href="https://github.com/ffworker">https://github.com/ffworker</a></p>
+    </div>
+</footer>
 </body>
 </html>
