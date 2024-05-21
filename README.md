@@ -1,7 +1,8 @@
 usr_DK
 
 ###README####
-# THIS REPO IS MORE A PERSONAL DOCUMENTATION ABOUT STUFF I DO
+# THIS REPO IS MAINLY A DOCUMENTATION FOR MYSELF //
+
 #this does not include everything I am working on. It just shows a variety of different software I used so far
 
 #I am not an expert on those projects, everything you see is a result of looking trough documentations and/or user experiences (stackoverflow mainly)
