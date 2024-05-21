@@ -10,4 +10,4 @@ Basically using this website to create a short overview about my projects and ho
 
 
 
-In-Depth Configurations are not documented, yet
+# In-Depth Configurations are not documented (yet)
