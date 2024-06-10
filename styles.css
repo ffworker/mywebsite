@@ -145,7 +145,8 @@ li {
 
 .outside-image {
     position: fixed;
-    top: 10%; /* Adjust this value to vertically position the image */
+    top: 100%; /* Adjust this value to vertically position the image */
     right: 5px; /* Adjust this value to set the distance from the right side */
+    left: 5px; 
     transform: translateY(-50%); /* Vertically center the image */
 }
