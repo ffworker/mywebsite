@@ -142,3 +142,9 @@ li {
 .dot-list li {
     margin-bottom: 10px; /* Add space between list items */
 }
+
+.centered-img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
