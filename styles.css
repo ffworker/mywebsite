@@ -143,8 +143,9 @@ li {
     margin-bottom: 10px; /* Add space between list items */
 }
 
-.centered-img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+.outside-image {
+    position: fixed;
+    top: 50%; /* Adjust this value to vertically position the image */
+    right: 20px; /* Adjust this value to set the distance from the right side */
+    transform: translateY(-50%); /* Vertically center the image */
 }
