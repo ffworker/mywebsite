@@ -3,95 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Raspberry Pi Paperless Setup</title>
-    <!-- Bootstrap CSS from CDN -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">    
-    <link href="../styles.css" rel="stylesheet">
+    <title>Guide Archived | Telegraf</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <header>
-        <nav>
-            <a href=../index.html>back / return to Mainpage</a>
-        </nav>
-    </header>
-<!-- Main Content -->
-<div class="container mt-5">
-    </div>
-    <div class="row">
-        <div class="col-md-8 offset-md-2">
-            <section id="preparation">
-                <h2>This is just a runback for setting up telegraf, just copy/paste the commands</h2>
-                <ol>
-                    <li>wget the archive key</li>
-                    <div class="code-box">
-                        <pre id="docker-install">wget -q https://repos.influxdata.com/influxdata-archive_compat.key</pre>
-                        <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-install">Copy</button>
-                    </div>
-                    
-                    <li>Add influxkey to trusted</li>
-                    <div class="code-box">
-                        <pre id="docker-install-sudo">cat influxdata-archive_compat.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg > /dev/null</pre>
-                        <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-install-sudo">Copy</button>
-                    </div>
-                    
-                    <li>Sign influxdb with downloaded key</li>
-                    <div class="code-box">
-                        <pre id="usermod-docker">echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] https://repos.influxdata.com/debian stable main' | sudo tee /etc/apt/sources.list.d/influxdata.list</pre>
-                        <button class="btn btn-primary copy-btn" data-clipboard-target="#usermod-docker">Copy</button>
-                    </div>
-                    
-                    <li>Remove the key from your system again for clean handling</li>
-                    <div class="code-box">
-                        <pre id="code-box">sudo rm -f /etc/apt/trusted.gpg.d/influxdb.gpg</pre>
-                        <button class="btn btn-primary copy-btn" data-clipboard-target="#newgrp-docker">Copy</button>
-                    </div>
-                    
-                    <li>apt-get update for the newly setup packages:</li>
-                    <div class="code-box">
-                        <pre id="docker-test">sudo apt-get update && sudo apt-get install apt-transport-https</pre>
-                        <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-test">Copy</button>
-                    </div>
-                  
-                  <li>Install Telegraf</li>
-                  <div class="code-box">
-                      <pre id="li6">sudo apt-get update && sudo apt-get install telegraf</pre>
-                      <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-test">Copy</button>
-                    </div>
-                    
-                  <li>Path to the telegraf.conf Configuration-File. It is very big, so either scroll to the variables in the following Screenshots. Or use STRG+W (if using nano)</li>
-                  <div class="code-box">
-                      <pre id="li7">sudo nano /etc/telegraf/telegraf.conf</pre>
-                      <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-test">Copy</button>
-                    </div>
-                    
-                  <li>Uncomment [[outputs.influxdb]], uncomment "urls = ["http://127.0.0.1:8086"], uncomment "database ="telegraf" "</li>
-                  <img src="../img/telegraf-output.png" alt="Image Description" class="list-item-image">
-                  <div class="code-box">
-                      <pre id="li8"></pre>
-                      <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-test">Copy</button>
-                    </div>
-                    
-                  <li>You can either look for the entries, uncomment and adjust them or just create them under ###[[INPUTS]]### in the telegraf.conf File.</li>
-                  <div class="code-box">
-                  <img src="../img/telegraf-input.png" alt="Image Description" class="list-item-image">
-                      <pre id="li9"></pre>
-                      <button class="btn btn-primary copy-btn" data-clipboard-target="#docker-test">Copy</button>
-                    </div>
-                </ol>
-            </section>
-
-<!-- Bootstrap JS and dependencies from CDN -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<!-- Clipboard.js CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
-
-
-<footer class="mt-5">
-    <div class="container">
-        <p>denniskappel@gmx.net // <a href="https://github.com/ffworker">https://github.com/ffworker</a></p>
-    </div>
-</footer>
+<body class="bg-slate-50 text-slate-900">
+    <main class="min-h-screen flex items-center justify-center p-6">
+        <div class="max-w-xl w-full rounded-2xl bg-white shadow-sm ring-1 ring-slate-200 p-8 space-y-4 text-center">
+            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-amber-600">Guide Archived</p>
+            <h1 class="text-2xl font-semibold">Telegraf setup guide retired</h1>
+            <p class="text-slate-600">Collector configuration notes now live inside the broader monitoring overview instead of a standalone tutorial.</p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+                <a href="../index.html" class="inline-flex items-center justify-center rounded-full bg-emerald-600 px-4 py-2 text-white font-semibold shadow hover:bg-emerald-500 transition">Return home</a>
+                <a href="projects.html" class="inline-flex items-center justify-center rounded-full px-4 py-2 text-emerald-700 font-semibold ring-1 ring-emerald-200 hover:bg-emerald-50 transition">View projects</a>
+            </div>
+        </div>
+    </main>
 </body>
 </html>

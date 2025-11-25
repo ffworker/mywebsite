@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Raspberry Pi Paperless Setup</title>
+    <title>Projects Overview</title>
     <!-- Bootstrap CSS from CDN -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">    
     <link href="../styles.css" rel="stylesheet">
@@ -30,19 +30,28 @@
     <div class="row">
         <div class="col-md-8">
             <section id="welcome">
-                <h2>Welcome to my Documentations!</h2>
-                <p>Hello and welcome to my corner of the internet. I'm excited to share my journey and experiences with you.</p>
-            </section>
-
-            <section id="project">
-                    <h2>Documentations</h2>
-                    <p>Check out some of the exciting projects I've been working on. From web applications to software development, I'm always learning and creating.</p>
-                    <ul>
-                        <li><a href="paperless.html">Documentation: Paperless-ngx</a></li>
-                        <li><a href="telegraf.html">Documentation: Setup Telegraf</a></li>
-                        <li><a href="influxdb.html">Documentation: InfluxDB:1.8</a></li>
-                    </ul>
-                </section>
+                <h2>Projects Overview</h2>
+                <p class="mb-4">Here’s how I group the homelab work I document. Each theme combines a full workflow instead of a single tool tutorial.</p>
+                <div class="card-deck">
+                    <div class="card mb-3 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Document Management</h5>
+                            <p class="card-text">Paperless workflows for Raspberry Pi setups, focusing on tidy storage locations, sensible backups, and lightweight dependencies.</p>
+                        </div>
+                    </div>
+                    <div class="card mb-3 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Monitoring & Dashboards</h5>
+                            <p class="card-text">Integrated observability stacks with Telegraf collectors, InfluxDB storage, and Grafana dashboards sized for small-form hardware.</p>
+                        </div>
+                    </div>
+                    <div class="card mb-3 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Automation Pipelines</h5>
+                            <p class="card-text">Node-RED flows and script hooks for alerts, backups, and recurring tasks that keep lab services aligned without manual steps.</p>
+                        </div>
+                    </div>
+                </div>
             </section>
             
         </div>
