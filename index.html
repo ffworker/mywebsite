@@ -130,51 +130,51 @@
                 <div class="flex items-center gap-3">
                     <div class="h-10 w-10 rounded-full bg-sky-500/15 text-sky-700 flex items-center justify-center font-bold">HL</div>
                     <div>
-                        <h2 class="text-2xl font-semibold">Open Source projects I am using in my Home-Lab</h2>
-                        <p class="text-sm text-slate-500">Current builds running across Raspberry Pi and Proxmox nodes.</p>
+                        <h2 class="text-2xl font-semibold">Live-Stack</h2>
+                        <p class="text-sm text-slate-500">Up-to-date services running across the homelab and external VPS (node-red, telegraf, grafana, paperless intentionally removed).</p>
                     </div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <article class="flex flex-col gap-3 rounded-xl border border-slate-200 bg-slate-50/70 p-5 shadow-sm">
                         <div class="flex items-start justify-between gap-3">
                             <div>
                                 <h3 class="text-xl font-semibold text-slate-900">Raspberry Pi 4</h3>
-                                <p class="text-slate-600">Media automation and lightweight services packed into a single compose stack.</p>
+                                <p class="text-slate-600">Aarr-Stack routed behind NordVPN with proxy rules and a strict killswitch.</p>
                             </div>
                             <span class="rounded-full bg-sky-100 px-3 py-1 text-xs font-semibold text-sky-700">Pi-based</span>
                         </div>
                         <ul class="space-y-1 text-sm text-slate-600">
-                            <li>• Aarr stack (Sonarr, Radarr, Prowlarr, Lidarr, Bazarr, Overseerr) routed through NordVPN with proxy rules and a killswitch.</li>
-                            <li>• Additional services: Termix (remote SSH), Dozzle, Homepage dashboard, qBittorrent, jDownloader, custom aniworld downloader.</li>
-                            <li>• AudiobookShelf, Cronmaster, and a Telegram notification bot for tidy automation.</li>
+                            <li>• Sonarr, Radarr, Prowlarr, Lidarr, Bazarr, Overseerr all tunneled through NordVPN.</li>
+                            <li>• Compose extras: Termix, Dozzle, Homepage, qBittorrent, jDownloader, custom-aniworld-downloadr.</li>
+                            <li>• AudiobookShelf, Cronmaster, and a Telegram notification bot for automation and alerts.</li>
                         </ul>
                     </article>
                     <article class="flex flex-col gap-3 rounded-xl border border-slate-200 bg-slate-50/70 p-5 shadow-sm">
                         <div class="flex items-start justify-between gap-3">
                             <div>
-                                <h3 class="text-xl font-semibold text-slate-900">Intel N100 with Proxmox</h3>
-                                <p class="text-slate-600">Virtualized workloads for heavier homelab services.</p>
+                                <h3 class="text-xl font-semibold text-slate-900">Intel N100</h3>
+                                <p class="text-slate-600">Proxmox host tuned for GPU-accelerated media and network services.</p>
                             </div>
                             <span class="rounded-full bg-indigo-100 px-3 py-1 text-xs font-semibold text-indigo-700">Proxmox</span>
                         </div>
                         <ul class="space-y-1 text-sm text-slate-600">
-                            <li>• GPU-accelerated Proxmox hosting Jellyfin for media streaming.</li>
-                            <li>• AdGuardHome DNS for network-wide filtering and reliability.</li>
-                            <li>• Tuned resource allocation across LXC/VMs to keep CPU and memory efficient.</li>
+                            <li>• Proxmox with GPU passthrough powering Jellyfin streaming.</li>
+                            <li>• AdGuardHome DNS to keep network filtering local and reliable.</li>
+                            <li>• Lightweight VMs/LXCs balanced for efficiency across the node.</li>
                         </ul>
                     </article>
                     <article class="flex flex-col gap-3 rounded-xl border border-slate-200 bg-slate-50/70 p-5 shadow-sm">
                         <div class="flex items-start justify-between gap-3">
                             <div>
                                 <h3 class="text-xl font-semibold text-slate-900">Externally Hosted VPS</h3>
-                                <p class="text-slate-600">Remote services that mirror the homelab reliability playbook.</p>
+                                <p class="text-slate-600">Remote stack anchored to the Kappel.Tech domain and secured mesh access.</p>
                             </div>
                             <span class="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">VPS</span>
                         </div>
                         <ul class="space-y-1 text-sm text-slate-600">
-                            <li>• Netbird VPN managed behind Zitadel for mesh connectivity.</li>
-                            <li>• Kappel.Tech domain with self-hosted Nextcloud and Vaultwarden for collaboration and credential hygiene.</li>
-                            <li>• Mail server (Keyhelp) tracked with the same backup and health standards as the lab.</li>
+                            <li>• Netbird mesh with Zitadel-backed identity for remote administration.</li>
+                            <li>• Kappel.Tech hosting Nextcloud, Vaultwarden, and Keyhelp-powered mail.</li>
+                            <li>• Configured to mirror lab reliability while omitting deprecated services.</li>
                         </ul>
                     </article>
                 </div>
