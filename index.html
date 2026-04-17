@@ -25,6 +25,8 @@
           <a href="#focus" class="hover:text-white transition">Current Focus</a>
           <a href="#capabilities" class="hover:text-white transition">What I can do</a>
           <a href="#projects" class="hover:text-white transition">Projects</a>
+          <a href="#stack" class="hover:text-white transition">Stack</a>
+          <a href="#planning" class="hover:text-white transition">In Planning</a>
           <a href="#contact" class="hover:text-white transition">Contact</a>
         </nav>
       </div>
@@ -84,6 +86,45 @@
           <article class="rounded-xl border border-amber-400/20 bg-amber-500/5 p-4">
             <h3 class="font-semibold text-amber-200">Small Lab Iterations</h3>
             <p class="mt-2 text-sm text-slate-300">Build, break, reset, and write down what worked and why.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="stack" class="mt-16 rounded-2xl border border-white/10 bg-slate-900/80 p-8">
+        <h2 class="text-2xl font-bold text-white md:text-3xl">Current Stack (What I actually use)</h2>
+        <p class="mt-2 max-w-3xl text-slate-300">This is the real stack I work with in my homelab today. I am listing key IT elements explicitly so it is clear what I built and operated hands-on.</p>
+        <div class="mt-6 grid gap-5 md:grid-cols-2">
+          <article class="rounded-xl border border-white/10 bg-white/5 p-5">
+            <h3 class="font-semibold text-white">Platform & Runtime</h3>
+            <ul class="mt-3 space-y-2 text-sm text-slate-300">
+              <li>• Raspberry Pi hosts (Pi 4, Pi 3, Pi Zero W) running Linux-based services.</li>
+              <li>• Docker Engine + Docker Compose as the primary deployment model.</li>
+              <li>• Portainer for day-to-day container lifecycle management.</li>
+            </ul>
+          </article>
+          <article class="rounded-xl border border-white/10 bg-white/5 p-5">
+            <h3 class="font-semibold text-white">Networking & Access</h3>
+            <ul class="mt-3 space-y-2 text-sm text-slate-300">
+              <li>• Segmented internal Docker bridge networks between service groups.</li>
+              <li>• VPN-routed container namespace with kill-switch behavior for specific workloads.</li>
+              <li>• Controlled UI access via local proxy endpoints and restricted LAN/VPN reachability.</li>
+            </ul>
+          </article>
+          <article class="rounded-xl border border-white/10 bg-white/5 p-5">
+            <h3 class="font-semibold text-white">Observability & Data</h3>
+            <ul class="mt-3 space-y-2 text-sm text-slate-300">
+              <li>• Grafana dashboards for uptime and service visibility.</li>
+              <li>• InfluxDB 1.8 as a lightweight metrics/time-series backend.</li>
+              <li>• Log-based troubleshooting and service dependency checks during incidents.</li>
+            </ul>
+          </article>
+          <article class="rounded-xl border border-white/10 bg-white/5 p-5">
+            <h3 class="font-semibold text-white">Automation & Workloads</h3>
+            <ul class="mt-3 space-y-2 text-sm text-slate-300">
+              <li>• Node-RED flows for practical automation and signal/control workflows.</li>
+              <li>• Python and PowerShell scripts for maintenance tasks and repetitive operations.</li>
+              <li>• Utility services including Paperless-ngx, Samba/FTP, and sensor-driven automation.</li>
+            </ul>
           </article>
         </div>
       </section>
@@ -151,6 +192,16 @@
             <p class="mt-2 text-sm text-slate-300">A lightweight surveillance camera node exposed intentionally as a simple public-facing lab project.</p>
           </article>
         </div>
+      </section>
+
+      <section id="planning" class="mt-16 rounded-2xl border border-amber-400/20 bg-amber-500/10 p-8">
+        <h2 class="text-2xl font-bold text-white md:text-3xl">In Planning...</h2>
+        <p class="mt-2 max-w-3xl text-slate-200">Next major step: convert my current Docker Compose-based stack (single <code>docker-compose.yml</code> approach) into a Kubernetes cluster. I am intentionally transparent about the process.</p>
+        <ul class="mt-4 space-y-2 text-sm text-slate-100">
+          <li>• I built and refined parts of the Compose stack together with support from different LLMs.</li>
+          <li>• For the Kubernetes translation, I will rely only on what I personally learned through hands-on practice and lab work.</li>
+          <li>• I will document gaps openly and avoid claiming production-level Kubernetes experience too early.</li>
+        </ul>
       </section>
 
       <section id="contact" class="mt-16 rounded-2xl border border-emerald-400/20 bg-emerald-500/10 p-8">
