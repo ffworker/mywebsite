@@ -68,24 +68,28 @@
       </section>
 
       <section id="focus" class="mt-16 rounded-2xl border border-white/10 bg-slate-900/80 p-8">
-        <h2 class="text-2xl font-bold text-white md:text-3xl">Current Kubernetes Focus (Beginner Stage)</h2>
-        <p class="mt-2 max-w-3xl text-slate-300">I am currently learning the basics and practicing in small labs first. I keep this section conservative on purpose so it matches my real level.</p>
+        <h2 class="text-2xl font-bold text-white md:text-3xl">Current Kubernetes Knowledge State</h2>
+        <p class="mt-2 max-w-3xl text-slate-300">This snapshot mirrors my live CKA knowledge tracker repo. I keep it brutally honest: solid fundamentals in progress, clear weak spots marked, and a direct link to the source.</p>
+        <div class="mt-4 inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-cyan-200">
+          Source of truth:
+          <a href="https://github.com/ffworker/cka-qa" target="_blank" rel="noopener noreferrer" class="underline decoration-cyan-300/70 underline-offset-4 hover:text-white">github.com/ffworker/cka-qa</a>
+        </div>
         <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <article class="rounded-xl border border-emerald-400/20 bg-emerald-500/5 p-4">
-            <h3 class="font-semibold text-emerald-200">Core Concepts</h3>
-            <p class="mt-2 text-sm text-slate-300">Pods, deployments, services, and namespaces with simple examples.</p>
+            <h3 class="font-semibold text-emerald-200">Strong Base</h3>
+            <p class="mt-2 text-sm text-slate-300">Foundations, workloads, basic services/networking, scaling basics, and core observability topics are already practiced regularly.</p>
           </article>
           <article class="rounded-xl border border-cyan-400/20 bg-cyan-500/5 p-4">
-            <h3 class="font-semibold text-cyan-200">kubectl Practice</h3>
-            <p class="mt-2 text-sm text-slate-300">Daily command practice and troubleshooting output step by step.</p>
+            <h3 class="font-semibold text-cyan-200">Improving Zone</h3>
+            <p class="mt-2 text-sm text-slate-300">Topics like taints/tolerations, node selectors, configmaps, service accounts, and RBAC are currently active improvement targets.</p>
           </article>
           <article class="rounded-xl border border-indigo-400/20 bg-indigo-500/5 p-4">
-            <h3 class="font-semibold text-indigo-200">Networking Basics</h3>
-            <p class="mt-2 text-sm text-slate-300">Understanding service access and simple ingress setups.</p>
+            <h3 class="font-semibold text-indigo-200">Not Reviewed Yet</h3>
+            <p class="mt-2 text-sm text-slate-300">Ingress, network policies, CoreDNS/CNI, TLS/certificates, kubeconfig, and several security internals are still explicitly unreviewed.</p>
           </article>
           <article class="rounded-xl border border-amber-400/20 bg-amber-500/5 p-4">
-            <h3 class="font-semibold text-amber-200">Small Lab Iterations</h3>
-            <p class="mt-2 text-sm text-slate-300">Build, break, reset, and write down what worked and why.</p>
+            <h3 class="font-semibold text-amber-200">Practice Workflow</h3>
+            <p class="mt-2 text-sm text-slate-300">Theory and recall are tracked in cka-qa, then handoff data drives practical lab priorities so weak areas get deliberate repetition.</p>
           </article>
         </div>
       </section>
@@ -186,6 +190,12 @@
             <p class="text-xs uppercase tracking-[0.2em] text-slate-400">Raspberry Pi 3</p>
             <h3 class="mt-2 font-semibold text-white">Watering Automation</h3>
             <p class="mt-2 text-sm text-slate-300">Automated watering with DHT22 + hygrometer sensor readings and control logic for my own small environmental setup.</p>
+          </article>
+          <article class="rounded-xl border border-cyan-400/20 bg-cyan-500/5 p-5">
+            <p class="text-xs uppercase tracking-[0.2em] text-cyan-300">Kubernetes Learning</p>
+            <h3 class="mt-2 font-semibold text-white">CKA-QA Knowledge Tracker</h3>
+            <p class="mt-2 text-sm text-slate-300">Public map of my CKA learning state with good/meh/needs-improvement markers and explicit "not reviewed yet" sections to keep progress measurable.</p>
+            <a href="https://github.com/ffworker/cka-qa" target="_blank" rel="noopener noreferrer" class="mt-3 inline-block text-sm font-semibold text-cyan-200 hover:text-white">Open repository →</a>
           </article>
           <article class="rounded-xl border border-white/10 bg-white/5 p-5">
             <p class="text-xs uppercase tracking-[0.2em] text-slate-400">Pi Zero W</p>
