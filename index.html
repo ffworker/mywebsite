@@ -100,6 +100,29 @@
         </div>
       </section>
 
+      <section id="newest-practice" class="mt-16 rounded-2xl border border-emerald-400/20 bg-emerald-500/10 p-8">
+        <h2 class="text-2xl font-bold text-white md:text-3xl">Newest Hands-on Practice</h2>
+        <p class="mt-2 max-w-3xl text-slate-200">Recent work is focused on small but realistic infrastructure: make it observable, document it, move services safely, and keep recovery paths clear.</p>
+        <div class="mt-6 grid gap-5 md:grid-cols-2">
+          <article class="rounded-xl border border-white/10 bg-slate-950/50 p-5">
+            <h3 class="font-semibold text-white">Pi k3s Public Edge</h3>
+            <p class="mt-2 text-sm text-slate-300">Moved public static services behind a Cloudflare Tunnel running inside a Raspberry Pi k3s cluster, using Kubernetes Secrets and service DNS instead of exposing inbound home ports.</p>
+          </article>
+          <article class="rounded-xl border border-white/10 bg-slate-950/50 p-5">
+            <h3 class="font-semibold text-white">Outside-in Monitoring</h3>
+            <p class="mt-2 text-sm text-slate-300">Built an observer stack with Prometheus, Grafana, Alertmanager, blackbox-exporter, node-exporter, and kube-state-metrics so host and cluster health are visible even when the homelab is unhealthy.</p>
+          </article>
+          <article class="rounded-xl border border-white/10 bg-slate-950/50 p-5">
+            <h3 class="font-semibold text-white">NetBird and Homelab Routing</h3>
+            <p class="mt-2 text-sm text-slate-300">Operated a NetBird-routed homelab path with a Raspberry Pi jumper that acts as DNS, LAN gateway, and subnet router, while keeping DNS filtering and routed traffic roles clearly separated.</p>
+          </article>
+          <article class="rounded-xl border border-white/10 bg-slate-950/50 p-5">
+            <h3 class="font-semibold text-white">Ansible Runbook Practice</h3>
+            <p class="mt-2 text-sm text-slate-300">Started turning repeatable SSH access, sudo setup, and Raspberry Pi control-plane preparation into Ansible playbooks and compact command cheat sheets.</p>
+          </article>
+        </div>
+      </section>
+
       <section id="stack" class="mt-16 rounded-2xl border border-white/10 bg-slate-900/80 p-8">
         <h2 class="text-2xl font-bold text-white md:text-3xl">Current Stack (What I actually use)</h2>
         <p class="mt-2 max-w-3xl text-slate-300">This is the real stack I work with in my homelab today. I am listing key IT elements explicitly so it is clear what I built and operated hands-on.</p>
@@ -123,8 +146,9 @@
           <article class="rounded-xl border border-white/10 bg-white/5 p-5">
             <h3 class="font-semibold text-white">Observability & Data</h3>
             <ul class="mt-3 space-y-2 text-sm text-slate-300">
-              <li>• Grafana dashboards for uptime and service visibility.</li>
-              <li>• InfluxDB 1.8 as a lightweight metrics/time-series backend.</li>
+              <li>• Prometheus and Grafana dashboards for host, service, and Kubernetes visibility.</li>
+              <li>• node-exporter, blackbox-exporter, kube-state-metrics, and basic Alertmanager practice.</li>
+              <li>• InfluxDB 1.8 as a legacy learning snapshot, not the preferred new metrics path.</li>
               <li>• Log-based troubleshooting and service dependency checks during incidents.</li>
             </ul>
           </article>
@@ -133,6 +157,7 @@
             <ul class="mt-3 space-y-2 text-sm text-slate-300">
               <li>• Node-RED flows for practical automation and signal/control workflows.</li>
               <li>• Python and PowerShell scripts for maintenance tasks and repetitive operations.</li>
+              <li>• Ansible playbooks for repeatable SSH access and Raspberry Pi control-plane preparation.</li>
               <li>• Utility services including Paperless-ngx, Samba/FTP, and sensor-driven automation.</li>
             </ul>
           </article>
@@ -213,11 +238,11 @@
 
       <section id="planning" class="mt-16 rounded-2xl border border-amber-400/20 bg-amber-500/10 p-8">
         <h2 class="text-2xl font-bold text-white md:text-3xl">In Planning...</h2>
-        <p class="mt-2 max-w-3xl text-slate-200">Next major step: convert my current Docker Compose-based stack (single <code>docker-compose.yml</code> approach) into a Kubernetes cluster. I am intentionally transparent about the process.</p>
+        <p class="mt-2 max-w-3xl text-slate-200">Next major step: keep translating the useful parts of my Docker Compose experience into Kubernetes and Ansible without hiding the learning curve.</p>
         <ul class="mt-4 space-y-2 text-sm text-slate-100">
-          <li>• I built and refined parts of the Compose stack together with support from different LLMs.</li>
-          <li>• For the Kubernetes translation, I will rely only on what I personally learned through hands-on practice and lab work.</li>
-          <li>• I will document gaps openly and avoid claiming production-level Kubernetes experience too early.</li>
+          <li>• Keep improving Kubernetes basics through real cluster operations, not only tutorials.</li>
+          <li>• Turn repeated host setup and recovery steps into Ansible runbooks.</li>
+          <li>• Keep public documentation honest about what is live, what is legacy, and what I am still practicing.</li>
         </ul>
       </section>
 
