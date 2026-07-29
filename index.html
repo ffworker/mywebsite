@@ -4,381 +4,346 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dennis Kappel | System Administrator & Private Infrastructure Lab</title>
-  <meta name="description" content="Dennis Kappel is a system administrator with IT operations experience in Windows infrastructure, Microsoft 365, Exchange, VMware Horizon/VDI, and hands-on private Linux, k3s, networking, storage and monitoring projects." />
+  <meta name="description" content="Dennis Kappel is a professional System Administrator with IT operations experience and hands-on private infrastructure projects in Linux, Kubernetes, networking and automation." />
   <meta name="robots" content="index, follow" />
   <style>
     *, *::before, *::after { box-sizing: border-box; }
     * { margin: 0; }
     :root {
-      --bg: #030712;
-      --panel: rgba(15, 23, 42, 0.78);
-      --panel-strong: rgba(15, 23, 42, 0.94);
-      --line: rgba(148, 163, 184, 0.22);
-      --line-strong: rgba(34, 211, 238, 0.34);
-      --text: #f8fafc;
-      --soft: #d7e2f2;
-      --muted: #9aa7ba;
-      --dim: #64748b;
-      --green: #10b981;
-      --cyan: #22d3ee;
-      --amber: #f59e0b;
-      --blue: #60a5fa;
+      --green: #16825d;
+      --ink: #101418;
+      --muted: #56616c;
+      --paper: #f3f6f1;
+      --paper-2: #e7ece6;
+      --dark: #0c1210;
+      --dark-2: #141c19;
+      --dark-line: rgba(226, 232, 240, 0.16);
+      --line: rgba(16, 20, 24, 0.16);
       --ui: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       --mono: "JetBrains Mono", "Fira Code", "Cascadia Code", ui-monospace, SFMono-Regular, Menlo, monospace;
-      --radius: 8px;
-      --wrap: min(1400px, calc(100vw - 44px));
     }
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 84px;
-    }
+    html { scroll-behavior: smooth; }
     body {
-      min-height: 100vh;
-      overflow-x: clip;
-      background:
-        linear-gradient(rgba(148, 163, 184, 0.032) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(148, 163, 184, 0.032) 1px, transparent 1px),
-        radial-gradient(ellipse 70% 42% at 52% 0%, rgba(16, 185, 129, 0.13), transparent 58%),
-        #030712;
-      background-size: 42px 42px, 42px 42px, auto, auto;
-      color: var(--text);
+      background: var(--paper);
+      color: var(--ink);
       font-family: var(--ui);
-      line-height: 1.48;
+      line-height: 1.45;
       -webkit-font-smoothing: antialiased;
     }
     a { color: inherit; }
     a:focus-visible {
-      outline: 2px solid var(--cyan);
+      outline: 2px solid var(--green);
       outline-offset: 4px;
     }
-    .wrap {
-      width: var(--wrap);
-      margin-inline: auto;
-    }
-    .nav {
-      position: sticky;
-      top: 0;
-      z-index: 5;
-      border-bottom: 1px solid var(--line);
-      background: rgba(3, 7, 18, 0.86);
-      backdrop-filter: blur(18px);
-    }
-    .nav-inner {
-      min-height: 62px;
+    .topbar {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 10;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 18px;
+      align-items: center;
+      min-height: 58px;
+      padding: 0 clamp(18px, 3vw, 42px);
+      color: var(--ink);
+      mix-blend-mode: difference;
+      filter: invert(1);
+      pointer-events: none;
+    }
+    .topbar a,
+    .topbar span {
+      pointer-events: auto;
     }
     .brand,
     .label,
-    .meta,
-    .chip,
-    .caption,
-    .shot {
+    .fact,
+    .note-label,
+    figcaption {
       font-family: var(--mono);
     }
     .brand {
-      color: var(--green);
       font-size: 13px;
       font-weight: 800;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       text-decoration: none;
-      white-space: nowrap;
     }
-    .nav-links {
+    .nav {
       display: flex;
-      gap: 6px;
-      color: var(--muted);
+      gap: 14px;
       font-size: 13px;
     }
-    .nav-links a {
-      min-height: 40px;
-      display: inline-flex;
-      align-items: center;
-      border: 1px solid transparent;
-      border-radius: var(--radius);
-      padding: 0 12px;
+    .nav a {
       text-decoration: none;
     }
-    .nav-links a:hover {
-      border-color: var(--line);
-      color: var(--text);
-      background: rgba(148, 163, 184, 0.08);
-    }
-    main {
-      padding: clamp(28px, 5vw, 56px) 0 30px;
-    }
-    .hero {
-      min-height: calc(100svh - 92px);
+    .split-hero {
+      width: 100%;
+      min-height: 100svh;
       display: grid;
-      grid-template-columns: minmax(0, 0.86fr) minmax(560px, 1.14fr);
-      gap: clamp(22px, 3.5vw, 46px);
-      align-items: start;
+      grid-template-columns: 1fr 1fr;
     }
-    .hero-copy {
-      padding-top: clamp(10px, 2.5vw, 36px);
+    .side {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(82px, 9vw, 132px) clamp(24px, 5vw, 82px) clamp(42px, 6vw, 82px);
+    }
+    .professional {
+      background:
+        linear-gradient(90deg, rgba(16, 20, 24, 0.06) 1px, transparent 1px),
+        var(--paper);
+      background-size: 72px 72px;
+      color: var(--ink);
+    }
+    .lab {
+      background:
+        linear-gradient(90deg, rgba(226, 232, 240, 0.05) 1px, transparent 1px),
+        var(--dark);
+      background-size: 72px 72px;
+      color: #eef5ef;
     }
     .label {
-      color: var(--cyan);
+      color: var(--green);
       font-size: 12px;
       font-weight: 800;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
     }
     h1 {
-      max-width: 760px;
-      margin-top: 16px;
-      font-size: clamp(42px, 6vw, 78px);
-      line-height: 0.95;
-      letter-spacing: 0;
+      max-width: 680px;
+      margin-top: 18px;
+      font-size: clamp(46px, 5.4vw, 78px);
+      line-height: 0.92;
+      letter-spacing: -0.015em;
       text-wrap: balance;
     }
-    .intro {
-      max-width: 700px;
-      margin-top: 22px;
-      color: var(--soft);
-      font-size: clamp(17px, 1.7vw, 21px);
+    .lab h1 {
+      color: #f7fff9;
     }
-    .intro strong {
-      color: var(--text);
-      font-weight: 760;
+    .summary {
+      max-width: 640px;
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: clamp(18px, 1.55vw, 23px);
+    }
+    .lab .summary {
+      color: #a7b7ae;
+    }
+    .fact-list {
+      display: grid;
+      gap: 10px;
+      max-width: 560px;
+      margin-top: 34px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+    }
+    .lab .fact-list {
+      border-top-color: var(--dark-line);
+    }
+    .fact {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      border-bottom: 1px solid var(--line);
+      padding: 0 0 10px;
+      color: var(--ink);
+      font-size: 13px;
+    }
+    .lab .fact {
+      border-bottom-color: var(--dark-line);
+      color: #eaf4ec;
+    }
+    .fact span:last-child {
+      color: var(--muted);
+      text-align: right;
+    }
+    .lab .fact span:last-child {
+      color: #8fa099;
     }
     .actions {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin-top: 26px;
+      margin-top: 34px;
     }
     .button {
       min-height: 46px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 0 17px;
-      background: rgba(15, 23, 42, 0.72);
-      color: var(--text);
+      border: 1px solid currentColor;
+      padding: 0 18px;
+      color: inherit;
       font-weight: 760;
       text-decoration: none;
     }
-    .button.primary {
-      border-color: rgba(16, 185, 129, 0.58);
-      background: rgba(16, 185, 129, 0.16);
+    .professional .button:first-child {
+      background: var(--ink);
+      color: var(--paper);
     }
-    .button:hover {
-      border-color: var(--line-strong);
-      background: rgba(148, 163, 184, 0.12);
+    .lab .button:first-child {
+      background: #eef5ef;
+      color: var(--dark);
     }
-    .hero-grid {
+    .evidence {
+      background: #fbfcfa;
+      border-top: 1px solid var(--line);
+    }
+    .evidence-row {
+      min-height: 340px;
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-    .panel {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--panel);
-      overflow: hidden;
-    }
-    .panel-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      min-height: 42px;
+      grid-template-columns: minmax(0, 1.1fr) minmax(360px, 0.9fr);
       border-bottom: 1px solid var(--line);
-      padding: 0 14px;
-      color: var(--muted);
-      font-size: 12px;
     }
-    .panel-body {
-      padding: 18px;
+    .evidence-row:nth-child(even) {
+      grid-template-columns: minmax(360px, 0.9fr) minmax(0, 1.1fr);
     }
-    .compare {
-      min-height: 260px;
+    .evidence-row:nth-child(even) .shot {
+      order: 2;
     }
-    .compare h2 {
-      color: var(--text);
-      font-size: 24px;
-      line-height: 1.1;
-    }
-    .compare p {
-      margin-top: 10px;
-      color: var(--muted);
-      font-size: 15px;
-    }
-    .list {
-      display: grid;
-      gap: 8px;
-      margin-top: 16px;
-      color: var(--soft);
-      font-size: 14px;
-    }
-    .list span {
+    .copy {
       display: flex;
-      gap: 9px;
-      align-items: baseline;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(32px, 5vw, 72px);
     }
-    .list span::before {
-      content: "";
-      width: 7px;
-      height: 7px;
-      flex: 0 0 7px;
-      border: 1px solid var(--green);
-      background: rgba(16, 185, 129, 0.16);
-    }
-    .shot-panel {
-      grid-column: span 2;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      border: 0;
-      background: transparent;
-    }
-    figure {
-      border: 1px solid rgba(34, 211, 238, 0.24);
-      border-radius: var(--radius);
-      background: rgba(2, 6, 23, 0.86);
-      overflow: hidden;
-    }
-    .shot-top {
-      display: flex;
-      justify-content: space-between;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.16);
-      padding: 10px 12px;
-      color: var(--dim);
-      font-size: 11px;
-    }
-    .shot {
-      min-height: 170px;
-      padding: 14px;
-      color: #dbeafe;
-      font-size: 12px;
-      line-height: 1.7;
-      white-space: pre-wrap;
-    }
-    .shot .ok { color: var(--green); }
-    .shot .warn { color: var(--amber); }
-    .shot .key { color: var(--cyan); }
-    figcaption {
-      border-top: 1px solid rgba(148, 163, 184, 0.16);
-      padding: 10px 12px;
-      color: var(--muted);
-      font-size: 12px;
-    }
-    .examples {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 14px;
-    }
-    .example {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: rgba(15, 23, 42, 0.6);
-      padding: 16px;
-    }
-    .meta {
-      color: var(--cyan);
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-    .example h3 {
-      margin-top: 8px;
-      color: var(--text);
-      font-size: 18px;
-      line-height: 1.15;
-    }
-    .example p {
-      margin-top: 8px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-    .bottom {
-      display: grid;
-      grid-template-columns: minmax(0, 0.82fr) minmax(420px, 1.18fr);
-      gap: 14px;
-      margin-top: 14px;
-    }
-    .direction {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: rgba(15, 23, 42, 0.62);
-      padding: 18px;
-    }
-    .direction h2,
-    .agent h2 {
-      margin-top: 8px;
-      font-size: 24px;
-      line-height: 1.1;
-    }
-    .chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 16px;
-    }
-    .chip {
-      border: 1px solid rgba(34, 211, 238, 0.24);
-      border-radius: 999px;
-      padding: 6px 9px;
-      color: var(--soft);
-      font-size: 11px;
-      background: rgba(34, 211, 238, 0.07);
-    }
-    .agent {
-      border: 1px solid rgba(245, 158, 11, 0.28);
-      border-radius: var(--radius);
-      background: rgba(15, 23, 42, 0.62);
-      padding: 18px;
-    }
-    .quote {
+    .copy h2 {
+      max-width: 720px;
       margin-top: 12px;
-      color: var(--soft);
-      font-size: clamp(20px, 2vw, 28px);
-      line-height: 1.22;
+      font-size: clamp(32px, 4.5vw, 62px);
+      line-height: 0.98;
+      letter-spacing: -0.012em;
       text-wrap: balance;
     }
-    footer {
-      border-top: 1px solid var(--line);
-      padding: 18px 0 26px;
-      color: var(--dim);
-      font-family: var(--mono);
+    .copy p {
+      max-width: 650px;
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: clamp(16px, 1.4vw, 20px);
+    }
+    .role {
+      max-width: 650px;
+      margin-top: 20px;
+      border-left: 3px solid var(--green);
+      padding-left: 14px;
+      color: #344039;
+      font-size: 15px;
+    }
+    .shot {
+      min-height: 340px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: #111713;
+      padding: clamp(18px, 3vw, 36px);
+    }
+    figure {
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: #0c1210;
+    }
+    figure img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      object-position: top left;
+    }
+    figcaption {
+      border-top: 1px solid rgba(255, 255, 255, 0.14);
+      padding: 10px 12px;
+      color: #b8c7bd;
       font-size: 12px;
     }
-    .footer-row {
+    .agent-note {
+      position: relative;
+      max-width: 880px;
+      margin: 0 auto;
+      padding: clamp(34px, 5vw, 62px) clamp(22px, 5vw, 60px);
+      color: #2c372f;
+      font-size: clamp(20px, 2.4vw, 34px);
+      line-height: 1.2;
+      text-align: center;
+    }
+    .note-label {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    footer {
       display: flex;
       justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .footer-row a {
+      gap: 18px;
+      border-top: 1px solid var(--line);
+      padding: 20px clamp(20px, 4vw, 48px) 28px;
       color: var(--muted);
+      font-size: 13px;
+    }
+    footer a {
+      color: var(--ink);
       text-decoration: none;
     }
-    @media (max-width: 1060px) {
-      .hero,
-      .bottom {
-        grid-template-columns: 1fr;
+    @media (hover: hover) and (min-width: 900px) {
+      .split-hero:hover .side {
+        transition: flex-basis 220ms ease, filter 220ms ease;
       }
-      .hero { min-height: auto; }
+      .split-hero:has(.professional:hover) {
+        grid-template-columns: 1.08fr 0.92fr;
+      }
+      .split-hero:has(.lab:hover) {
+        grid-template-columns: 0.92fr 1.08fr;
+      }
     }
-    @media (max-width: 760px) {
-      :root { --wrap: min(100% - 28px, 1400px); }
-      .nav-links a:not(:last-child) { display: none; }
-      .hero-grid,
-      .shot-panel,
-      .examples {
+    @media (max-width: 900px) {
+      .topbar {
+        position: absolute;
+        mix-blend-mode: normal;
+        filter: none;
+        color: var(--ink);
+      }
+      .nav a:not(:last-child) { display: none; }
+      .split-hero,
+      .evidence-row,
+      .evidence-row:nth-child(even) {
         grid-template-columns: 1fr;
       }
-      .shot-panel { grid-column: span 1; }
-      .compare { min-height: 0; }
-      .actions .button { flex: 1 1 150px; }
+      .side {
+        min-height: auto;
+      }
+      .lab {
+        min-height: 72svh;
+      }
+      .evidence-row:nth-child(even) .shot {
+        order: 0;
+      }
+      .shot,
+      .evidence-row {
+        min-height: 0;
+      }
+    }
+    @media (max-width: 560px) {
+      .side {
+        padding-inline: 20px;
+      }
+      .fact {
+        display: block;
+      }
+      .fact span:last-child {
+        display: block;
+        margin-top: 3px;
+        text-align: left;
+      }
+      footer {
+        display: block;
+      }
+      footer span:last-child {
+        display: block;
+        margin-top: 8px;
+      }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
@@ -389,147 +354,102 @@
   </style>
 </head>
 <body>
-  <nav class="nav" aria-label="Primary navigation">
-    <div class="wrap nav-inner">
-      <a class="brand" href="#top">Dennis Kappel</a>
-      <div class="nav-links">
-        <a href="#profile">Profile</a>
-        <a href="#examples">Examples</a>
-        <a href="#contact">Contact</a>
-      </div>
-    </div>
-  </nav>
+  <header class="topbar">
+    <a class="brand" href="#top">Dennis Kappel</a>
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="#professional">Professional</a>
+      <a href="#lab">Private lab</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
 
-  <main id="top" class="wrap">
-    <section class="hero" id="profile">
-      <div class="hero-copy">
-        <p class="label">System administrator / IT operations / private infrastructure lab</p>
-        <h1>System administration at work. Linux infrastructure in the lab.</h1>
-        <p class="intro">
-          I work professionally in <strong>IT operations and system administration</strong>, including Windows infrastructure, Microsoft 365/Exchange, VMware Horizon/VDI, operations support and troubleshooting. Privately, I build and operate a hands-on infrastructure lab with Linux, k3s, Docker, networking, storage, backups, monitoring and automation.
-        </p>
-        <div class="actions" aria-label="Primary actions">
-          <a class="button primary" href="mailto:denniskappel@gmx.net">Contact</a>
-          <a class="button" href="https://github.com/ffworker" target="_blank" rel="noopener noreferrer">GitHub</a>
-        </div>
-      </div>
-
-      <div class="hero-grid">
-        <article class="panel compare">
-          <div class="panel-head">
-            <span class="label">Professional</span>
-            <span>day-to-day IT</span>
-          </div>
-          <div class="panel-body">
-            <h2>System administration and operations</h2>
-            <p>Practical work around users, services, incidents, Windows environments and business IT systems.</p>
-            <div class="list">
-              <span>VMware Horizon / VDI environments</span>
-              <span>Microsoft 365 and Exchange administration</span>
-              <span>Windows infrastructure and endpoint operations</span>
-              <span>Troubleshooting, support and service continuity</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="panel compare">
-          <div class="panel-head">
-            <span class="label">Private lab</span>
-            <span>hands-on infrastructure</span>
-          </div>
-          <div class="panel-body">
-            <h2>Linux systems that I actually operate</h2>
-            <p>Small but real environments where I can break, migrate, monitor, document and understand the full path.</p>
-            <div class="list">
-              <span>Linux, Docker, k3s and Raspberry Pi systems</span>
-              <span>Networking, DNS, tunnels and private access</span>
-              <span>NAS, NFS, SMB, backups and stateful services</span>
-              <span>Prometheus, Grafana, runbooks and automation</span>
-            </div>
-          </div>
-        </article>
-
-        <div class="shot-panel">
-          <figure aria-label="Sanitized monitoring capture">
-            <div class="shot-top">
-              <span>redacted monitoring capture</span>
-              <span>no hostnames / no IPs</span>
-            </div>
-            <pre class="shot"><span class="key">scope</span>                  <span class="key">state</span>
-observer host          <span class="ok">up</span>
-private gateway        <span class="ok">up</span>
-cluster nodes          <span class="ok">observed</span>
-wifi inventory         <span class="warn">6 known / 4 online</span>
-service checks         <span class="ok">scraped</span></pre>
-            <figcaption>Monitoring VPS, home lab and cluster health with sanitized labels.</figcaption>
-          </figure>
-
-          <figure aria-label="Sanitized infrastructure terminal capture">
-            <div class="shot-top">
-              <span>redacted k3s workflow capture</span>
-              <span>generic service names</span>
-            </div>
-            <pre class="shot"><span class="key">task</span>        move public static sites
-source      old container host
-target      home lab k3s edge
-checks      ingress, service, rollout, curl
-result      <span class="ok">served from cluster path</span>
-next        document rollback + automate</pre>
-            <figcaption>Running and troubleshooting workloads in my private k3s lab.</figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
-
-    <section class="examples" id="examples" aria-label="Three examples">
-      <article class="example">
-        <p class="meta">Professional operations</p>
-        <h3>Support business IT systems without drama</h3>
-        <p>Work with Windows infrastructure, Microsoft 365/Exchange, VMware Horizon/VDI, user-impacting issues, and operational troubleshooting.</p>
-      </article>
-      <article class="example">
-        <p class="meta">Private monitoring</p>
-        <h3>Make small infrastructure observable</h3>
-        <p>Use Prometheus, Grafana, exporters, blackbox checks and service validation to see whether VPS, lab hosts and cluster components are healthy.</p>
-      </article>
-      <article class="example">
-        <p class="meta">Private k3s lab</p>
-        <h3>Learn Kubernetes through real service work</h3>
-        <p>Migrate and expose services, check rollouts, inspect logs and events, work with storage, and keep changes documented in Git.</p>
-      </article>
-    </section>
-
-    <section class="bottom" id="contact">
-      <article class="direction">
-        <p class="label">Current direction</p>
-        <h2>Deepening Linux, Kubernetes, automation and CKA-level fundamentals.</h2>
-        <p class="intro">Kubernetes is an important learning focus and practical lab area, not my entire identity. The broader goal is to become stronger across operations, Linux infrastructure, automation and reliable troubleshooting.</p>
-        <div class="chips">
-          <span class="chip">Linux administration</span>
-          <span class="chip">k3s / Kubernetes</span>
-          <span class="chip">Automation</span>
-          <span class="chip">Monitoring</span>
-          <span class="chip">CKA preparation</span>
+  <main id="top">
+    <section class="split-hero" aria-label="Professional and private infrastructure profile">
+      <article class="side professional" id="professional">
+        <p class="label">Professional</p>
+        <h1>System Administrator</h1>
+        <p class="summary">I work in IT operations with Windows infrastructure, VMware Horizon/VDI, Microsoft 365, Exchange, operational support, incidents and troubleshooting.</p>
+        <div class="fact-list">
+          <div class="fact"><span>VMware Horizon / VDI</span><span>user-facing infrastructure</span></div>
+          <div class="fact"><span>Microsoft 365 / Exchange</span><span>administration and support</span></div>
+          <div class="fact"><span>Windows infrastructure</span><span>operations and continuity</span></div>
+          <div class="fact"><span>Incidents</span><span>troubleshooting under real constraints</span></div>
         </div>
         <div class="actions">
-          <a class="button primary" href="mailto:denniskappel@gmx.net">Contact me</a>
+          <a class="button" href="mailto:denniskappel@gmx.net">Contact</a>
           <a class="button" href="https://github.com/ffworker" target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
       </article>
 
-      <article class="agent">
-        <p class="label">From my daily personal AI agent</p>
-        <h2>Coworker review</h2>
-        <p class="quote">I know more commands and can be confidently wrong in several formats. Dennis usually knows which system we are actually fixing, unless he explained the outage to me badly first.</p>
+      <article class="side lab" id="lab">
+        <p class="label">Private Infrastructure Lab</p>
+        <h1>Linux, k3s and automation practice</h1>
+        <p class="summary">Outside work, I operate a private lab with Linux, Docker, Kubernetes/k3s, Raspberry Pis, NetBird, networking, storage, backups, monitoring and automation.</p>
+        <div class="fact-list">
+          <div class="fact"><span>Linux / Docker</span><span>services I run and troubleshoot</span></div>
+          <div class="fact"><span>Kubernetes / k3s</span><span>important learning and practice area</span></div>
+          <div class="fact"><span>Networking / NetBird</span><span>private service access and routing</span></div>
+          <div class="fact"><span>Monitoring / automation</span><span>Grafana, Prometheus, Git and runbooks</span></div>
+        </div>
       </article>
     </section>
+
+    <section class="evidence" aria-label="Real infrastructure evidence">
+      <article class="evidence-row">
+        <div class="shot">
+          <figure>
+            <img src="assets/monitoring-redacted.png" alt="Redacted Prometheus view showing aggregate monitoring query result" loading="lazy" />
+            <figcaption>Monitoring VPS, Raspberry Pi and cluster health.</figcaption>
+          </figure>
+        </div>
+        <div class="copy">
+          <p class="label">Example 01</p>
+          <h2>Monitoring across VPS, Raspberry Pi and Kubernetes systems</h2>
+          <p>I use Prometheus, Grafana, exporters and service checks to verify whether the private infrastructure is reachable and healthy. The screenshot shows a real Prometheus view with only aggregate data.</p>
+          <p class="role">My role: I defined what needed to be observed, directed AI-assisted implementation, checked the real metrics, and kept the result documented.</p>
+        </div>
+      </article>
+
+      <article class="evidence-row">
+        <div class="shot">
+          <figure>
+            <img src="assets/k8s-monitoring-redacted.png" alt="Redacted Prometheus query for Kubernetes node readiness" loading="lazy" />
+            <figcaption>Checking Kubernetes readiness in the private k3s lab.</figcaption>
+          </figure>
+        </div>
+        <div class="copy">
+          <p class="label">Example 02</p>
+          <h2>Migrating selected services from VPS containers into k3s</h2>
+          <p>I practice Kubernetes through real service moves: manifests, Services, Ingress, rollouts, logs, events, storage and validation commands. Kubernetes is a current learning focus, not a claim of senior specialization.</p>
+          <p class="role">My role: I use AI for drafts, explanations and review, but I validate changes against the actual cluster before treating them as done.</p>
+        </div>
+      </article>
+
+      <article class="evidence-row">
+        <div class="shot">
+          <figure>
+            <img src="assets/private-access-redacted.png" alt="Redacted NetBird access page" loading="lazy" />
+            <figcaption>Private access layer for lab and service administration.</figcaption>
+          </figure>
+        </div>
+        <div class="copy">
+          <p class="label">Example 03</p>
+          <h2>Private networking and service access through NetBird</h2>
+          <p>I use private networking to reach lab services without making every admin surface public. That includes thinking about routing, access paths, DNS, service exposure and what should stay private.</p>
+          <p class="role">My role: planning, troubleshooting, rollout checks and documentation; AI helps compare approaches and draft steps when the live network needs careful handling.</p>
+        </div>
+      </article>
+    </section>
+
+    <aside class="agent-note">
+      <span class="note-label">From Dennis' daily AI agent</span>
+      I help plan, troubleshoot, implement and document faster. Dennis brings the context, and the logs usually reveal which one of us misunderstood the problem.
+    </aside>
   </main>
 
-  <footer>
-    <div class="wrap footer-row">
-      <span>Dennis Kappel - system administration, IT operations and private infrastructure projects</span>
-      <span><a href="mailto:denniskappel@gmx.net">Email</a> / <a href="https://github.com/ffworker" target="_blank" rel="noopener noreferrer">GitHub</a></span>
-    </div>
+  <footer id="contact">
+    <span>Dennis Kappel - System Administrator with private infrastructure projects</span>
+    <span><a href="mailto:denniskappel@gmx.net">Email</a> / <a href="https://github.com/ffworker" target="_blank" rel="noopener noreferrer">GitHub</a></span>
   </footer>
 </body>
 </html>
