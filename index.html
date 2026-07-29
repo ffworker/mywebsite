@@ -445,6 +445,67 @@
     .detail-stage[data-active="lab"] .context-list {
       color: var(--dark-muted);
     }
+    .tech {
+      font-weight: 800;
+    }
+    .tech.vmware { color: #5c7f9f; }
+    .tech.microsoft,
+    .tech.exchange,
+    .tech.windows { color: #0078d4; }
+    .tech.linux { color: #d7a82f; }
+    .tech.docker { color: #2496ed; }
+    .tech.kubernetes { color: #326ce5; }
+    .tech.netbird { color: #f15a24; }
+    .tech.grafana { color: #f5a400; }
+    .tech.prometheus { color: #e6522c; }
+    .tech.yaml { color: #d68b2f; }
+    .tech.json { color: #8f7af5; }
+    .tech.javascript { color: #b89500; }
+    .tech.ai { color: #b77936; }
+    .detail-stage[data-active="lab"] .tech.javascript { color: #f1d95a; }
+    .skill-control-map {
+      display: grid;
+      gap: 1px;
+      margin-top: 14px;
+      border: 1px solid var(--line);
+      background: var(--line);
+      font-family: var(--mono);
+      font-size: 11px;
+      line-height: 1.45;
+    }
+    .detail-stage[data-active="lab"] .skill-control-map {
+      border-color: var(--dark-line);
+      background: var(--dark-line);
+    }
+    .map-row {
+      display: grid;
+      grid-template-columns: minmax(120px, 0.36fr) minmax(150px, 0.34fr) minmax(0, 0.3fr);
+      gap: 14px;
+      padding: 10px 12px;
+      background: #fbfcfa;
+      color: var(--muted);
+    }
+    .detail-stage[data-active="lab"] .map-row {
+      background: var(--dark-2);
+      color: var(--dark-muted);
+    }
+    .map-row:first-child {
+      color: var(--ink);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .detail-stage[data-active="lab"] .map-row:first-child {
+      color: var(--dark-text);
+    }
+    .map-row > span:first-child {
+      color: var(--ink);
+      font-weight: 800;
+    }
+    .detail-stage[data-active="lab"] .map-row > span:first-child {
+      color: var(--dark-text);
+    }
     .cv-js .context-row {
       opacity: 0;
       transform: translateY(8px);
@@ -838,6 +899,9 @@
       .context-row {
         grid-template-columns: 1fr;
       }
+      .map-row {
+        grid-template-columns: minmax(130px, 0.34fr) minmax(160px, 0.34fr) minmax(0, 0.32fr);
+      }
       .lab-live .health-card {
         grid-template-columns: 1fr;
       }
@@ -889,6 +953,10 @@
       }
       .lab-live .metrics {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .map-row {
+        grid-template-columns: 1fr;
+        gap: 4px;
       }
       .metrics {
         grid-template-columns: 1fr;
@@ -1006,17 +1074,18 @@
               <div class="type-line" data-type-line="load context: professional-system-administration">load context: professional-system-administration</div>
               <div class="type-line" data-type-line="map scope: vmware-horizon / vdi / m365 / exchange / windows">map scope: vmware-horizon / vdi / m365 / exchange / windows</div>
               <div class="type-line" data-type-line="render view: operations / incidents / service-continuity">render view: operations / incidents / service-continuity</div>
+              <div class="type-line" data-type-line="load skill-control-map: professional-ops">load skill-control-map: professional-ops</div>
             </div>
             <div class="context-output">
               <section class="context-row">
                 <div>
                   <span class="detail-meta">skill group</span>
-                  <h3>vmware-horizon / vdi-environment</h3>
+                  <h3><span class="tech vmware">vmware-horizon</span> / vdi-environment</h3>
                 </div>
                 <div>
                   <p>User-facing virtual desktop infrastructure where support work has to connect client symptoms, sessions, access paths and operational impact.</p>
                   <ul class="context-list">
-                    <li>VMware Horizon / VDI environment support</li>
+                    <li><span class="tech vmware">VMware Horizon / VDI</span> environment support</li>
                     <li>user access, session and client-side troubleshooting</li>
                     <li>practical escalation notes for issues that need deeper platform changes</li>
                   </ul>
@@ -1025,14 +1094,14 @@
               <section class="context-row">
                 <div>
                   <span class="detail-meta">skill group</span>
-                  <h3>microsoft-365 / exchange / windows</h3>
+                  <h3><span class="tech microsoft">microsoft-365</span> / <span class="tech exchange">exchange</span> / <span class="tech windows">windows</span></h3>
                 </div>
                 <div>
                   <p>Professional operations around Microsoft 365, Exchange and Windows infrastructure, with the focus on administration, support and service continuity.</p>
                   <ul class="context-list">
-                    <li>Microsoft 365 administration and user support</li>
-                    <li>Exchange support in operational environments</li>
-                    <li>Windows infrastructure troubleshooting under real constraints</li>
+                    <li><span class="tech microsoft">Microsoft 365</span> administration and user support</li>
+                    <li><span class="tech exchange">Exchange</span> support in operational environments</li>
+                    <li><span class="tech windows">Windows infrastructure</span> troubleshooting under real constraints</li>
                   </ul>
                 </div>
               </section>
@@ -1048,6 +1117,21 @@
                     <li>clear notes for handover and future investigation</li>
                     <li>fixes that are understandable, not just lucky</li>
                   </ul>
+                </div>
+              </section>
+              <section class="context-row">
+                <div>
+                  <span class="detail-meta">skill-control-map</span>
+                  <h3>professional-ops / current-control</h3>
+                </div>
+                <div>
+                  <p>A compact map of what I can currently take responsibility for in professional system administration contexts.</p>
+                  <div class="skill-control-map" role="table" aria-label="Professional skill control map">
+                    <div class="map-row" role="row"><span>area</span><span>current use</span><span>control level</span></div>
+                    <div class="map-row" role="row"><span><span class="tech vmware">VMware Horizon / VDI</span></span><span>user-facing virtual desktop support</span><span>support / troubleshoot</span></div>
+                    <div class="map-row" role="row"><span><span class="tech microsoft">Microsoft 365</span> / <span class="tech exchange">Exchange</span></span><span>administration and operational support</span><span>operate / support</span></div>
+                    <div class="map-row" role="row"><span><span class="tech windows">Windows infrastructure</span></span><span>incidents, access and service continuity</span><span>troubleshoot / document</span></div>
+                  </div>
                 </div>
               </section>
             </div>
@@ -1080,12 +1164,13 @@
               <div class="type-line" data-type-line="load context: private-infrastructure-lab">load context: private-infrastructure-lab</div>
               <div class="type-line" data-type-line="map scope: linux / docker / k3s / netbird / monitoring">map scope: linux / docker / k3s / netbird / monitoring</div>
               <div class="type-line" data-type-line="render view: lab health / migrations / private access">render view: lab health / migrations / private access</div>
+              <div class="type-line" data-type-line="load skill-control-map: lab-ai-learning">load skill-control-map: lab-ai-learning</div>
             </div>
             <div class="context-output">
               <section class="context-row">
                 <div>
                   <span class="detail-meta">lab scope</span>
-                  <h3>linux / docker / pi-and-vps-services</h3>
+                  <h3><span class="tech linux">linux</span> / <span class="tech docker">docker</span> / pi-and-vps-services</h3>
                 </div>
                 <div>
                   <p>The private lab is where Linux, Docker, Raspberry Pis, storage, backups and service exposure become real systems rather than abstract study topics.</p>
@@ -1098,7 +1183,7 @@
               <section class="context-row">
                 <div>
                   <span class="detail-meta">practice area</span>
-                  <h3>kubernetes / k3s / workload-migration</h3>
+                  <h3><span class="tech kubernetes">kubernetes</span> / k3s / workload-migration</h3>
                 </div>
                 <div>
                   <p>Kubernetes is an active practical learning area: manifests, ingress, storage, rollouts, logs and failure states are tested against services I actually run.</p>
@@ -1111,14 +1196,31 @@
               <section class="context-row">
                 <div>
                   <span class="detail-meta">control loop</span>
-                  <h3>netbird / monitoring / git-backed-notes</h3>
+                  <h3><span class="tech netbird">netbird</span> / monitoring / git-backed-notes</h3>
                 </div>
                 <div>
                   <p>Private access, safe aggregate monitoring, Git-backed configuration and AI-assisted documentation turn experiments into something I can revisit, verify and improve.</p>
                   <ul class="context-list">
-                    <li>private access through NetBird instead of exposing admin paths</li>
-                    <li>Grafana, Prometheus and Git-backed notes used as verification tools</li>
+                    <li>private access through <span class="tech netbird">NetBird</span> instead of exposing admin paths</li>
+                    <li><span class="tech grafana">Grafana</span>, <span class="tech prometheus">Prometheus</span> and Git-backed notes used as verification tools</li>
                   </ul>
+                </div>
+              </section>
+              <section class="context-row">
+                <div>
+                  <span class="detail-meta">skill-control-map</span>
+                  <h3>lab-ai-learning / current-control</h3>
+                </div>
+                <div>
+                  <p>Different areas have different ownership: some I operate directly, some I review and modify, and some are mostly AI-generated support code.</p>
+                  <div class="skill-control-map" role="table" aria-label="Private lab skill control map">
+                    <div class="map-row" role="row"><span>area</span><span>current use</span><span>control level</span></div>
+                    <div class="map-row" role="row"><span><span class="tech kubernetes">Kubernetes / k3s</span></span><span>workloads, ingress, storage, logs, events</span><span>active learning / troubleshoot</span></div>
+                    <div class="map-row" role="row"><span><span class="tech yaml">YAML</span> / <span class="tech json">JSON</span></span><span>AI drafts often; I review, edit and spot mistakes</span><span>modify / validate</span></div>
+                    <div class="map-row" role="row"><span><span class="tech grafana">Grafana</span> / <span class="tech prometheus">Prometheus</span></span><span>agent-assisted monitoring; I verify and use the result</span><span>validate / operate</span></div>
+                    <div class="map-row" role="row"><span><span class="tech netbird">NetBird</span></span><span>private access and routing decisions</span><span>operate / troubleshoot</span></div>
+                    <div class="map-row" role="row"><span><span class="tech javascript">JavaScript</span></span><span>mostly AI-generated site behavior and support tooling</span><span>review / apply, not a learning focus</span></div>
+                  </div>
                 </div>
               </section>
             </div>
