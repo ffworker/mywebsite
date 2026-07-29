@@ -10,26 +10,31 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --bg: #020617;
-      --panel: rgba(15, 23, 42, 0.82);
-      --panel-soft: rgba(15, 23, 42, 0.58);
-      --card: rgba(255, 255, 255, 0.045);
-      --card-strong: rgba(255, 255, 255, 0.075);
-      --border: rgba(148, 163, 184, 0.17);
-      --border-strong: rgba(148, 163, 184, 0.30);
+      --bg-elevated: #07111f;
+      --panel: rgba(15, 23, 42, 0.86);
+      --panel-soft: rgba(15, 23, 42, 0.62);
+      --panel-deep: rgba(2, 6, 23, 0.84);
+      --card: rgba(255, 255, 255, 0.052);
+      --card-strong: rgba(255, 255, 255, 0.092);
+      --border: rgba(148, 163, 184, 0.18);
+      --border-strong: rgba(148, 163, 184, 0.34);
       --text: #f8fafc;
-      --muted: #94a3b8;
+      --muted: #a8b3c5;
       --dim: #64748b;
       --green: #10b981;
       --cyan: #22d3ee;
       --blue: #60a5fa;
       --amber: #f59e0b;
-      --violet: #8b5cf6;
+      --violet: #a78bfa;
       --red: #fb7185;
       --mono: "JetBrains Mono", "Fira Code", "Cascadia Code", ui-monospace, SFMono-Regular, Menlo, monospace;
       --ui: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       --radius: 8px;
+      --shadow-soft: 0 18px 60px rgba(0, 0, 0, 0.28);
+      --shadow-strong: 0 28px 100px rgba(0, 0, 0, 0.38);
+      --nav-height: 64px;
     }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-height) + 24px); }
     body {
       min-height: 100vh;
       background: var(--bg);
@@ -37,6 +42,7 @@
       font-family: var(--ui);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      overflow-x: clip;
     }
     body::before {
       content: "";
@@ -61,18 +67,22 @@
         radial-gradient(ellipse 42% 36% at 100% 18%, rgba(96, 165, 250, 0.10), transparent 58%);
     }
     a { color: inherit; }
-    .page { position: relative; z-index: 1; }
-    .wrap { width: min(1120px, calc(100vw - 40px)); margin: 0 auto; }
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 4px;
+    }
+    .page { position: relative; z-index: 1; overflow-x: clip; }
+    .wrap { width: min(1160px, calc(100vw - 40px)); margin: 0 auto; }
     .nav {
       position: sticky;
       top: 0;
       z-index: 20;
       border-bottom: 1px solid var(--border);
-      background: rgba(2, 6, 23, 0.78);
+      background: rgba(2, 6, 23, 0.84);
       backdrop-filter: blur(16px);
     }
     .nav-inner {
-      min-height: 64px;
+      min-height: var(--nav-height);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -100,24 +110,37 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 18px;
+      gap: 6px;
       color: var(--muted);
       font-size: 13px;
     }
     .nav-links a {
       text-decoration: none;
-      transition: color 0.15s ease;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: 7px 10px;
+      transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
       white-space: nowrap;
     }
-    .nav-links a:hover { color: var(--text); }
-    .hero {
-      min-height: 72vh;
-      display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
-      gap: 48px;
-      align-items: center;
-      padding: 72px 0 56px;
+    .nav-links a:hover, .nav-links a:focus-visible {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.045);
+      border-color: var(--border);
     }
+    .nav-links a.active {
+      color: var(--cyan);
+      border-color: rgba(34, 211, 238, 0.24);
+      background: rgba(34, 211, 238, 0.08);
+    }
+    .hero {
+      min-height: calc(100vh - var(--nav-height) - 48px);
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(340px, 0.92fr);
+      gap: clamp(32px, 5vw, 68px);
+      align-items: center;
+      padding: clamp(64px, 9vw, 110px) 0 clamp(44px, 7vw, 72px);
+    }
+    .hero-copy { max-width: 840px; }
     .eyebrow {
       display: inline-flex;
       align-items: center;
@@ -127,25 +150,26 @@
       font-size: 12px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
     .eyebrow::before { content: ">"; color: var(--green); }
     h1 {
-      max-width: 780px;
+      max-width: 820px;
       font-family: var(--mono);
-      font-size: clamp(2.45rem, 6.2vw, 5.2rem);
-      line-height: 0.98;
-      letter-spacing: -0.01em;
+      font-size: clamp(2.55rem, 4.6vw, 4.08rem);
+      line-height: 1.06;
+      letter-spacing: 0;
     }
     .lead {
-      margin-top: 24px;
-      max-width: 710px;
+      margin-top: 28px;
+      max-width: 650px;
       color: #cbd5e1;
-      font-size: clamp(1.02rem, 2vw, 1.24rem);
+      font-size: clamp(1rem, 1.55vw, 1.18rem);
+      line-height: 1.75;
     }
     .lead strong { color: var(--text); font-weight: 700; }
     .actions {
-      margin-top: 28px;
+      margin-top: 34px;
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
@@ -161,10 +185,10 @@
       color: var(--text);
       text-decoration: none;
       border-radius: 999px;
-      padding: 8px 16px;
+      padding: 9px 16px;
       font-size: 13px;
       font-weight: 700;
-      transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+      transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
     }
     .button:hover {
       transform: translateY(-1px);
@@ -172,36 +196,56 @@
       background: rgba(34, 211, 238, 0.10);
     }
     .button.primary {
-      background: rgba(16, 185, 129, 0.16);
-      border-color: rgba(16, 185, 129, 0.48);
+      min-height: 46px;
+      padding-inline: 20px;
+      background: linear-gradient(180deg, rgba(16, 185, 129, 0.28), rgba(16, 185, 129, 0.14));
+      border-color: rgba(16, 185, 129, 0.62);
+      box-shadow: 0 14px 36px rgba(16, 185, 129, 0.12);
     }
+    .button.primary:hover { border-color: rgba(16, 185, 129, 0.86); background: rgba(16, 185, 129, 0.20); }
     .terminal {
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      background: rgba(2, 6, 23, 0.78);
-      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+      background:
+        linear-gradient(180deg, rgba(2, 6, 23, 0.92), rgba(2, 6, 23, 0.72)),
+        var(--panel-deep);
+      box-shadow: var(--shadow-strong);
       overflow: hidden;
+      position: relative;
+    }
+    .terminal::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-top: 1px solid rgba(34, 211, 238, 0.16);
     }
     .terminal-top {
-      height: 38px;
+      height: 42px;
       display: flex;
       align-items: center;
       gap: 8px;
       padding: 0 14px;
       border-bottom: 1px solid var(--border);
-      background: rgba(15, 23, 42, 0.78);
+      background: rgba(15, 23, 42, 0.84);
     }
     .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--dim); }
     .dot:nth-child(1) { background: var(--red); }
     .dot:nth-child(2) { background: var(--amber); }
     .dot:nth-child(3) { background: var(--green); }
     .terminal-body {
-      padding: 18px;
+      padding: 22px;
       font-family: var(--mono);
-      font-size: 12px;
+      font-size: 12.5px;
       color: var(--muted);
     }
-    .term-line { display: flex; gap: 10px; padding: 5px 0; }
+    .term-line {
+      display: grid;
+      grid-template-columns: 14px minmax(0, 1fr);
+      gap: 10px;
+      padding: 5px 0;
+    }
+    .term-result { padding-bottom: 13px; }
     .prompt { color: var(--green); flex: 0 0 auto; }
     .ok { color: var(--cyan); }
     .warn { color: var(--amber); }
@@ -209,33 +253,64 @@
     .metrics {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 12px;
-      margin: 0 auto 64px;
-    }
-    .metric {
+      gap: 1px;
+      margin: -18px auto 76px;
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      background: var(--panel-soft);
-      padding: 16px;
-      min-height: 112px;
+      background: rgba(148, 163, 184, 0.16);
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
     }
+    .metric {
+      position: relative;
+      background: rgba(15, 23, 42, 0.78);
+      padding: 18px 18px 20px;
+      min-height: 124px;
+    }
+    .metric::before {
+      content: "";
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      top: 0;
+      height: 2px;
+      background: var(--green);
+      opacity: 0.74;
+    }
+    .metric:nth-child(2)::before { background: var(--cyan); }
+    .metric:nth-child(3)::before { background: var(--blue); }
+    .metric:nth-child(4)::before { background: var(--amber); }
     .metric-value {
       font-family: var(--mono);
-      font-size: 24px;
+      font-size: clamp(1.35rem, 2vw, 1.75rem);
       color: var(--text);
+      line-height: 1.15;
     }
     .metric-label {
-      margin-top: 6px;
+      margin-top: 10px;
       color: var(--muted);
       font-size: 13px;
+      line-height: 1.45;
     }
-    section { padding: 64px 0; }
+    section { padding: 76px 0; }
+    section.priority {
+      position: relative;
+      padding-block: 86px;
+    }
+    section.priority::before {
+      content: "";
+      position: absolute;
+      inset: 20px max(20px, calc((100vw - 1210px) / 2)) 20px;
+      z-index: -1;
+      border-block: 1px solid rgba(148, 163, 184, 0.10);
+      background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.035), transparent);
+    }
     .section-head {
       display: flex;
       align-items: end;
       justify-content: space-between;
       gap: 24px;
-      margin-bottom: 24px;
+      margin-bottom: 30px;
     }
     .section-kicker {
       font-family: var(--mono);
@@ -243,35 +318,58 @@
       font-size: 12px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
     h2 {
-      font-size: clamp(1.7rem, 3vw, 2.45rem);
+      max-width: 760px;
+      font-size: clamp(1.8rem, 3vw, 2.65rem);
       line-height: 1.1;
-      letter-spacing: -0.01em;
+      letter-spacing: 0;
     }
     .section-note {
-      max-width: 560px;
+      max-width: 430px;
       color: var(--muted);
       font-size: 14px;
+      line-height: 1.65;
     }
-    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
     .card {
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      background: var(--panel);
-      padding: 20px;
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.90), rgba(15, 23, 42, 0.68));
+      padding: 22px;
+      transition: transform 0.16s ease, border-color 0.16s ease, background 0.16s ease, box-shadow 0.16s ease;
     }
-    .card:hover { border-color: rgba(148, 163, 184, 0.36); }
+    .card:hover, .work:hover {
+      transform: translateY(-2px);
+      border-color: rgba(148, 163, 184, 0.42);
+      box-shadow: 0 18px 54px rgba(0, 0, 0, 0.22);
+    }
     .card h3 {
       display: flex;
       align-items: center;
       gap: 10px;
       color: var(--text);
-      font-size: 1rem;
-      margin-bottom: 10px;
+      font-size: 1.04rem;
+      line-height: 1.25;
+      margin-bottom: 12px;
     }
+    .card-icon {
+      width: 38px;
+      height: 38px;
+      display: inline-grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.045);
+      color: var(--cyan);
+    }
+    .card-icon svg { width: 20px; height: 20px; stroke-width: 1.8; }
+    .card-icon.green { color: var(--green); background: rgba(16, 185, 129, 0.08); }
+    .card-icon.amber { color: var(--amber); background: rgba(245, 158, 11, 0.08); }
+    .card-icon.violet { color: var(--violet); background: rgba(139, 92, 246, 0.08); }
     .marker {
       width: 9px;
       height: 9px;
@@ -281,7 +379,7 @@
     .marker.green { background: var(--green); box-shadow: 0 0 22px rgba(16, 185, 129, 0.38); }
     .marker.amber { background: var(--amber); box-shadow: 0 0 22px rgba(245, 158, 11, 0.32); }
     .marker.violet { background: var(--violet); box-shadow: 0 0 22px rgba(139, 92, 246, 0.32); }
-    .card p, .card li { color: var(--muted); font-size: 14px; }
+    .card p, .card li { color: var(--muted); font-size: 14px; line-height: 1.65; }
     ul.clean { list-style: none; display: grid; gap: 9px; }
     ul.clean li {
       position: relative;
@@ -296,46 +394,145 @@
       height: 1px;
       background: var(--cyan);
     }
+    .card:nth-child(1) ul.clean li::before { background: var(--green); }
+    .card:nth-child(3) ul.clean li::before { background: var(--violet); }
     .tags {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 14px;
+      margin-top: 16px;
     }
     .tag {
       border: 1px solid var(--border);
       background: rgba(255, 255, 255, 0.04);
-      color: #cbd5e1;
+      color: #dbeafe;
       border-radius: 999px;
-      padding: 4px 9px;
+      padding: 5px 9px;
       font-family: var(--mono);
       font-size: 11px;
+      line-height: 1.2;
+    }
+    .capability-grid {
+      counter-reset: capability;
+    }
+    .capability-card {
+      min-height: 220px;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+    .capability-card::before {
+      counter-increment: capability;
+      content: "0" counter(capability);
+      position: absolute;
+      right: 18px;
+      top: 14px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: rgba(148, 163, 184, 0.46);
+    }
+    .capability-card h3 {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      padding-right: 36px;
+      font-size: clamp(1.12rem, 2vw, 1.38rem);
+    }
+    .capability-card p {
+      max-width: 58ch;
+      align-self: end;
+    }
+    .stack-system {
+      position: relative;
+      padding: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.12);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(90deg, transparent 0 calc(33.333% - 1px), rgba(34, 211, 238, 0.12) calc(33.333% - 1px) 33.333%, transparent 33.333% calc(66.666% - 1px), rgba(139, 92, 246, 0.10) calc(66.666% - 1px) 66.666%, transparent 66.666%),
+        rgba(2, 6, 23, 0.22);
+    }
+    .stack-system .card {
+      min-height: 100%;
+      background: rgba(15, 23, 42, 0.78);
     }
     .timeline {
       display: grid;
-      gap: 14px;
+      gap: 0;
+      position: relative;
+    }
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 14px;
+      bottom: 14px;
+      left: 91px;
+      width: 1px;
+      background: linear-gradient(var(--green), var(--cyan), var(--violet), var(--amber));
+      opacity: 0.62;
     }
     .work {
+      position: relative;
       display: grid;
       grid-template-columns: 180px minmax(0, 1fr);
-      gap: 18px;
+      gap: 24px;
       border: 1px solid var(--border);
-      background: var(--panel);
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.68));
       border-radius: var(--radius);
-      padding: 18px;
+      padding: 22px;
+      transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+    }
+    .work + .work { margin-top: 16px; }
+    .work::before {
+      content: "";
+      position: absolute;
+      left: 86px;
+      top: 28px;
+      width: 11px;
+      height: 11px;
+      border: 2px solid var(--cyan);
+      background: var(--bg);
+      box-shadow: 0 0 0 6px rgba(34, 211, 238, 0.08);
     }
     .work-label {
+      align-self: start;
+      width: max-content;
+      max-width: 100%;
+      border: 1px solid rgba(34, 211, 238, 0.22);
+      border-radius: 999px;
+      background: rgba(34, 211, 238, 0.07);
+      padding: 6px 10px;
       font-family: var(--mono);
       color: var(--cyan);
       font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
     }
-    .work h3 { margin-bottom: 6px; }
-    .work p { color: var(--muted); font-size: 14px; }
+    .work:nth-child(1) .work-label, .work:nth-child(1)::before { color: var(--green); border-color: rgba(16, 185, 129, 0.30); }
+    .work:nth-child(1) .work-label { background: rgba(16, 185, 129, 0.08); }
+    .work:nth-child(3) .work-label, .work:nth-child(3)::before { color: var(--violet); border-color: rgba(139, 92, 246, 0.30); }
+    .work:nth-child(3) .work-label { background: rgba(139, 92, 246, 0.08); }
+    .work:nth-child(4) .work-label, .work:nth-child(4)::before { color: var(--amber); border-color: rgba(245, 158, 11, 0.30); }
+    .work:nth-child(4) .work-label { background: rgba(245, 158, 11, 0.08); }
+    .work h3 {
+      max-width: 760px;
+      margin-bottom: 8px;
+      font-size: clamp(1.12rem, 2vw, 1.42rem);
+      line-height: 1.25;
+    }
+    .work p { max-width: 760px; color: var(--muted); font-size: 14px; line-height: 1.68; }
     .truth {
       border-left: 2px solid rgba(16, 185, 129, 0.62);
       background: rgba(16, 185, 129, 0.07);
+    }
+    .agents-contrast .card {
+      min-height: 260px;
+    }
+    .agents-contrast .card:first-child {
+      border-color: rgba(16, 185, 129, 0.34);
+    }
+    .agents-contrast .card:last-child {
+      border-color: rgba(245, 158, 11, 0.28);
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.86), rgba(29, 20, 7, 0.36));
     }
     footer {
       border-top: 1px solid var(--border);
@@ -351,14 +548,84 @@
     }
     .footer-links { display: flex; gap: 14px; flex-wrap: wrap; }
     .footer-links a { color: var(--muted); text-decoration: none; }
-    .footer-links a:hover { color: var(--text); }
+    .footer-links a:hover, .footer-links a:focus-visible { color: var(--text); }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+    @media (max-width: 1024px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+        min-height: auto;
+      }
+      .terminal { max-width: 680px; }
+      .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .stack-system { background: rgba(2, 6, 23, 0.22); }
+      .grid-3 { grid-template-columns: 1fr; }
+      .section-head { align-items: start; }
+    }
     @media (max-width: 860px) {
-      .nav-links { display: none; }
-      .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 48px; }
-      .metrics, .grid-3, .grid-2 { grid-template-columns: 1fr; }
+      :root { --nav-height: 92px; }
+      .wrap { width: min(100% - 28px, 1160px); }
+      .nav-inner {
+        min-height: var(--nav-height);
+        display: grid;
+        align-content: center;
+        gap: 10px;
+        min-width: 0;
+      }
+      .nav-links {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        display: flex;
+        gap: 6px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-bottom: 2px;
+        scrollbar-width: none;
+      }
+      .nav-links::-webkit-scrollbar { display: none; }
+      .nav-links a { padding: 7px 9px; }
+      .hero { padding-top: 34px; }
+      h1 { font-size: clamp(2.05rem, 10vw, 4.2rem); overflow-wrap: break-word; }
+      .lead { max-width: 100%; }
+      .actions { margin-top: 24px; gap: 8px; }
+      .button { min-height: 44px; }
+      .metrics, .grid-2 { grid-template-columns: 1fr; }
+      .metrics { margin-top: 0; }
+      section, section.priority { padding: 58px 0; }
       .section-head { display: block; }
       .section-note { margin-top: 12px; }
-      .work { grid-template-columns: 1fr; }
+      .capability-card { min-height: auto; }
+      .stack-system { padding: 0; border: 0; background: transparent; }
+      .timeline::before { left: 9px; }
+      .work {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        padding-left: 28px;
+      }
+      .work::before { left: 4px; top: 31px; }
+    }
+    @media (max-width: 420px) {
+      .wrap { width: min(100% - 24px, 1160px); }
+      .brand { font-size: 12px; }
+      .eyebrow { font-size: 11px; letter-spacing: 0.10em; }
+      h1 { font-size: clamp(1.95rem, 9.8vw, 2.75rem); }
+      .lead { margin-top: 20px; font-size: 0.98rem; line-height: 1.62; }
+      .terminal-body { padding: 16px; font-size: 11.5px; }
+      .term-line { grid-template-columns: 10px minmax(0, 1fr); gap: 8px; }
+      .actions { display: grid; grid-template-columns: 1fr 1fr; }
+      .button.primary { grid-column: 1 / -1; }
+      .button { width: 100%; }
+      .card, .work { padding: 18px; }
+      .work { padding-left: 26px; }
+      .tags { gap: 6px; }
+      .tag { max-width: 100%; overflow-wrap: anywhere; }
     }
   </style>
 </head>
@@ -368,9 +635,9 @@
       <div class="wrap nav-inner">
         <a class="brand" href="#top"><span class="brand-mark"></span>Dennis Kappel</a>
         <div class="nav-links">
-          <a href="#stack">Stack</a>
           <a href="#capabilities">Capabilities</a>
           <a href="#work">Selected Work</a>
+          <a href="#stack">Stack</a>
           <a href="#agents">LLMs & Agents</a>
           <a href="#next">Next</a>
         </div>
@@ -378,7 +645,7 @@
     </nav>
 
     <header id="top" class="wrap hero">
-      <div>
+      <div class="hero-copy">
         <div class="eyebrow">IT operations, homelab, automation</div>
         <h1>I build useful systems and keep them understandable.</h1>
         <p class="lead">
@@ -398,13 +665,13 @@
         <div class="terminal-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
         <div class="terminal-body">
           <div class="term-line"><span class="prompt">$</span><span>whoami</span></div>
-          <div class="term-line"><span></span><span class="ok">practical operator, still learning deliberately</span></div>
+          <div class="term-line term-result"><span></span><span class="ok">practical operator, still learning deliberately</span></div>
           <div class="term-line"><span class="prompt">$</span><span>current-focus</span></div>
-          <div class="term-line"><span></span><span>k3s, observability, NetBird, Ansible, backups</span></div>
+          <div class="term-line term-result"><span></span><span>k3s, observability, NetBird, Ansible, backups</span></div>
           <div class="term-line"><span class="prompt">$</span><span>agent-workflow --honest</span></div>
-          <div class="term-line"><span></span><span class="warn">LLMs assist, humans verify, Git records truth</span></div>
+          <div class="term-line term-result"><span></span><span class="warn">LLMs assist, humans verify, Git records truth</span></div>
           <div class="term-line"><span class="prompt">$</span><span>status</span></div>
-          <div class="term-line"><span></span><span class="quiet">not expert-posturing; building real operating muscle</span></div>
+          <div class="term-line term-result"><span></span><span class="quiet">not expert-posturing; building real operating muscle</span></div>
         </div>
       </aside>
     </header>
@@ -417,49 +684,7 @@
     </div>
 
     <main>
-      <section id="stack" class="wrap">
-        <div class="section-head">
-          <div>
-            <div class="section-kicker">Current Stack</div>
-            <h2>What I actually run and practice now</h2>
-          </div>
-          <p class="section-note">This is current practice, not a list of everything I have ever touched.</p>
-        </div>
-        <div class="grid-3">
-          <article class="card">
-            <h3><span class="marker green"></span>Hosts and runtime</h3>
-            <ul class="clean">
-              <li>Debian/Linux VPS hosts and Raspberry Pi systems.</li>
-              <li>Docker Engine and Docker Compose for simple service stacks.</li>
-              <li>k3s clusters for Kubernetes practice and homelab workloads.</li>
-              <li>Systemd services, SSH access, sudo, package updates, and logs.</li>
-            </ul>
-            <div class="tags"><span class="tag">Linux</span><span class="tag">Docker</span><span class="tag">k3s</span></div>
-          </article>
-          <article class="card">
-            <h3><span class="marker"></span>Networking and access</h3>
-            <ul class="clean">
-              <li>NetBird for private access and routed homelab reachability.</li>
-              <li>Pi-hole DNS and a Raspberry Pi jumper for LAN routing.</li>
-              <li>Cloudflare Tunnel for public services without inbound home ports.</li>
-              <li>Reverse proxy basics, DNS records, tunnel origins, and service names.</li>
-            </ul>
-            <div class="tags"><span class="tag">NetBird</span><span class="tag">Cloudflare Tunnel</span><span class="tag">DNS</span></div>
-          </article>
-          <article class="card">
-            <h3><span class="marker violet"></span>Observability</h3>
-            <ul class="clean">
-              <li>Prometheus, Grafana, Alertmanager, and blackbox-exporter.</li>
-              <li>node-exporter and kube-state-metrics for host and cluster truth.</li>
-              <li>Dashboards focused on availability, CPU, memory, disk, pods, and failures.</li>
-              <li>Older InfluxDB/Grafana notes are legacy learning, not my preferred new path.</li>
-            </ul>
-            <div class="tags"><span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">kube-state</span></div>
-          </article>
-        </div>
-      </section>
-
-      <section id="capabilities" class="wrap">
+      <section id="capabilities" class="wrap priority">
         <div class="section-head">
           <div>
             <div class="section-kicker">What I Can Do Today</div>
@@ -467,27 +692,27 @@
           </div>
           <p class="section-note">I am not selling myself as a senior Kubernetes engineer. I am selling someone who learns fast, operates carefully, and documents reality.</p>
         </div>
-        <div class="grid-2">
-          <article class="card">
-            <h3><span class="marker green"></span>Operate small infrastructure</h3>
+        <div class="grid-2 capability-grid">
+          <article class="card capability-card">
+            <h3><span class="card-icon green" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16v10H4z"/><path d="M8 21h8"/><path d="M12 17v4"/><path d="M8 11h.01"/><path d="M12 11h.01"/><path d="M16 11h.01"/></svg></span>Operate small infrastructure</h3>
             <p>I can keep small Linux, VPS, and Raspberry Pi environments running: inspect services, read logs, understand dependencies, check ports, manage containers, and recover from common breakages.</p>
           </article>
-          <article class="card">
-            <h3><span class="marker"></span>Build practical deployment paths</h3>
+          <article class="card capability-card">
+            <h3><span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/><path d="M5 6v12"/></svg></span>Build practical deployment paths</h3>
             <p>I can move a simple service from Docker Compose into Kubernetes, define Services and Deployments, wire a Cloudflare Tunnel, test rollout state, and keep the change in Git.</p>
           </article>
-          <article class="card">
-            <h3><span class="marker violet"></span>Make systems observable</h3>
+          <article class="card capability-card">
+            <h3><span class="card-icon violet" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 19V5"/><path d="M4 19h16"/><path d="m7 15 3-4 3 2 4-6"/></svg></span>Make systems observable</h3>
             <p>I can add host and Kubernetes metrics, build readable Grafana dashboards, separate missing data from healthy data, and use monitoring to find what actually needs attention.</p>
           </article>
-          <article class="card">
-            <h3><span class="marker amber"></span>Turn fixes into runbooks</h3>
+          <article class="card capability-card">
+            <h3><span class="card-icon amber" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M7 4h10v16H7z"/><path d="M9 8h6"/><path d="M9 12h6"/><path d="M9 16h3"/></svg></span>Turn fixes into runbooks</h3>
             <p>I can document commands, rollback paths, access patterns, and setup steps. I am actively turning repeatable work into Ansible playbooks and concise operational cheat sheets.</p>
           </article>
         </div>
       </section>
 
-      <section id="work" class="wrap">
+      <section id="work" class="wrap priority">
         <div class="section-head">
           <div>
             <div class="section-kicker">Selected Work</div>
@@ -531,6 +756,48 @@
         </div>
       </section>
 
+      <section id="stack" class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Current Stack</div>
+            <h2>What I actually run and practice now</h2>
+          </div>
+          <p class="section-note">This is current practice, not a list of everything I have ever touched.</p>
+        </div>
+        <div class="grid-3 stack-system">
+          <article class="card">
+            <h3><span class="marker green"></span>Hosts and runtime</h3>
+            <ul class="clean">
+              <li>Debian/Linux VPS hosts and Raspberry Pi systems.</li>
+              <li>Docker Engine and Docker Compose for simple service stacks.</li>
+              <li>k3s clusters for Kubernetes practice and homelab workloads.</li>
+              <li>Systemd services, SSH access, sudo, package updates, and logs.</li>
+            </ul>
+            <div class="tags"><span class="tag">Linux</span><span class="tag">Docker</span><span class="tag">k3s</span></div>
+          </article>
+          <article class="card">
+            <h3><span class="marker"></span>Networking and access</h3>
+            <ul class="clean">
+              <li>NetBird for private access and routed homelab reachability.</li>
+              <li>Pi-hole DNS and a Raspberry Pi jumper for LAN routing.</li>
+              <li>Cloudflare Tunnel for public services without inbound home ports.</li>
+              <li>Reverse proxy basics, DNS records, tunnel origins, and service names.</li>
+            </ul>
+            <div class="tags"><span class="tag">NetBird</span><span class="tag">Cloudflare Tunnel</span><span class="tag">DNS</span></div>
+          </article>
+          <article class="card">
+            <h3><span class="marker violet"></span>Observability</h3>
+            <ul class="clean">
+              <li>Prometheus, Grafana, Alertmanager, and blackbox-exporter.</li>
+              <li>node-exporter and kube-state-metrics for host and cluster truth.</li>
+              <li>Dashboards focused on availability, CPU, memory, disk, pods, and failures.</li>
+              <li>Older InfluxDB/Grafana notes are legacy learning, not my preferred new path.</li>
+            </ul>
+            <div class="tags"><span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">kube-state</span></div>
+          </article>
+        </div>
+      </section>
+
       <section id="agents" class="wrap">
         <div class="section-head">
           <div>
@@ -539,7 +806,7 @@
           </div>
           <p class="section-note">I do not hide that LLMs help me. I also do not confuse generated output with verified infrastructure.</p>
         </div>
-        <div class="grid-2">
+        <div class="grid-2 agents-contrast">
           <article class="card truth">
             <h3><span class="marker green"></span>How I use them well</h3>
             <ul class="clean">
@@ -597,5 +864,27 @@
       </div>
     </footer>
   </div>
+  <script>
+    const navLinks = Array.from(document.querySelectorAll(".nav-links a"));
+    const sections = navLinks
+      .map((link) => document.querySelector(link.getAttribute("href")))
+      .filter(Boolean);
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        const active = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (!active) return;
+
+        navLinks.forEach((link) => {
+          link.classList.toggle("active", link.getAttribute("href") === `#${active.target.id}`);
+        });
+      }, { rootMargin: "-30% 0px -55% 0px", threshold: [0.1, 0.35, 0.65] });
+
+      sections.forEach((section) => observer.observe(section));
+    }
+  </script>
 </body>
 </html>
