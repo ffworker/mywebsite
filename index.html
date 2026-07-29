@@ -442,6 +442,52 @@
       gap: clamp(18px, 3vw, 32px);
       align-items: stretch;
     }
+    .lab-live {
+      display: block;
+    }
+    .lab-live .health-card {
+      padding: clamp(14px, 2vw, 18px);
+      display: grid;
+      grid-template-columns: minmax(190px, 0.7fr) minmax(0, 1.3fr);
+      gap: 16px;
+      align-items: start;
+    }
+    .lab-live .health-card::before {
+      width: 3px;
+    }
+    .lab-live .health-top {
+      display: grid;
+      gap: 10px;
+    }
+    .lab-live .health-card h3 {
+      margin-top: 6px;
+      font-size: clamp(22px, 2.1vw, 30px);
+      line-height: 1;
+    }
+    .lab-live .health-state {
+      width: fit-content;
+      min-width: 0;
+      padding: 7px 9px;
+      font-size: 11px;
+    }
+    .lab-live .metrics {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin-top: 0;
+    }
+    .lab-live .metric {
+      min-height: 68px;
+      padding: 10px;
+    }
+    .lab-live .metric strong {
+      margin-top: 8px;
+      font-size: clamp(20px, 2.2vw, 28px);
+    }
+    .lab-live .refresh,
+    .lab-live .live-error {
+      grid-column: 1 / -1;
+      margin-top: 0;
+      font-size: 11px;
+    }
     @keyframes detailIn {
       from { opacity: 0; transform: translateY(12px); }
       to { opacity: 1; transform: translateY(0); }
@@ -766,6 +812,9 @@
       .context-row {
         grid-template-columns: 1fr;
       }
+      .lab-live .health-card {
+        grid-template-columns: 1fr;
+      }
       .detail-card {
         min-height: 170px;
       }
@@ -811,6 +860,9 @@
       }
       .selector {
         width: 100%;
+      }
+      .lab-live .metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
       .metrics {
         grid-template-columns: 1fr;
@@ -956,54 +1008,54 @@
         </article>
 
         <article class="detail-panel" id="panel-lab" role="tabpanel" aria-labelledby="tab-lab" data-panel="lab" hidden>
+          <aside class="lab-live" aria-label="Private lab live evidence">
+            <section class="health-card" aria-label="Pi and k3s lab health">
+              <div class="health-top">
+                <div>
+                  <p class="label">Live evidence</p>
+                  <h3>Pi/k3s Lab Health</h3>
+                </div>
+                <div class="health-state" data-health-state>Loading</div>
+              </div>
+              <div class="metrics" aria-label="Safe aggregate lab metrics">
+                <div class="metric"><span>Cluster</span><strong data-cluster>...</strong></div>
+                <div class="metric"><span>Nodes ready</span><strong data-nodes>...</strong></div>
+                <div class="metric"><span>Workloads</span><strong data-workloads>...</strong></div>
+                <div class="metric"><span>Targets up</span><strong data-targets>...</strong></div>
+              </div>
+              <p class="refresh" data-refresh>Fetching safe aggregate data.</p>
+              <p class="refresh" data-next-refresh>Next refresh will be shown after the first successful fetch.</p>
+              <p class="live-error">Live data is unavailable or older than five minutes. This is not shown as healthy.</p>
+            </section>
+          </aside>
           <div class="context-build" data-context-build="lab">
             <div class="context-terminal" aria-label="Private lab context build">
               <div class="type-line" data-type-line="load context: private-infrastructure-lab">load context: private-infrastructure-lab</div>
               <div class="type-line" data-type-line="map scope: linux / docker / k3s / netbird / monitoring">map scope: linux / docker / k3s / netbird / monitoring</div>
               <div class="type-line" data-type-line="render view: lab health / migrations / private access">render view: lab health / migrations / private access</div>
             </div>
-            <div class="context-health">
-              <section class="health-card" aria-label="Pi and k3s lab health">
-                <div class="health-top">
-                  <div>
-                    <p class="label">Live evidence</p>
-                    <h3>Pi/k3s Lab Health</h3>
-                  </div>
-                  <div class="health-state" data-health-state>Loading</div>
+            <div class="context-output">
+              <section class="context-row">
+                <div>
+                  <span class="detail-meta">Lab environment</span>
+                  <h3>Linux services across Pi and VPS systems</h3>
                 </div>
-                <div class="metrics" aria-label="Safe aggregate lab metrics">
-                  <div class="metric"><span>Cluster</span><strong data-cluster>...</strong></div>
-                  <div class="metric"><span>Nodes ready</span><strong data-nodes>...</strong></div>
-                  <div class="metric"><span>Workloads</span><strong data-workloads>...</strong></div>
-                  <div class="metric"><span>Targets up</span><strong data-targets>...</strong></div>
-                </div>
-                <p class="refresh" data-refresh>Fetching safe aggregate data.</p>
-                <p class="refresh" data-next-refresh>Next refresh will be shown after the first successful fetch.</p>
-                <p class="live-error">Live data is unavailable or older than five minutes. This is not shown as healthy.</p>
+                <p>The private lab is where Linux, Docker, Raspberry Pis, storage, backups and service exposure become real systems rather than abstract study topics.</p>
               </section>
-              <div class="context-output">
-                <section class="context-row">
-                  <div>
-                    <span class="detail-meta">Lab environment</span>
-                    <h3>Linux services across Pi and VPS systems</h3>
-                  </div>
-                  <p>The private lab is where Linux, Docker, Raspberry Pis, storage, backups and service exposure become real systems rather than abstract study topics.</p>
-                </section>
-                <section class="context-row">
-                  <div>
-                    <span class="detail-meta">Kubernetes practice</span>
-                    <h3>Selected workloads moved into k3s</h3>
-                  </div>
-                  <p>Kubernetes is an active practical learning area: manifests, ingress, storage, rollouts, logs and failure states are tested against services I actually run.</p>
-                </section>
-                <section class="context-row">
-                  <div>
-                    <span class="detail-meta">Access and verification</span>
-                    <h3>NetBird, monitoring and Git-backed notes</h3>
-                  </div>
-                  <p>Private access, safe aggregate monitoring, Git-backed configuration and AI-assisted documentation turn experiments into something I can revisit, verify and improve.</p>
-                </section>
-              </div>
+              <section class="context-row">
+                <div>
+                  <span class="detail-meta">Kubernetes practice</span>
+                  <h3>Selected workloads moved into k3s</h3>
+                </div>
+                <p>Kubernetes is an active practical learning area: manifests, ingress, storage, rollouts, logs and failure states are tested against services I actually run.</p>
+              </section>
+              <section class="context-row">
+                <div>
+                  <span class="detail-meta">Access and verification</span>
+                  <h3>NetBird, monitoring and Git-backed notes</h3>
+                </div>
+                <p>Private access, safe aggregate monitoring, Git-backed configuration and AI-assisted documentation turn experiments into something I can revisit, verify and improve.</p>
+              </section>
             </div>
           </div>
         </article>
@@ -1043,9 +1095,9 @@
       ];
       const buildTimers = [];
       const contextTimers = [];
-      const DETAIL_TYPE_SPEED = 34;
-      const DETAIL_LINE_PAUSE = 180;
-      const DETAIL_ROW_DELAY = 150;
+      const DETAIL_TYPE_SPEED = 24;
+      const DETAIL_LINE_PAUSE = 90;
+      const DETAIL_ROW_DELAY = 70;
       let activeSide = readStoredSide() || "professional";
       let buildComplete = document.documentElement.classList.contains("cv-build-complete");
       let detailBuildAvailable = buildComplete;
@@ -1240,13 +1292,15 @@
           return;
         }
 
-        for (const line of lines) {
+        for (const [index, line] of lines.entries()) {
           const fullText = line.dataset.typeLine || line.textContent;
           await typeLine(line, fullText, buildId);
+          if (buildId !== contextBuildId) return;
+          rows[index]?.classList.add("is-visible");
           await wait(DETAIL_LINE_PAUSE, buildId);
         }
 
-        for (const row of rows) {
+        for (const row of rows.slice(lines.length)) {
           if (buildId !== contextBuildId) return;
           row.classList.add("is-visible");
           await wait(DETAIL_ROW_DELAY, buildId);
