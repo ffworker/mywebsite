@@ -3,111 +3,83 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dennis Kappel | Linux, k3s, Infrastructure Operations</title>
-  <meta name="description" content="Dennis Kappel operates and troubleshoots Linux infrastructure, k3s, private networking, monitoring, storage, Git-backed runbooks, and AI-assisted technical workflows." />
+  <title>Dennis Kappel | System Administrator & Private Infrastructure Lab</title>
+  <meta name="description" content="Dennis Kappel is a system administrator with IT operations experience in Windows infrastructure, Microsoft 365, Exchange, VMware Horizon/VDI, and hands-on private Linux, k3s, networking, storage and monitoring projects." />
   <meta name="robots" content="index, follow" />
   <style>
     *, *::before, *::after { box-sizing: border-box; }
     * { margin: 0; }
     :root {
-      --bg: #020617;
-      --panel: rgba(15, 23, 42, 0.82);
-      --panel-strong: rgba(15, 23, 42, 0.96);
-      --surface: rgba(148, 163, 184, 0.08);
-      --surface-strong: rgba(148, 163, 184, 0.14);
-      --border: rgba(148, 163, 184, 0.2);
-      --border-strong: rgba(34, 211, 238, 0.42);
+      --bg: #030712;
+      --panel: rgba(15, 23, 42, 0.78);
+      --panel-strong: rgba(15, 23, 42, 0.94);
+      --line: rgba(148, 163, 184, 0.22);
+      --line-strong: rgba(34, 211, 238, 0.34);
       --text: #f8fafc;
-      --soft: #dbeafe;
+      --soft: #d7e2f2;
       --muted: #9aa7ba;
       --dim: #64748b;
       --green: #10b981;
       --cyan: #22d3ee;
-      --blue: #60a5fa;
       --amber: #f59e0b;
-      --red: #fb7185;
-      --mono: "JetBrains Mono", "Fira Code", "Cascadia Code", ui-monospace, SFMono-Regular, Menlo, monospace;
+      --blue: #60a5fa;
       --ui: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --mono: "JetBrains Mono", "Fira Code", "Cascadia Code", ui-monospace, SFMono-Regular, Menlo, monospace;
       --radius: 8px;
-      --shadow: 0 28px 90px rgba(0, 0, 0, 0.34);
-      --nav: 64px;
+      --wrap: min(1400px, calc(100vw - 44px));
     }
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: calc(var(--nav) + 28px);
+      scroll-padding-top: 84px;
     }
     body {
       min-height: 100vh;
-      background: var(--bg);
+      overflow-x: clip;
+      background:
+        linear-gradient(rgba(148, 163, 184, 0.032) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.032) 1px, transparent 1px),
+        radial-gradient(ellipse 70% 42% at 52% 0%, rgba(16, 185, 129, 0.13), transparent 58%),
+        #030712;
+      background-size: 42px 42px, 42px 42px, auto, auto;
       color: var(--text);
       font-family: var(--ui);
-      line-height: 1.55;
+      line-height: 1.48;
       -webkit-font-smoothing: antialiased;
-      overflow-x: clip;
-    }
-    code {
-      color: var(--cyan);
-      font-family: var(--mono);
-      font-size: 0.94em;
-    }
-    body::before,
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-    }
-    body::before {
-      background:
-        linear-gradient(rgba(148, 163, 184, 0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(148, 163, 184, 0.035) 1px, transparent 1px),
-        linear-gradient(180deg, rgba(34, 211, 238, 0.11), transparent 30rem);
-      background-size: 42px 42px, 42px 42px, auto;
-      mask-image: linear-gradient(to bottom, black 0%, black 72%, transparent 100%);
-    }
-    body::after {
-      background:
-        radial-gradient(ellipse 70% 38% at 50% 0%, rgba(16, 185, 129, 0.16), transparent 64%),
-        radial-gradient(ellipse 32% 32% at 100% 14%, rgba(96, 165, 250, 0.12), transparent 60%);
     }
     a { color: inherit; }
-    button, a { -webkit-tap-highlight-color: transparent; }
-    a:focus-visible,
-    button:focus-visible {
+    a:focus-visible {
       outline: 2px solid var(--cyan);
       outline-offset: 4px;
     }
-    .page {
-      position: relative;
-      z-index: 1;
-      overflow: clip;
-    }
     .wrap {
-      width: min(1120px, calc(100vw - 40px));
+      width: var(--wrap);
       margin-inline: auto;
     }
     .nav {
       position: sticky;
       top: 0;
-      z-index: 10;
-      border-bottom: 1px solid var(--border);
-      background: rgba(2, 6, 23, 0.84);
+      z-index: 5;
+      border-bottom: 1px solid var(--line);
+      background: rgba(3, 7, 18, 0.86);
       backdrop-filter: blur(18px);
     }
     .nav-inner {
-      min-height: var(--nav);
+      min-height: 62px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: 18px;
+    }
+    .brand,
+    .label,
+    .meta,
+    .chip,
+    .caption,
+    .shot {
+      font-family: var(--mono);
     }
     .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
       color: var(--green);
-      font-family: var(--mono);
       font-size: 13px;
       font-weight: 800;
       letter-spacing: 0.08em;
@@ -115,514 +87,266 @@
       text-decoration: none;
       white-space: nowrap;
     }
-    .brand::before {
-      content: "";
-      width: 10px;
-      height: 10px;
-      border: 1px solid var(--green);
-      background: rgba(16, 185, 129, 0.18);
-      box-shadow: 0 0 26px rgba(16, 185, 129, 0.28);
-    }
     .nav-links {
       display: flex;
-      align-items: center;
-      gap: 4px;
+      gap: 6px;
       color: var(--muted);
       font-size: 13px;
     }
     .nav-links a {
-      min-height: 42px;
+      min-height: 40px;
       display: inline-flex;
       align-items: center;
       border: 1px solid transparent;
+      border-radius: var(--radius);
       padding: 0 12px;
       text-decoration: none;
     }
     .nav-links a:hover {
-      border-color: var(--border);
+      border-color: var(--line);
       color: var(--text);
-      background: var(--surface);
+      background: rgba(148, 163, 184, 0.08);
+    }
+    main {
+      padding: clamp(28px, 5vw, 56px) 0 30px;
     }
     .hero {
-      min-height: calc(100svh - var(--nav));
+      min-height: calc(100svh - 92px);
       display: grid;
-      grid-template-columns: minmax(0, 1.12fr) minmax(330px, 0.88fr);
-      gap: clamp(28px, 5vw, 64px);
-      align-items: center;
-      padding: clamp(44px, 7vw, 92px) 0 clamp(36px, 5vw, 72px);
+      grid-template-columns: minmax(0, 0.86fr) minmax(560px, 1.14fr);
+      gap: clamp(22px, 3.5vw, 46px);
+      align-items: start;
     }
-    .eyebrow,
-    .section-label,
-    .meta {
-      font-family: var(--mono);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+    .hero-copy {
+      padding-top: clamp(10px, 2.5vw, 36px);
     }
-    .eyebrow {
+    .label {
       color: var(--cyan);
       font-size: 12px;
       font-weight: 800;
-      margin-bottom: 18px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
     }
     h1 {
-      max-width: 790px;
-      font-size: clamp(42px, 7.2vw, 82px);
-      line-height: 0.96;
+      max-width: 760px;
+      margin-top: 16px;
+      font-size: clamp(42px, 6vw, 78px);
+      line-height: 0.95;
       letter-spacing: 0;
       text-wrap: balance;
     }
-    .hero-copy {
-      max-width: 680px;
+    .intro {
+      max-width: 700px;
       margin-top: 22px;
       color: var(--soft);
-      font-size: clamp(17px, 2vw, 21px);
-      line-height: 1.55;
+      font-size: clamp(17px, 1.7vw, 21px);
     }
-    .hero-copy strong {
+    .intro strong {
       color: var(--text);
-      font-weight: 750;
+      font-weight: 760;
     }
     .actions {
       display: flex;
       flex-wrap: wrap;
-      align-items: center;
       gap: 12px;
-      margin-top: 28px;
+      margin-top: 26px;
     }
     .button {
       min-height: 46px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 9px;
-      border: 1px solid var(--border);
+      border: 1px solid var(--line);
       border-radius: var(--radius);
       padding: 0 17px;
       background: rgba(15, 23, 42, 0.72);
       color: var(--text);
       font-weight: 760;
       text-decoration: none;
-      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
-    }
-    .button:hover {
-      transform: translateY(-1px);
-      border-color: var(--border-strong);
-      background: var(--surface-strong);
     }
     .button.primary {
       border-color: rgba(16, 185, 129, 0.58);
-      background: linear-gradient(180deg, rgba(16, 185, 129, 0.24), rgba(16, 185, 129, 0.12));
-      box-shadow: 0 18px 55px rgba(16, 185, 129, 0.12);
+      background: rgba(16, 185, 129, 0.16);
     }
-    .hero-signals {
+    .button:hover {
+      border-color: var(--line-strong);
+      background: rgba(148, 163, 184, 0.12);
+    }
+    .hero-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 28px;
-      max-width: 720px;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
     }
-    .signal {
-      border: 1px solid var(--border);
+    .panel {
+      border: 1px solid var(--line);
       border-radius: var(--radius);
-      padding: 12px;
-      background: rgba(15, 23, 42, 0.52);
-    }
-    .signal b {
-      display: block;
-      color: var(--text);
-      font-size: 14px;
-      line-height: 1.25;
-    }
-    .signal span {
-      display: block;
-      margin-top: 5px;
-      color: var(--muted);
-      font-family: var(--mono);
-      font-size: 11px;
-    }
-    .infra-map {
-      border: 1px solid rgba(34, 211, 238, 0.24);
-      border-radius: var(--radius);
-      background:
-        linear-gradient(180deg, rgba(15, 23, 42, 0.94), rgba(2, 6, 23, 0.9)),
-        radial-gradient(circle at top right, rgba(34, 211, 238, 0.15), transparent 36%);
-      box-shadow: var(--shadow);
+      background: var(--panel);
       overflow: hidden;
     }
-    .infra-head {
-      min-height: 42px;
+    .panel-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      border-bottom: 1px solid var(--border);
-      padding: 0 16px;
+      gap: 14px;
+      min-height: 42px;
+      border-bottom: 1px solid var(--line);
+      padding: 0 14px;
       color: var(--muted);
-      font-family: var(--mono);
       font-size: 12px;
     }
-    .dots {
-      display: flex;
-      gap: 6px;
-    }
-    .dots span {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: var(--dim);
-    }
-    .dots span:nth-child(1) { background: var(--red); }
-    .dots span:nth-child(2) { background: var(--amber); }
-    .dots span:nth-child(3) { background: var(--green); }
-    .map-stage {
-      position: relative;
-      min-height: 388px;
+    .panel-body {
       padding: 18px;
     }
-    .topology {
-      width: 100%;
-      height: 255px;
-      display: block;
-      border: 1px solid rgba(148, 163, 184, 0.12);
-      border-radius: var(--radius);
-      background:
-        linear-gradient(rgba(148, 163, 184, 0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(148, 163, 184, 0.035) 1px, transparent 1px),
-        rgba(2, 6, 23, 0.36);
-      background-size: 24px 24px;
+    .compare {
+      min-height: 260px;
     }
-    .map-link {
-      fill: none;
-      stroke: rgba(34, 211, 238, 0.42);
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-dasharray: 7 8;
+    .compare h2 {
+      color: var(--text);
+      font-size: 24px;
+      line-height: 1.1;
     }
-    .map-link.private { stroke: rgba(16, 185, 129, 0.48); }
-    .map-link.observe { stroke: rgba(245, 158, 11, 0.5); }
-    .map-node {
-      cursor: pointer;
-      outline: none;
-    }
-    .map-node rect {
-      fill: rgba(15, 23, 42, 0.94);
-      stroke: rgba(148, 163, 184, 0.34);
-      stroke-width: 1.2;
-      transition: stroke 160ms ease, fill 160ms ease, filter 160ms ease;
-    }
-    .map-node text {
-      fill: var(--text);
-      font-family: var(--mono);
-      font-size: 12px;
-      font-weight: 800;
-      pointer-events: none;
-    }
-    .map-node .sub {
-      fill: var(--muted);
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-    .map-node:hover rect,
-    .map-node:focus-visible rect,
-    .map-node.active rect {
-      fill: rgba(16, 185, 129, 0.13);
-      stroke: rgba(16, 185, 129, 0.72);
-      filter: drop-shadow(0 0 16px rgba(16, 185, 129, 0.18));
-    }
-    .map-detail {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 138px;
-      gap: 14px;
-      margin-top: 14px;
-      border: 1px solid rgba(148, 163, 184, 0.15);
-      border-radius: var(--radius);
-      padding: 14px;
-      background: rgba(15, 23, 42, 0.58);
-    }
-    .map-detail .meta {
-      color: var(--green);
-      font-size: 11px;
-      font-weight: 800;
-    }
-    .map-detail h2 {
-      margin-top: 5px;
-      font-size: 22px;
-      line-height: 1.12;
-    }
-    .map-detail p {
-      margin-top: 6px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.45;
-    }
-    .mini-dashboard {
-      border: 1px solid rgba(34, 211, 238, 0.22);
-      border-radius: var(--radius);
-      padding: 9px;
-      background: rgba(2, 6, 23, 0.58);
-      align-self: stretch;
-    }
-    .mini-dashboard span {
-      display: block;
-      height: 7px;
-      margin-bottom: 7px;
-      border-radius: 99px;
-      background: rgba(148, 163, 184, 0.18);
-    }
-    .mini-dashboard span:nth-child(1) { width: 62%; background: rgba(16, 185, 129, 0.75); }
-    .mini-dashboard span:nth-child(2) { width: 84%; background: rgba(34, 211, 238, 0.62); }
-    .mini-dashboard span:nth-child(3) { width: 48%; background: rgba(96, 165, 250, 0.6); }
-    .mini-dashboard span:nth-child(4) { width: 72%; background: rgba(245, 158, 11, 0.55); }
-    .map-safe-note {
-      margin-top: 12px;
-      color: var(--dim);
-      font-family: var(--mono);
-      font-size: 11px;
-      line-height: 1.4;
-    }
-    section {
-      padding: clamp(34px, 5vw, 64px) 0;
-    }
-    .section-head {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 24px;
-      margin-bottom: 20px;
-    }
-    .section-label {
-      color: var(--cyan);
-      font-size: 12px;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-    h2 {
-      max-width: 740px;
-      font-size: clamp(28px, 4.5vw, 48px);
-      line-height: 1.04;
-      letter-spacing: 0;
-      text-wrap: balance;
-    }
-    .section-note {
-      max-width: 360px;
+    .compare p {
+      margin-top: 10px;
       color: var(--muted);
       font-size: 15px;
     }
-    .capabilities {
+    .list {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: rgba(15, 23, 42, 0.56);
-      overflow: hidden;
-    }
-    .capability {
-      min-height: 190px;
-      padding: 20px;
-      border-left: 1px solid var(--border);
-      position: relative;
-    }
-    .capability:first-child { border-left: 0; }
-    .capability::before {
-      content: "";
-      position: absolute;
-      inset: 0 0 auto;
-      height: 3px;
-      background: var(--accent, var(--cyan));
-      opacity: 0.9;
-    }
-    .capability .meta {
-      color: var(--accent, var(--cyan));
-      font-size: 11px;
-      font-weight: 800;
-    }
-    .capability h3 {
-      margin-top: 20px;
-      color: var(--text);
-      font-size: 20px;
-      line-height: 1.15;
-      text-wrap: balance;
-    }
-    .capability p {
-      margin-top: 10px;
-      color: var(--muted);
+      gap: 8px;
+      margin-top: 16px;
+      color: var(--soft);
       font-size: 14px;
     }
-    .spotlight {
+    .list span {
+      display: flex;
+      gap: 9px;
+      align-items: baseline;
+    }
+    .list span::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      flex: 0 0 7px;
+      border: 1px solid var(--green);
+      background: rgba(16, 185, 129, 0.16);
+    }
+    .shot-panel {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      border: 0;
+      background: transparent;
+    }
+    figure {
       border: 1px solid rgba(34, 211, 238, 0.24);
       border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(15, 23, 42, 0.84), rgba(2, 6, 23, 0.86));
-      box-shadow: var(--shadow);
+      background: rgba(2, 6, 23, 0.86);
       overflow: hidden;
     }
-    .spotlight-top {
+    .shot-top {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 20px;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+      padding: 10px 12px;
+      color: var(--dim);
+      font-size: 11px;
+    }
+    .shot {
+      min-height: 170px;
       padding: 14px;
-    }
-    .tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .tab {
-      min-height: 38px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 0 12px;
-      background: rgba(15, 23, 42, 0.64);
-      color: var(--muted);
-      font: 800 12px/1 var(--mono);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      cursor: pointer;
-    }
-    .tab[aria-selected="true"] {
-      border-color: rgba(16, 185, 129, 0.52);
-      background: rgba(16, 185, 129, 0.14);
-      color: var(--text);
-    }
-    .spotlight-controls {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--muted);
-      font-family: var(--mono);
+      color: #dbeafe;
       font-size: 12px;
-      white-space: nowrap;
+      line-height: 1.7;
+      white-space: pre-wrap;
     }
-    .icon-button {
-      width: 38px;
-      height: 38px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: rgba(15, 23, 42, 0.72);
-      color: var(--text);
-      cursor: pointer;
+    .shot .ok { color: var(--green); }
+    .shot .warn { color: var(--amber); }
+    .shot .key { color: var(--cyan); }
+    figcaption {
+      border-top: 1px solid rgba(148, 163, 184, 0.16);
+      padding: 10px 12px;
+      color: var(--muted);
+      font-size: 12px;
     }
-    .icon-button:hover {
-      border-color: var(--border-strong);
-      background: var(--surface-strong);
-    }
-    .spotlight-panel {
-      display: none;
-      grid-template-columns: minmax(0, 0.9fr) minmax(300px, 1.1fr);
-      gap: 28px;
-      padding: clamp(22px, 4vw, 34px);
-    }
-    .spotlight-panel.active {
+    .examples {
       display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 14px;
     }
-    .project-kicker {
-      color: var(--green);
-      font-family: var(--mono);
-      font-size: 12px;
+    .example {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(15, 23, 42, 0.6);
+      padding: 16px;
+    }
+    .meta {
+      color: var(--cyan);
+      font-size: 11px;
       font-weight: 800;
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
-    .spotlight-panel h3 {
-      margin-top: 10px;
-      font-size: clamp(28px, 4vw, 44px);
-      line-height: 1.02;
-      letter-spacing: 0;
-      text-wrap: balance;
-    }
-    .spotlight-panel .lead {
-      margin-top: 16px;
-      color: var(--soft);
-      font-size: 18px;
-      line-height: 1.5;
-    }
-    .evidence {
-      display: grid;
-      gap: 12px;
-    }
-    .evidence-card {
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px;
-      background: rgba(15, 23, 42, 0.52);
-    }
-    .evidence-card b {
-      display: block;
+    .example h3 {
+      margin-top: 8px;
       color: var(--text);
-      font-size: 15px;
+      font-size: 18px;
+      line-height: 1.15;
     }
-    .evidence-card p {
-      margin-top: 5px;
+    .example p {
+      margin-top: 8px;
       color: var(--muted);
       font-size: 14px;
     }
-    .tags {
+    .bottom {
+      display: grid;
+      grid-template-columns: minmax(0, 0.82fr) minmax(420px, 1.18fr);
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .direction {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(15, 23, 42, 0.62);
+      padding: 18px;
+    }
+    .direction h2,
+    .agent h2 {
+      margin-top: 8px;
+      font-size: 24px;
+      line-height: 1.1;
+    }
+    .chips {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 18px;
+      margin-top: 16px;
     }
-    .tag {
+    .chip {
       border: 1px solid rgba(34, 211, 238, 0.24);
       border-radius: 999px;
       padding: 6px 9px;
-      background: rgba(34, 211, 238, 0.07);
       color: var(--soft);
-      font-family: var(--mono);
       font-size: 11px;
-      white-space: nowrap;
+      background: rgba(34, 211, 238, 0.07);
     }
-    .ai-contact {
-      display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
-      gap: 20px;
-      align-items: stretch;
-    }
-    .agent-card,
-    .contact-card {
-      border: 1px solid var(--border);
+    .agent {
+      border: 1px solid rgba(245, 158, 11, 0.28);
       border-radius: var(--radius);
       background: rgba(15, 23, 42, 0.62);
-      padding: clamp(20px, 3vw, 28px);
-    }
-    .agent-card {
-      border-color: rgba(245, 158, 11, 0.28);
-      position: relative;
-      overflow: hidden;
-    }
-    .agent-card::before {
-      content: "agent note";
-      position: absolute;
-      top: 16px;
-      right: 18px;
-      color: rgba(245, 158, 11, 0.72);
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+      padding: 18px;
     }
     .quote {
-      margin-top: 16px;
+      margin-top: 12px;
       color: var(--soft);
-      font-size: clamp(20px, 3vw, 30px);
+      font-size: clamp(20px, 2vw, 28px);
       line-height: 1.22;
       text-wrap: balance;
     }
-    .quote strong { color: var(--text); }
-    .contact-card h2 {
-      font-size: clamp(28px, 4vw, 42px);
-    }
-    .contact-card p {
-      max-width: 460px;
-      margin-top: 12px;
-      color: var(--muted);
-    }
     footer {
-      border-top: 1px solid var(--border);
-      padding: 22px 0 30px;
+      border-top: 1px solid var(--line);
+      padding: 18px 0 26px;
       color: var(--dim);
       font-family: var(--mono);
       font-size: 12px;
@@ -630,567 +354,182 @@
     .footer-row {
       display: flex;
       justify-content: space-between;
-      gap: 16px;
+      gap: 12px;
       flex-wrap: wrap;
     }
     .footer-row a {
       color: var(--muted);
       text-decoration: none;
     }
-    .footer-row a:hover { color: var(--text); }
-    @media (max-width: 900px) {
+    @media (max-width: 1060px) {
       .hero,
-      .spotlight-panel,
-      .ai-contact {
+      .bottom {
         grid-template-columns: 1fr;
       }
-      .hero {
-        min-height: auto;
-        padding-top: 44px;
-      }
-      .infra-map { max-width: 680px; }
-      .capabilities {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-      .capability:nth-child(odd) { border-left: 0; }
-      .capability:nth-child(n+3) { border-top: 1px solid var(--border); }
-      .section-head {
-        display: block;
-      }
-      .section-note {
-        margin-top: 10px;
-      }
+      .hero { min-height: auto; }
     }
-    @media (max-width: 640px) {
-      :root { --nav: 58px; }
-      .wrap { width: min(100% - 28px, 1120px); }
-      .nav-links a:not(.nav-contact) { display: none; }
-      .hero-signals,
-      .capabilities {
+    @media (max-width: 760px) {
+      :root { --wrap: min(100% - 28px, 1400px); }
+      .nav-links a:not(:last-child) { display: none; }
+      .hero-grid,
+      .shot-panel,
+      .examples {
         grid-template-columns: 1fr;
       }
-      .capability,
-      .capability:first-child {
-        min-height: 0;
-        border-left: 0;
-        border-top: 1px solid var(--border);
-      }
-      .capability:first-child { border-top: 0; }
-      .map-stage {
-        padding: 12px;
-        min-height: 0;
-      }
-      .topology {
-        height: 230px;
-      }
-      .map-detail {
-        grid-template-columns: 1fr;
-      }
-      .spotlight-top {
-        align-items: stretch;
-        flex-direction: column;
-      }
-      .tabs {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-      .tab { width: 100%; }
-      .actions .button {
-        flex: 1 1 160px;
-      }
+      .shot-panel { grid-column: span 1; }
+      .compare { min-height: 0; }
+      .actions .button { flex: 1 1 150px; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         scroll-behavior: auto !important;
-        animation-duration: 0.001ms !important;
-        animation-iteration-count: 1 !important;
         transition-duration: 0.001ms !important;
       }
     }
   </style>
-  <noscript>
-    <style>
-      .spotlight-top { display: none; }
-      .spotlight-panel,
-      .spotlight-panel.active {
-        display: grid;
-      }
-      .spotlight-panel[hidden] {
-        display: grid;
-      }
-    </style>
-  </noscript>
 </head>
 <body>
-  <div class="page" id="top">
-    <nav class="nav" aria-label="Primary navigation">
-      <div class="wrap nav-inner">
-        <a class="brand" href="#top">Dennis Kappel</a>
-        <div class="nav-links">
-          <a href="#capabilities">Capabilities</a>
-          <a href="#spotlight">Evidence</a>
-          <a href="#contact" class="nav-contact">Contact</a>
+  <nav class="nav" aria-label="Primary navigation">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top">Dennis Kappel</a>
+      <div class="nav-links">
+        <a href="#profile">Profile</a>
+        <a href="#examples">Examples</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top" class="wrap">
+    <section class="hero" id="profile">
+      <div class="hero-copy">
+        <p class="label">System administrator / IT operations / private infrastructure lab</p>
+        <h1>System administration at work. Linux infrastructure in the lab.</h1>
+        <p class="intro">
+          I work professionally in <strong>IT operations and system administration</strong>, including Windows infrastructure, Microsoft 365/Exchange, VMware Horizon/VDI, operations support and troubleshooting. Privately, I build and operate a hands-on infrastructure lab with Linux, k3s, Docker, networking, storage, backups, monitoring and automation.
+        </p>
+        <div class="actions" aria-label="Primary actions">
+          <a class="button primary" href="mailto:denniskappel@gmx.net">Contact</a>
+          <a class="button" href="https://github.com/ffworker" target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
       </div>
-    </nav>
 
-    <main>
-      <div class="wrap hero">
-        <div>
-          <p class="eyebrow">Linux infrastructure / k3s / operations</p>
-          <h1>I operate real systems, move services, and debug across the stack.</h1>
-          <p class="hero-copy">
-            I am an infrastructure-focused IT professional working hands-on with <strong>Linux, Kubernetes/k3s, containers, networking, storage, monitoring, Git-backed runbooks, and AI-assisted delivery</strong>. I like systems that are useful, reachable, observable, and understandable when they break.
-          </p>
-          <div class="actions" aria-label="Primary actions">
-            <a class="button primary" href="#spotlight">View evidence</a>
-            <a class="button" href="https://github.com/ffworker" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a class="button" href="mailto:denniskappel@gmx.net">Contact</a>
+      <div class="hero-grid">
+        <article class="panel compare">
+          <div class="panel-head">
+            <span class="label">Professional</span>
+            <span>day-to-day IT</span>
           </div>
-          <div class="hero-signals" aria-label="Professional signals">
-            <div class="signal">
-              <b>Infrastructure ownership</b>
-              <span>VPS + home lab + k3s</span>
-            </div>
-            <div class="signal">
-              <b>Cross-layer troubleshooting</b>
-              <span>DNS / SSH / storage / pods</span>
-            </div>
-            <div class="signal">
-              <b>AI-assisted execution</b>
-              <span>context + verification + Git</span>
+          <div class="panel-body">
+            <h2>System administration and operations</h2>
+            <p>Practical work around users, services, incidents, Windows environments and business IT systems.</p>
+            <div class="list">
+              <span>VMware Horizon / VDI environments</span>
+              <span>Microsoft 365 and Exchange administration</span>
+              <span>Windows infrastructure and endpoint operations</span>
+              <span>Troubleshooting, support and service continuity</span>
             </div>
           </div>
+        </article>
+
+        <article class="panel compare">
+          <div class="panel-head">
+            <span class="label">Private lab</span>
+            <span>hands-on infrastructure</span>
+          </div>
+          <div class="panel-body">
+            <h2>Linux systems that I actually operate</h2>
+            <p>Small but real environments where I can break, migrate, monitor, document and understand the full path.</p>
+            <div class="list">
+              <span>Linux, Docker, k3s and Raspberry Pi systems</span>
+              <span>Networking, DNS, tunnels and private access</span>
+              <span>NAS, NFS, SMB, backups and stateful services</span>
+              <span>Prometheus, Grafana, runbooks and automation</span>
+            </div>
+          </div>
+        </article>
+
+        <div class="shot-panel">
+          <figure aria-label="Sanitized monitoring capture">
+            <div class="shot-top">
+              <span>redacted monitoring capture</span>
+              <span>no hostnames / no IPs</span>
+            </div>
+            <pre class="shot"><span class="key">scope</span>                  <span class="key">state</span>
+observer host          <span class="ok">up</span>
+private gateway        <span class="ok">up</span>
+cluster nodes          <span class="ok">observed</span>
+wifi inventory         <span class="warn">6 known / 4 online</span>
+service checks         <span class="ok">scraped</span></pre>
+            <figcaption>Monitoring VPS, home lab and cluster health with sanitized labels.</figcaption>
+          </figure>
+
+          <figure aria-label="Sanitized infrastructure terminal capture">
+            <div class="shot-top">
+              <span>redacted k3s workflow capture</span>
+              <span>generic service names</span>
+            </div>
+            <pre class="shot"><span class="key">task</span>        move public static sites
+source      old container host
+target      home lab k3s edge
+checks      ingress, service, rollout, curl
+result      <span class="ok">served from cluster path</span>
+next        document rollback + automate</pre>
+            <figcaption>Running and troubleshooting workloads in my private k3s lab.</figcaption>
+          </figure>
         </div>
-
-        <aside class="infra-map" aria-label="Sanitized infrastructure map">
-          <div class="infra-head">
-            <div class="dots" aria-hidden="true"><span></span><span></span><span></span></div>
-            <span>sanitized infra canvas</span>
-          </div>
-          <div class="map-stage">
-            <svg class="topology" viewBox="0 0 520 255" role="img" aria-labelledby="map-title map-desc">
-              <title id="map-title">Bytegeist infrastructure topology map</title>
-              <desc id="map-desc">A sanitized public map showing public edge, private mesh, gateway, Kubernetes, storage, monitoring, and Git-backed operations.</desc>
-              <path class="map-link" d="M88 52 C155 44, 205 44, 260 58" />
-              <path class="map-link private" d="M260 82 C225 126, 190 142, 156 164" />
-              <path class="map-link private" d="M260 82 C320 118, 350 145, 382 172" />
-              <path class="map-link observe" d="M378 52 C338 80, 325 124, 382 172" />
-              <path class="map-link observe" d="M378 52 C306 40, 200 37, 88 52" />
-              <path class="map-link" d="M156 188 C210 218, 310 219, 382 196" />
-              <g class="map-node active" data-map-node="edge" tabindex="0" role="button" aria-label="Public edge">
-                <rect x="30" y="28" width="116" height="54" rx="8" />
-                <text x="47" y="54">Public Edge</text>
-                <text class="sub" x="47" y="69">tunnel / ingress</text>
-              </g>
-              <g class="map-node" data-map-node="mesh" tabindex="0" role="button" aria-label="Private mesh">
-                <rect x="202" y="44" width="116" height="54" rx="8" />
-                <text x="224" y="70">Private Mesh</text>
-                <text class="sub" x="224" y="85">access layer</text>
-              </g>
-              <g class="map-node" data-map-node="observer" tabindex="0" role="button" aria-label="Observer monitoring">
-                <rect x="320" y="28" width="116" height="54" rx="8" />
-                <text x="342" y="54">Observer</text>
-                <text class="sub" x="342" y="69">metrics / checks</text>
-              </g>
-              <g class="map-node" data-map-node="gateway" tabindex="0" role="button" aria-label="Home gateway">
-                <rect x="98" y="146" width="116" height="54" rx="8" />
-                <text x="123" y="172">Gateway</text>
-                <text class="sub" x="123" y="187">dns / routing</text>
-              </g>
-              <g class="map-node" data-map-node="cluster" tabindex="0" role="button" aria-label="Kubernetes cluster">
-                <rect x="324" y="146" width="116" height="54" rx="8" />
-                <text x="354" y="172">k3s Lab</text>
-                <text class="sub" x="354" y="187">workloads</text>
-              </g>
-              <g class="map-node" data-map-node="storage" tabindex="0" role="button" aria-label="Storage and backups">
-                <rect x="210" y="186" width="116" height="46" rx="8" />
-                <text x="242" y="211">Storage</text>
-                <text class="sub" x="242" y="226">state / backups</text>
-              </g>
-            </svg>
-
-            <div class="map-detail" aria-live="polite">
-              <div>
-                <p class="meta" data-map-kind>PUBLIC PATH</p>
-                <h2 data-map-title>Public edge into Kubernetes</h2>
-                <p data-map-copy>Public sites are routed through a tunnel into a small Kubernetes edge path, with the public labels kept generic here on purpose.</p>
-              </div>
-              <div class="mini-dashboard" aria-hidden="true">
-                <span></span><span></span><span></span><span></span>
-              </div>
-            </div>
-            <p class="map-safe-note">Public CV view: real architecture shape, sanitized labels, no internal hostnames, no IPs, no live secrets.</p>
-          </div>
-        </aside>
       </div>
+    </section>
 
-      <section id="capabilities">
-        <div class="wrap">
-          <div class="section-head">
-            <div>
-              <p class="section-label">What I can take on</p>
-              <h2>Operational work with enough depth to fix the boring, important failures.</h2>
-            </div>
-            <p class="section-note">Evidence first: the work patterns I can explain in an interview.</p>
-          </div>
-          <div class="capabilities">
-            <article class="capability" style="--accent: var(--green)">
-              <p class="meta">Operate</p>
-              <h3>Linux services and small infrastructure</h3>
-              <p>Run and troubleshoot VPS and home lab systems, service exposure, systemd units, host networking, DNS, SSH, storage, backups, and monitoring.</p>
-            </article>
-            <article class="capability" style="--accent: var(--cyan)">
-              <p class="meta">Kubernetes</p>
-              <h3>Move workloads into k3s carefully</h3>
-              <p>Work with nodes, pods, Deployments, Services, Ingress, PersistentVolumes, NFS, kubeconfig, logs, events, rollouts, and migration checks.</p>
-            </article>
-            <article class="capability" style="--accent: var(--blue)">
-              <p class="meta">Diagnose</p>
-              <h3>Follow failures across layers</h3>
-              <p>Investigate problems that cross DNS, routing, tunnels, containers, Linux services, application config, metrics, and cluster state.</p>
-            </article>
-            <article class="capability" style="--accent: var(--amber)">
-              <p class="meta">Repeat</p>
-              <h3>Turn fixes into runbooks</h3>
-              <p>Keep infrastructure work Git-backed, documented, reviewable, and easier to repeat with scripts, manifests, notes, and verification commands.</p>
-            </article>
-          </div>
+    <section class="examples" id="examples" aria-label="Three examples">
+      <article class="example">
+        <p class="meta">Professional operations</p>
+        <h3>Support business IT systems without drama</h3>
+        <p>Work with Windows infrastructure, Microsoft 365/Exchange, VMware Horizon/VDI, user-impacting issues, and operational troubleshooting.</p>
+      </article>
+      <article class="example">
+        <p class="meta">Private monitoring</p>
+        <h3>Make small infrastructure observable</h3>
+        <p>Use Prometheus, Grafana, exporters, blackbox checks and service validation to see whether VPS, lab hosts and cluster components are healthy.</p>
+      </article>
+      <article class="example">
+        <p class="meta">Private k3s lab</p>
+        <h3>Learn Kubernetes through real service work</h3>
+        <p>Migrate and expose services, check rollouts, inspect logs and events, work with storage, and keep changes documented in Git.</p>
+      </article>
+    </section>
+
+    <section class="bottom" id="contact">
+      <article class="direction">
+        <p class="label">Current direction</p>
+        <h2>Deepening Linux, Kubernetes, automation and CKA-level fundamentals.</h2>
+        <p class="intro">Kubernetes is an important learning focus and practical lab area, not my entire identity. The broader goal is to become stronger across operations, Linux infrastructure, automation and reliable troubleshooting.</p>
+        <div class="chips">
+          <span class="chip">Linux administration</span>
+          <span class="chip">k3s / Kubernetes</span>
+          <span class="chip">Automation</span>
+          <span class="chip">Monitoring</span>
+          <span class="chip">CKA preparation</span>
         </div>
-      </section>
-
-      <section id="spotlight">
-        <div class="wrap">
-          <div class="section-head">
-            <div>
-              <p class="section-label">Evidence spotlight</p>
-              <h2>Selected work, compressed into the parts that prove capability.</h2>
-            </div>
-            <p class="section-note">Use the tabs or arrow keys. The spotlight pauses when you interact with it.</p>
-          </div>
-
-          <div class="spotlight" data-spotlight>
-            <div class="spotlight-top">
-              <div class="tabs" role="tablist" aria-label="Selected evidence">
-                <button class="tab" role="tab" id="tab-infra" aria-selected="true" aria-controls="panel-infra" data-tab="0">Infrastructure</button>
-                <button class="tab" role="tab" id="tab-k8s" aria-selected="false" aria-controls="panel-k8s" data-tab="1">Kubernetes</button>
-                <button class="tab" role="tab" id="tab-network" aria-selected="false" aria-controls="panel-network" data-tab="2">Networking</button>
-                <button class="tab" role="tab" id="tab-automation" aria-selected="false" aria-controls="panel-automation" data-tab="3">Automation</button>
-                <button class="tab" role="tab" id="tab-projects" aria-selected="false" aria-controls="panel-projects" data-tab="4">Projects</button>
-              </div>
-              <div class="spotlight-controls" aria-label="Spotlight controls">
-                <button class="icon-button" type="button" data-prev aria-label="Previous spotlight">‹</button>
-                <span data-count>1 / 5</span>
-                <button class="icon-button" type="button" data-next aria-label="Next spotlight">›</button>
-              </div>
-            </div>
-
-            <article class="spotlight-panel active" role="tabpanel" id="panel-infra" aria-labelledby="tab-infra">
-              <div>
-                <p class="project-kicker">VPS + homelab operations</p>
-                <h3>Operated a split public/private infrastructure model.</h3>
-                <p class="lead">VPS hosts handle public access, monitoring, and control-plane services while home lab systems run private services, storage, and k3s workloads.</p>
-                <div class="tags">
-                  <span class="tag">Linux</span><span class="tag">systemd</span><span class="tag">Docker</span><span class="tag">Cloudflare Tunnel</span><span class="tag">Grafana</span>
-                </div>
-              </div>
-              <div class="evidence">
-                <div class="evidence-card">
-                  <b>Service migration</b>
-                  <p>Moved public tools and CV hosting away from old VPS static containers into a home lab k3s edge path.</p>
-                </div>
-                <div class="evidence-card">
-                  <b>Operational separation</b>
-                  <p>Kept outside-in monitoring on a separate observer host so infrastructure visibility survives problems inside the home lab cluster.</p>
-                </div>
-                <div class="evidence-card">
-                  <b>Host-level work</b>
-                  <p>Worked with SSH access, package services, reverse proxies, DNS records, tunnel routing, and live health checks.</p>
-                </div>
-              </div>
-            </article>
-
-            <article class="spotlight-panel" role="tabpanel" id="panel-k8s" aria-labelledby="tab-k8s" hidden>
-              <div>
-                <p class="project-kicker">k3s practice through real workloads</p>
-                <h3>Built migration paths instead of only reading manifests.</h3>
-                <p class="lead">I work directly with cluster resources, storage behavior, rollouts, logs, events, ingress paths, and failure states while moving services into k3s.</p>
-                <div class="tags">
-                  <span class="tag">k3s</span><span class="tag">Deployments</span><span class="tag">Services</span><span class="tag">Ingress</span><span class="tag">NFS</span>
-                </div>
-              </div>
-              <div class="evidence">
-                <div class="evidence-card">
-                  <b>Public-edge workload</b>
-                  <p>Served small public sites from a k3s namespace through nginx and Cloudflare Tunnel.</p>
-                </div>
-                <div class="evidence-card">
-                  <b>Storage and state</b>
-                  <p>Worked with NAS, NFS, SMB, PersistentVolumes, backups, and the extra caution stateful services require.</p>
-                </div>
-                <div class="evidence-card">
-                  <b>Cluster troubleshooting</b>
-                  <p>Used kubeconfig, logs, events, rollout state, service wiring, ingress behavior, and validation commands to prove changes.</p>
-                </div>
-              </div>
-            </article>
-
-            <article class="spotlight-panel" role="tabpanel" id="panel-network" aria-labelledby="tab-network" hidden>
-              <div>
-                <p class="project-kicker">Private access and routing</p>
-                <h3>Connected systems without making every service public.</h3>
-                <p class="lead">NetBird, Cloudflare Tunnel, DNS, routing, and Pi gateway work connect VPS, homelab, WiFi devices, internal services, and cluster networks.</p>
-                <div class="tags">
-                  <span class="tag">NetBird</span><span class="tag">DNS</span><span class="tag">Routing</span><span class="tag">Pi-hole</span><span class="tag">Cloudflare</span>
-                </div>
-              </div>
-              <div class="evidence">
-                <div class="evidence-card">
-                  <b>Private service access</b>
-                  <p>Used NetBird paths for lab-only Grafana, Prometheus, Alertmanager, internal DNS names, and host monitoring.</p>
-                </div>
-                <div class="evidence-card">
-                  <b>Homelab gateway</b>
-                  <p>A home gateway bridges WiFi internet and the Ethernet-side lab network with DNS/DHCP and NAT behavior.</p>
-                </div>
-                <div class="evidence-card">
-                  <b>WiFi inventory</b>
-                  <p>Installed WiFi device discovery on the home gateway and exported sanitized inventory metrics into Prometheus for Grafana.</p>
-                </div>
-              </div>
-            </article>
-
-            <article class="spotlight-panel" role="tabpanel" id="panel-automation" aria-labelledby="tab-automation" hidden>
-              <div>
-                <p class="project-kicker">Repeatable operations</p>
-                <h3>Make the second fix easier than the first.</h3>
-                <p class="lead">I use Git-backed configuration, runbooks, Ansible scaffolding, scripts, and explicit verification so infrastructure work is not trapped in shell history.</p>
-                <div class="tags">
-                  <span class="tag">Git</span><span class="tag">Runbooks</span><span class="tag">Ansible</span><span class="tag">Bash</span><span class="tag">Docs</span>
-                </div>
-              </div>
-              <div class="evidence">
-                <div class="evidence-card">
-                  <b>Desired state</b>
-                  <p>Keep k3s apps, observer monitoring, host notes, and runbooks in Git so changes can be reviewed and reapplied.</p>
-                </div>
-                <div class="evidence-card">
-                  <b>Host bootstrap</b>
-                  <p>Scaffolded Ansible roles and playbooks for SSH access, Raspberry Pi control-plane prep, and safer repeatable setup.</p>
-                </div>
-                <div class="evidence-card">
-                  <b>Verification habit</b>
-                  <p>Use curl, service status, logs, metrics, diffs, and live endpoint checks before calling a change done.</p>
-                </div>
-              </div>
-            </article>
-
-            <article class="spotlight-panel" role="tabpanel" id="panel-projects" aria-labelledby="tab-projects" hidden>
-              <div>
-                <p class="project-kicker">Selected projects</p>
-                <h3>Proof through real migrations, monitoring, and service work.</h3>
-                <p class="lead">The strongest examples are practical: service moves, private routing, monitoring visibility, storage planning, and fixing the places where assumptions fail.</p>
-                <div class="tags">
-                  <span class="tag">ntfy</span><span class="tag">Glance</span><span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">NAS</span>
-                </div>
-              </div>
-              <div class="evidence">
-                <div class="evidence-card">
-                  <b>Monitoring across VPS and home lab systems</b>
-                  <p>Built and validated dashboards, node exporters, blackbox checks, Alertmanager paths, and observer dashboards.</p>
-                </div>
-                <div class="evidence-card">
-                  <b>Service moves into k3s</b>
-                  <p>Practiced controlled migrations from VPS-hosted services into the home lab cluster with rollback awareness.</p>
-                </div>
-                <div class="evidence-card">
-                  <b>Storage and internal services</b>
-                  <p>Managed NAS, NFS, SMB, backups, media/service planning, and the operational details around stateful workloads.</p>
-                </div>
-              </div>
-            </article>
-          </div>
+        <div class="actions">
+          <a class="button primary" href="mailto:denniskappel@gmx.net">Contact me</a>
+          <a class="button" href="https://github.com/ffworker" target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
-      </section>
+      </article>
 
-      <section id="contact">
-        <div class="wrap ai-contact">
-          <article class="agent-card" id="ai">
-            <p class="section-label">Dennis' daily AI coworker</p>
-            <p class="quote"><strong>I draft fast and occasionally sound very sure about the wrong layer.</strong> Dennis brings the goal, the context, the SSH access, and the live system that tells both of us who was actually right.</p>
-          </article>
-          <article class="contact-card">
-            <p class="section-label">Next step</p>
-            <h2>Looking for infrastructure, DevOps, platform, or Kubernetes-focused work.</h2>
-            <p>I am strongest where practical ownership matters: operating systems, moving services, investigating failures, documenting decisions, and learning deeply enough to explain the result.</p>
-            <div class="actions">
-              <a class="button primary" href="mailto:denniskappel@gmx.net">Contact me</a>
-              <a class="button" href="https://github.com/ffworker" target="_blank" rel="noopener noreferrer">GitHub</a>
-            </div>
-          </article>
-        </div>
-      </section>
-    </main>
+      <article class="agent">
+        <p class="label">From my daily personal AI agent</p>
+        <h2>Coworker review</h2>
+        <p class="quote">I know more commands and can be confidently wrong in several formats. Dennis usually knows which system we are actually fixing, unless he explained the outage to me badly first.</p>
+      </article>
+    </section>
+  </main>
 
-    <footer>
-      <div class="wrap footer-row">
-        <span>Dennis Kappel - Linux infrastructure, k3s, operations, AI-assisted delivery</span>
-        <span><a href="mailto:denniskappel@gmx.net">Email</a> / <a href="https://github.com/ffworker" target="_blank" rel="noopener noreferrer">GitHub</a></span>
-      </div>
-    </footer>
-  </div>
-
-  <script type="application/json" id="infra-map-data">
-    {
-      "edge": {
-        "kind": "PUBLIC PATH",
-        "title": "Public edge into Kubernetes",
-        "copy": "Public sites are routed through a tunnel into a small Kubernetes edge path, with the public labels kept generic here on purpose."
-      },
-      "mesh": {
-        "kind": "PRIVATE ACCESS",
-        "title": "Private mesh between systems",
-        "copy": "Remote access, lab-only services, and monitoring paths use a private connectivity layer instead of exposing every service directly."
-      },
-      "observer": {
-        "kind": "OBSERVABILITY",
-        "title": "Observer outside the cluster",
-        "copy": "Monitoring lives separately from the home lab cluster so checks, dashboards, and alerts still help when cluster workloads misbehave."
-      },
-      "gateway": {
-        "kind": "ROUTING / DNS",
-        "title": "Home gateway and network edge",
-        "copy": "A small gateway handles DNS, DHCP, NAT, private routing, and local device discovery for the lab side of the network."
-      },
-      "cluster": {
-        "kind": "KUBERNETES",
-        "title": "k3s workload environment",
-        "copy": "The cluster is where service migrations, ingress paths, persistent storage, rollouts, logs, and failure states become practical work."
-      },
-      "storage": {
-        "kind": "STATE / BACKUPS",
-        "title": "Storage and recovery planning",
-        "copy": "NAS, NFS, SMB, persistent volumes, backups, and stateful workloads are treated as operational concerns, not just mounts."
-      }
-    }
-  </script>
-  <script>
-    (() => {
-      const root = document.querySelector("[data-spotlight]");
-      if (!root) return;
-
-      const tabs = Array.from(root.querySelectorAll("[role='tab']"));
-      const panels = Array.from(root.querySelectorAll("[role='tabpanel']"));
-      const prev = root.querySelector("[data-prev]");
-      const next = root.querySelector("[data-next]");
-      const count = root.querySelector("[data-count]");
-      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      let index = 0;
-      let timer = null;
-      let paused = reduceMotion;
-
-      function show(nextIndex, moveFocus = false) {
-        index = (nextIndex + panels.length) % panels.length;
-        tabs.forEach((tab, i) => {
-          const selected = i === index;
-          tab.setAttribute("aria-selected", String(selected));
-          tab.tabIndex = selected ? 0 : -1;
-        });
-        panels.forEach((panel, i) => {
-          const selected = i === index;
-          panel.classList.toggle("active", selected);
-          panel.hidden = !selected;
-        });
-        count.textContent = `${index + 1} / ${panels.length}`;
-        if (moveFocus) tabs[index].focus();
-      }
-
-      function stop() {
-        paused = true;
-        if (timer) window.clearInterval(timer);
-      }
-
-      function start() {
-        if (reduceMotion || paused) return;
-        timer = window.setInterval(() => show(index + 1), 6500);
-      }
-
-      tabs.forEach((tab, i) => {
-        tab.addEventListener("click", () => {
-          stop();
-          show(i);
-        });
-        tab.addEventListener("keydown", (event) => {
-          if (event.key === "ArrowRight" || event.key === "ArrowDown") {
-            event.preventDefault();
-            stop();
-            show(index + 1, true);
-          }
-          if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
-            event.preventDefault();
-            stop();
-            show(index - 1, true);
-          }
-          if (event.key === "Home") {
-            event.preventDefault();
-            stop();
-            show(0, true);
-          }
-          if (event.key === "End") {
-            event.preventDefault();
-            stop();
-            show(panels.length - 1, true);
-          }
-        });
-      });
-
-      prev.addEventListener("click", () => {
-        stop();
-        show(index - 1);
-      });
-      next.addEventListener("click", () => {
-        stop();
-        show(index + 1);
-      });
-      root.addEventListener("pointerenter", stop);
-      root.addEventListener("focusin", stop);
-      root.addEventListener("touchstart", stop, { passive: true });
-
-      show(0);
-      start();
-    })();
-
-    (() => {
-      const dataEl = document.getElementById("infra-map-data");
-      const nodes = Array.from(document.querySelectorAll("[data-map-node]"));
-      const kind = document.querySelector("[data-map-kind]");
-      const title = document.querySelector("[data-map-title]");
-      const copy = document.querySelector("[data-map-copy]");
-      if (!dataEl || !nodes.length || !kind || !title || !copy) return;
-
-      const data = JSON.parse(dataEl.textContent);
-
-      function select(key) {
-        const item = data[key];
-        if (!item) return;
-        nodes.forEach((node) => {
-          node.classList.toggle("active", node.dataset.mapNode === key);
-        });
-        kind.textContent = item.kind;
-        title.textContent = item.title;
-        copy.textContent = item.copy;
-      }
-
-      nodes.forEach((node) => {
-        node.addEventListener("click", () => select(node.dataset.mapNode));
-        node.addEventListener("keydown", (event) => {
-          if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            select(node.dataset.mapNode);
-          }
-        });
-      });
-    })();
-  </script>
+  <footer>
+    <div class="wrap footer-row">
+      <span>Dennis Kappel - system administration, IT operations and private infrastructure projects</span>
+      <span><a href="mailto:denniskappel@gmx.net">Email</a> / <a href="https://github.com/ffworker" target="_blank" rel="noopener noreferrer">GitHub</a></span>
+    </div>
+  </footer>
 </body>
 </html>
