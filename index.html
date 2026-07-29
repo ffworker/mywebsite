@@ -6,6 +6,20 @@
   <title>Dennis Kappel | System Administrator & Private Infrastructure Lab</title>
   <meta name="description" content="Dennis Kappel is a professional System Administrator with IT operations experience and hands-on private infrastructure projects in Linux, Kubernetes, networking and automation." />
   <meta name="robots" content="index, follow" />
+  <script>
+    (() => {
+      document.documentElement.classList.add("cv-js");
+      try {
+        if (sessionStorage.getItem("cv-build-complete") === "1") {
+          document.documentElement.classList.add("cv-build-complete");
+        } else {
+          document.documentElement.classList.add("cv-build-pending");
+        }
+      } catch (_error) {
+        document.documentElement.classList.add("cv-build-pending");
+      }
+    })();
+  </script>
   <style>
     *, *::before, *::after { box-sizing: border-box; }
     * { margin: 0; }
@@ -82,11 +96,24 @@
     }
     .nav a { text-decoration: none; }
     .split-hero {
+      position: relative;
       width: 100%;
       min-height: 100svh;
       display: grid;
       grid-template-columns: 1fr 1fr;
       transition: grid-template-columns 520ms var(--ease);
+    }
+    .split-hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      z-index: 3;
+      width: 1px;
+      background: linear-gradient(180deg, transparent, rgba(22, 130, 93, 0.54), transparent);
+      transform-origin: top;
+      pointer-events: none;
     }
     .side {
       min-width: 0;
@@ -170,17 +197,28 @@
     }
     .lab .fact-list { border-top-color: var(--dark-line); }
     .fact {
+      position: relative;
       display: flex;
       justify-content: space-between;
       gap: 18px;
-      border-bottom: 1px solid var(--line);
+      border-bottom: 0;
       padding: 0 0 10px;
       color: var(--ink);
       font-size: 13px;
     }
+    .fact::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 1px;
+      background: var(--line);
+      transform-origin: left;
+    }
     .lab .fact {
-      border-bottom-color: var(--dark-line);
       color: #eaf4ec;
+    }
+    .lab .fact::after {
+      background: var(--dark-line);
     }
     .fact span:last-child {
       color: var(--muted);
@@ -487,6 +525,125 @@
       color: var(--ink);
       text-decoration: none;
     }
+    .cv-js.cv-build-pending .topbar,
+    .cv-js.cv-build-pending .side .label,
+    .cv-js.cv-build-pending .side h1,
+    .cv-js.cv-build-pending .side .summary,
+    .cv-js.cv-build-pending .side .fact,
+    .cv-js.cv-build-pending .side .actions,
+    .cv-js.cv-build-pending .detail-stage,
+    .cv-js.cv-build-pending .agent-note,
+    .cv-js.cv-build-pending footer {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    .cv-js.cv-build-pending .topbar {
+      transform: translateY(-10px);
+    }
+    .cv-js.cv-build-pending .professional {
+      clip-path: inset(0 100% 0 0);
+    }
+    .cv-js.cv-build-pending .lab {
+      clip-path: inset(0 0 0 100%);
+    }
+    .cv-js.cv-build-pending .split-hero::before {
+      transform: scaleY(0);
+      opacity: 0;
+    }
+    .cv-js.cv-build-pending .fact::after {
+      transform: scaleX(0);
+    }
+    .cv-js.cv-build-pending .detail-card,
+    .cv-js.cv-build-pending .health-card,
+    .cv-js.cv-build-pending .selector,
+    .cv-js.cv-build-pending .detail-rail h2 {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    .cv-js.cv-build-step-header .topbar,
+    .cv-js.cv-build-complete .topbar {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 360ms var(--ease), transform 420ms var(--ease);
+    }
+    .cv-js.cv-build-step-line .split-hero::before,
+    .cv-js.cv-build-complete .split-hero::before {
+      opacity: 1;
+      transform: scaleY(1);
+      transition: opacity 180ms var(--ease), transform 780ms var(--ease);
+    }
+    .cv-js.cv-build-step-backgrounds .professional,
+    .cv-js.cv-build-step-backgrounds .lab,
+    .cv-js.cv-build-complete .professional,
+    .cv-js.cv-build-complete .lab {
+      clip-path: inset(0 0 0 0);
+      transition: clip-path 680ms var(--ease), background-color 520ms var(--ease), filter 520ms var(--ease), color 520ms var(--ease);
+    }
+    .cv-js.cv-build-step-labels .side .label,
+    .cv-js.cv-build-complete .side .label {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 260ms var(--ease), transform 340ms var(--ease);
+    }
+    .cv-js.cv-build-step-headings .side h1,
+    .cv-js.cv-build-step-headings .side .summary,
+    .cv-js.cv-build-complete .side h1,
+    .cv-js.cv-build-complete .side .summary {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 360ms var(--ease), transform 440ms var(--ease);
+    }
+    .cv-js.cv-build-step-facts .side .fact,
+    .cv-js.cv-build-step-facts .side .actions,
+    .cv-js.cv-build-complete .side .fact,
+    .cv-js.cv-build-complete .side .actions {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 320ms var(--ease), transform 420ms var(--ease);
+    }
+    .cv-js.cv-build-step-facts .fact::after,
+    .cv-js.cv-build-complete .fact::after {
+      transform: scaleX(1);
+      transition: transform 560ms var(--ease);
+    }
+    .cv-js.cv-build-step-detail .detail-stage,
+    .cv-js.cv-build-complete .detail-stage {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 420ms var(--ease), transform 520ms var(--ease), background-color 420ms var(--ease), color 420ms var(--ease);
+    }
+    .cv-js.cv-build-step-detail .detail-card,
+    .cv-js.cv-build-step-detail .selector,
+    .cv-js.cv-build-step-detail .detail-rail h2,
+    .cv-js.cv-build-complete .detail-card,
+    .cv-js.cv-build-complete .selector,
+    .cv-js.cv-build-complete .detail-rail h2 {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 360ms var(--ease), transform 440ms var(--ease);
+    }
+    .cv-js.cv-build-step-health .health-card,
+    .cv-js.cv-build-complete .health-card {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 360ms var(--ease), transform 440ms var(--ease);
+    }
+    .cv-js.cv-build-step-agent .agent-note,
+    .cv-js.cv-build-step-agent footer,
+    .cv-js.cv-build-complete .agent-note,
+    .cv-js.cv-build-complete footer {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 420ms var(--ease), transform 500ms var(--ease);
+    }
+    .cv-js.cv-build-step-facts .fact:nth-child(1) { transition-delay: 0ms; }
+    .cv-js.cv-build-step-facts .fact:nth-child(2) { transition-delay: 70ms; }
+    .cv-js.cv-build-step-facts .fact:nth-child(3) { transition-delay: 140ms; }
+    .cv-js.cv-build-step-facts .fact:nth-child(4) { transition-delay: 210ms; }
+    .cv-js.cv-build-step-facts .fact:nth-child(1)::after { transition-delay: 20ms; }
+    .cv-js.cv-build-step-facts .fact:nth-child(2)::after { transition-delay: 90ms; }
+    .cv-js.cv-build-step-facts .fact:nth-child(3)::after { transition-delay: 160ms; }
+    .cv-js.cv-build-step-facts .fact:nth-child(4)::after { transition-delay: 230ms; }
     @media (max-width: 1080px) {
       .detail-stage,
       .lab-composite {
@@ -560,6 +717,34 @@
         scroll-behavior: auto !important;
         transition-duration: 0.001ms !important;
         animation-duration: 0.001ms !important;
+      }
+      .cv-js.cv-build-pending .topbar,
+      .cv-js.cv-build-pending .side .label,
+      .cv-js.cv-build-pending .side h1,
+      .cv-js.cv-build-pending .side .summary,
+      .cv-js.cv-build-pending .side .fact,
+      .cv-js.cv-build-pending .side .actions,
+      .cv-js.cv-build-pending .detail-stage,
+      .cv-js.cv-build-pending .agent-note,
+      .cv-js.cv-build-pending footer,
+      .cv-js.cv-build-pending .detail-card,
+      .cv-js.cv-build-pending .health-card,
+      .cv-js.cv-build-pending .selector,
+      .cv-js.cv-build-pending .detail-rail h2 {
+        opacity: 1 !important;
+        transform: none !important;
+        clip-path: inset(0 0 0 0) !important;
+      }
+      .cv-js.cv-build-pending .professional,
+      .cv-js.cv-build-pending .lab {
+        clip-path: inset(0 0 0 0) !important;
+      }
+      .cv-js.cv-build-pending .split-hero::before {
+        opacity: 1 !important;
+        transform: scaleY(1) !important;
+      }
+      .cv-js.cv-build-pending .fact::after {
+        transform: scaleX(1) !important;
       }
     }
   </style>
@@ -713,7 +898,21 @@
       const panels = Array.from(document.querySelectorAll("[data-panel]"));
       const kicker = document.querySelector("[data-detail-kicker]");
       const title = document.querySelector("[data-detail-title]");
-      let lockedSide = "professional";
+      const buildSteps = [
+        "cv-build-step-header",
+        "cv-build-step-line",
+        "cv-build-step-backgrounds",
+        "cv-build-step-labels",
+        "cv-build-step-headings",
+        "cv-build-step-facts",
+        "cv-build-step-detail",
+        "cv-build-step-health",
+        "cv-build-step-agent"
+      ];
+      const buildTimers = [];
+      let activeSide = readStoredSide() || "professional";
+      let buildComplete = document.documentElement.classList.contains("cv-build-complete");
+      let healthStarted = false;
 
       const copy = {
         professional: {
@@ -732,9 +931,29 @@
         splitHero.classList.toggle("is-lab-active", side === "lab");
       }
 
-      function setActive(side, lock = false) {
+      function readStoredSide() {
+        try {
+          const stored = sessionStorage.getItem("cv-active-side");
+          return copySide(stored);
+        } catch (_error) {
+          return null;
+        }
+      }
+
+      function copySide(side) {
+        return side === "lab" || side === "professional" ? side : null;
+      }
+
+      function storeSide(side) {
+        try {
+          sessionStorage.setItem("cv-active-side", side);
+        } catch (_error) {
+          // Ignore storage failures; interaction still works for this page view.
+        }
+      }
+
+      function setActive(side) {
         if (!copy[side]) return;
-        if (lock) lockedSide = side;
         stage?.setAttribute("data-active", side);
         if (kicker) kicker.textContent = copy[side].kicker;
         if (title) title.textContent = copy[side].title;
@@ -752,21 +971,74 @@
         });
       }
 
-      sides.forEach((side) => {
-        side.addEventListener("pointerenter", () => {
-          if (!reduceMotion && window.matchMedia("(min-width: 900px)").matches) setActive(side.dataset.side);
+      function activate(side) {
+        const nextSide = copySide(side);
+        if (!nextSide) return;
+        activeSide = nextSide;
+        storeSide(activeSide);
+        setActive(activeSide);
+      }
+
+      function finishBuild() {
+        if (buildComplete) {
+          if (!healthStarted) fetchHealth();
+          return;
+        }
+        buildComplete = true;
+        buildTimers.forEach((timer) => window.clearTimeout(timer));
+        document.documentElement.classList.remove("cv-build-pending", ...buildSteps);
+        document.documentElement.classList.add("cv-build-complete");
+        try {
+          sessionStorage.setItem("cv-build-complete", "1");
+        } catch (_error) {
+          // Build animation is optional.
+        }
+        if (!healthStarted) fetchHealth();
+      }
+
+      function startBuild() {
+        if (buildComplete || reduceMotion) {
+          finishBuild();
+          return;
+        }
+
+        const schedule = [
+          ["cv-build-step-header", 80],
+          ["cv-build-step-line", 360],
+          ["cv-build-step-backgrounds", 620],
+          ["cv-build-step-labels", 960],
+          ["cv-build-step-headings", 1240],
+          ["cv-build-step-facts", 1560],
+          ["cv-build-step-detail", 1980],
+          ["cv-build-step-health", 2320],
+          ["cv-build-step-agent", 2660]
+        ];
+
+        schedule.forEach(([step, delay]) => {
+          buildTimers.push(window.setTimeout(() => {
+            document.documentElement.classList.add(step);
+            if (step === "cv-build-step-health" && !healthStarted) fetchHealth();
+          }, delay));
         });
-        side.addEventListener("focus", () => setActive(side.dataset.side));
-        side.addEventListener("click", () => setActive(side.dataset.side, true));
+        buildTimers.push(window.setTimeout(finishBuild, 3050));
+
+        ["pointerdown", "wheel", "keydown", "touchstart"].forEach((eventName) => {
+          window.addEventListener(eventName, finishBuild, { once: true, passive: true, capture: true });
+        });
+      }
+
+      sides.forEach((side) => {
+        side.addEventListener("pointerenter", () => activate(side.dataset.side));
+        side.addEventListener("focus", () => activate(side.dataset.side));
+        side.addEventListener("click", () => activate(side.dataset.side));
         side.addEventListener("keydown", (event) => {
           if (event.key !== "Enter" && event.key !== " ") return;
           event.preventDefault();
-          setActive(side.dataset.side, true);
+          activate(side.dataset.side);
         });
       });
 
-      splitHero?.addEventListener("pointerleave", () => setActive(lockedSide));
-      tabs.forEach((tab) => tab.addEventListener("click", () => setActive(tab.dataset.tab, true)));
+      tabs.forEach((tab) => tab.addEventListener("click", () => activate(tab.dataset.tab)));
 
       const healthCard = document.querySelector(".health-card");
       const state = document.querySelector("[data-health-state]");
@@ -841,6 +1113,7 @@
       }
 
       function fetchHealth() {
+        healthStarted = true;
         fetch("lab-health.json", { cache: "no-store" })
           .then((response) => {
             if (!response.ok) throw new Error("health unavailable");
@@ -850,7 +1123,8 @@
           .catch(() => unavailable());
       }
 
-      fetchHealth();
+      setActive(activeSide);
+      startBuild();
       window.setInterval(updateCountdown, 1000);
       window.setInterval(fetchHealth, 60000);
     })();
