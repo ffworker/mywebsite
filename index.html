@@ -3,23 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dennis Kappel | IT Operations, Homelab, Automation</title>
-  <meta name="description" content="Dennis Kappel - practical IT operations, homelab infrastructure, observability, Kubernetes learning, Ansible runbooks, and agent-assisted workflows." />
+  <title>Dennis Kappel | Infrastructure Operations, Kubernetes, AI-assisted Delivery</title>
+  <meta name="description" content="Dennis Kappel is an infrastructure-focused IT professional working with Linux, k3s, containers, NetBird, Cloudflare Tunnel, observability, Git-backed runbooks, and AI-assisted technical workflows." />
   <meta name="robots" content="index, follow" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --bg: #020617;
-      --bg-elevated: #07111f;
       --panel: rgba(15, 23, 42, 0.86);
-      --panel-soft: rgba(15, 23, 42, 0.62);
-      --panel-deep: rgba(2, 6, 23, 0.84);
-      --card: rgba(255, 255, 255, 0.052);
-      --card-strong: rgba(255, 255, 255, 0.092);
+      --panel-soft: rgba(15, 23, 42, 0.64);
+      --panel-deep: rgba(2, 6, 23, 0.86);
+      --surface: rgba(255, 255, 255, 0.052);
+      --surface-strong: rgba(255, 255, 255, 0.09);
       --border: rgba(148, 163, 184, 0.18);
       --border-strong: rgba(148, 163, 184, 0.34);
       --text: #f8fafc;
       --muted: #a8b3c5;
+      --soft: #cbd5e1;
       --dim: #64748b;
       --green: #10b981;
       --cyan: #22d3ee;
@@ -30,19 +30,18 @@
       --mono: "JetBrains Mono", "Fira Code", "Cascadia Code", ui-monospace, SFMono-Regular, Menlo, monospace;
       --ui: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       --radius: 8px;
-      --shadow-soft: 0 18px 60px rgba(0, 0, 0, 0.28);
-      --shadow-strong: 0 28px 100px rgba(0, 0, 0, 0.38);
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.32);
       --nav-height: 64px;
     }
-    html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-height) + 24px); }
+    html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-height) + 28px); }
     body {
       min-height: 100vh;
+      overflow-x: clip;
       background: var(--bg);
       color: var(--text);
       font-family: var(--ui);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
-      overflow-x: clip;
     }
     body::before {
       content: "";
@@ -53,7 +52,7 @@
       background:
         linear-gradient(rgba(148, 163, 184, 0.032) 1px, transparent 1px),
         linear-gradient(90deg, rgba(148, 163, 184, 0.032) 1px, transparent 1px),
-        linear-gradient(180deg, rgba(34, 211, 238, 0.10), transparent 34rem);
+        linear-gradient(180deg, rgba(34, 211, 238, 0.11), transparent 32rem);
       background-size: 44px 44px, 44px 44px, auto;
     }
     body::after {
@@ -63,10 +62,15 @@
       z-index: 0;
       pointer-events: none;
       background:
-        radial-gradient(ellipse 78% 42% at 50% 0%, rgba(16, 185, 129, 0.13), transparent 62%),
-        radial-gradient(ellipse 42% 36% at 100% 18%, rgba(96, 165, 250, 0.10), transparent 58%);
+        radial-gradient(ellipse 72% 40% at 50% 0%, rgba(16, 185, 129, 0.14), transparent 62%),
+        radial-gradient(ellipse 38% 34% at 100% 18%, rgba(96, 165, 250, 0.10), transparent 58%);
     }
     a { color: inherit; }
+    code {
+      font-family: var(--mono);
+      color: var(--cyan);
+      font-size: 0.94em;
+    }
     a:focus-visible, button:focus-visible {
       outline: 2px solid var(--cyan);
       outline-offset: 4px;
@@ -78,7 +82,7 @@
       top: 0;
       z-index: 20;
       border-bottom: 1px solid var(--border);
-      background: rgba(2, 6, 23, 0.84);
+      background: rgba(2, 6, 23, 0.86);
       backdrop-filter: blur(16px);
     }
     .nav-inner {
@@ -94,7 +98,7 @@
       gap: 10px;
       font-family: var(--mono);
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 800;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--green);
@@ -116,58 +120,57 @@
     }
     .nav-links a {
       text-decoration: none;
+      white-space: nowrap;
       border: 1px solid transparent;
       border-radius: 999px;
       padding: 7px 10px;
       transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
-      white-space: nowrap;
     }
-    .nav-links a:hover, .nav-links a:focus-visible {
-      color: var(--text);
-      background: rgba(255, 255, 255, 0.045);
-      border-color: var(--border);
-    }
+    .nav-links a:hover,
+    .nav-links a:focus-visible,
     .nav-links a.active {
-      color: var(--cyan);
-      border-color: rgba(34, 211, 238, 0.24);
+      color: var(--text);
+      border-color: rgba(34, 211, 238, 0.26);
       background: rgba(34, 211, 238, 0.08);
     }
     .hero {
-      min-height: calc(100vh - var(--nav-height) - 48px);
+      min-height: calc(100vh - var(--nav-height) - 28px);
       display: grid;
-      grid-template-columns: minmax(0, 1.08fr) minmax(340px, 0.92fr);
-      gap: clamp(32px, 5vw, 68px);
+      grid-template-columns: minmax(0, 1.04fr) minmax(340px, 0.96fr);
+      gap: clamp(34px, 5vw, 72px);
       align-items: center;
-      padding: clamp(64px, 9vw, 110px) 0 clamp(44px, 7vw, 72px);
+      padding: clamp(58px, 8vw, 100px) 0 clamp(36px, 5vw, 62px);
     }
-    .hero-copy { max-width: 840px; }
+    .eyebrow,
+    .kicker {
+      font-family: var(--mono);
+      color: var(--cyan);
+      font-size: 12px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
     .eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      color: var(--cyan);
-      font-family: var(--mono);
-      font-size: 12px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
       margin-bottom: 22px;
     }
     .eyebrow::before { content: ">"; color: var(--green); }
     h1 {
-      max-width: 820px;
+      max-width: 780px;
       font-family: var(--mono);
-      font-size: clamp(2.55rem, 4.6vw, 4.08rem);
-      line-height: 1.06;
+      font-size: clamp(2.35rem, 4.3vw, 3.86rem);
+      line-height: 1.07;
       letter-spacing: 0;
     }
     .lead {
       margin-top: 28px;
-      max-width: 650px;
-      color: #cbd5e1;
-      font-size: clamp(1rem, 1.55vw, 1.18rem);
+      max-width: 690px;
+      color: var(--soft);
+      font-size: clamp(1.03rem, 1.55vw, 1.2rem);
       line-height: 1.75;
     }
-    .lead strong { color: var(--text); font-weight: 700; }
+    .lead strong { color: var(--text); }
     .actions {
       margin-top: 34px;
       display: flex;
@@ -175,19 +178,19 @@
       gap: 10px;
     }
     .button {
-      min-height: 40px;
+      min-height: 42px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
       border: 1px solid var(--border-strong);
-      background: var(--card);
-      color: var(--text);
-      text-decoration: none;
       border-radius: 999px;
+      background: var(--surface);
+      color: var(--text);
       padding: 9px 16px;
+      text-decoration: none;
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 800;
       transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
     }
     .button:hover {
@@ -196,78 +199,81 @@
       background: rgba(34, 211, 238, 0.10);
     }
     .button.primary {
-      min-height: 46px;
+      min-height: 48px;
       padding-inline: 20px;
+      border-color: rgba(16, 185, 129, 0.64);
       background: linear-gradient(180deg, rgba(16, 185, 129, 0.28), rgba(16, 185, 129, 0.14));
-      border-color: rgba(16, 185, 129, 0.62);
       box-shadow: 0 14px 36px rgba(16, 185, 129, 0.12);
     }
-    .button.primary:hover { border-color: rgba(16, 185, 129, 0.86); background: rgba(16, 185, 129, 0.20); }
-    .terminal {
+    .hero-panel {
       border: 1px solid var(--border);
       border-radius: var(--radius);
       background:
-        linear-gradient(180deg, rgba(2, 6, 23, 0.92), rgba(2, 6, 23, 0.72)),
-        var(--panel-deep);
-      box-shadow: var(--shadow-strong);
+        linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.68)),
+        var(--panel);
+      box-shadow: var(--shadow);
       overflow: hidden;
-      position: relative;
     }
-    .terminal::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      border-top: 1px solid rgba(34, 211, 238, 0.16);
-    }
-    .terminal-top {
+    .panel-top {
       height: 42px;
       display: flex;
       align-items: center;
       gap: 8px;
       padding: 0 14px;
       border-bottom: 1px solid var(--border);
-      background: rgba(15, 23, 42, 0.84);
+      background: rgba(2, 6, 23, 0.48);
     }
     .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--dim); }
     .dot:nth-child(1) { background: var(--red); }
     .dot:nth-child(2) { background: var(--amber); }
     .dot:nth-child(3) { background: var(--green); }
-    .terminal-body {
-      padding: 22px;
-      font-family: var(--mono);
-      font-size: 12.5px;
-      color: var(--muted);
-    }
-    .term-line {
+    .signal-list { padding: 22px; display: grid; gap: 14px; }
+    .signal {
       display: grid;
-      grid-template-columns: 14px minmax(0, 1fr);
-      gap: 10px;
-      padding: 5px 0;
+      grid-template-columns: 118px minmax(0, 1fr);
+      gap: 18px;
+      padding: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      border-radius: var(--radius);
+      background: rgba(2, 6, 23, 0.34);
     }
-    .term-result { padding-bottom: 13px; }
-    .prompt { color: var(--green); flex: 0 0 auto; }
-    .ok { color: var(--cyan); }
-    .warn { color: var(--amber); }
-    .quiet { color: var(--dim); }
-    .metrics {
+    .signal-label {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .signal strong {
+      display: block;
+      color: var(--text);
+      line-height: 1.3;
+    }
+    .signal span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .proof-strip {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 1px;
-      margin: -18px auto 76px;
+      margin: -18px auto 72px;
       border: 1px solid var(--border);
       border-radius: var(--radius);
       background: rgba(148, 163, 184, 0.16);
       overflow: hidden;
-      box-shadow: var(--shadow-soft);
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.22);
     }
-    .metric {
+    .proof {
       position: relative;
-      background: rgba(15, 23, 42, 0.78);
-      padding: 18px 18px 20px;
-      min-height: 124px;
+      min-height: 126px;
+      padding: 18px;
+      background: rgba(15, 23, 42, 0.82);
     }
-    .metric::before {
+    .proof::before {
       content: "";
       position: absolute;
       left: 18px;
@@ -275,54 +281,35 @@
       top: 0;
       height: 2px;
       background: var(--green);
-      opacity: 0.74;
     }
-    .metric:nth-child(2)::before { background: var(--cyan); }
-    .metric:nth-child(3)::before { background: var(--blue); }
-    .metric:nth-child(4)::before { background: var(--amber); }
-    .metric-value {
+    .proof:nth-child(2)::before { background: var(--cyan); }
+    .proof:nth-child(3)::before { background: var(--blue); }
+    .proof:nth-child(4)::before { background: var(--amber); }
+    .proof strong {
+      display: block;
       font-family: var(--mono);
-      font-size: clamp(1.35rem, 2vw, 1.75rem);
-      color: var(--text);
-      line-height: 1.15;
+      font-size: clamp(1.14rem, 1.9vw, 1.55rem);
+      line-height: 1.2;
     }
-    .metric-label {
+    .proof span {
+      display: block;
       margin-top: 10px;
       color: var(--muted);
       font-size: 13px;
       line-height: 1.45;
     }
-    section { padding: 76px 0; }
-    section.priority {
-      position: relative;
-      padding-block: 86px;
-    }
-    section.priority::before {
-      content: "";
-      position: absolute;
-      inset: 20px max(20px, calc((100vw - 1210px) / 2)) 20px;
-      z-index: -1;
-      border-block: 1px solid rgba(148, 163, 184, 0.10);
-      background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.035), transparent);
-    }
+    section { padding: 78px 0; }
     .section-head {
       display: flex;
       align-items: end;
       justify-content: space-between;
-      gap: 24px;
+      gap: 28px;
       margin-bottom: 30px;
     }
-    .section-kicker {
-      font-family: var(--mono);
-      color: var(--green);
-      font-size: 12px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
+    .kicker { display: block; margin-bottom: 10px; color: var(--green); }
     h2 {
-      max-width: 760px;
-      font-size: clamp(1.8rem, 3vw, 2.65rem);
+      max-width: 780px;
+      font-size: clamp(1.85rem, 3vw, 2.75rem);
       line-height: 1.1;
       letter-spacing: 0;
     }
@@ -337,11 +324,12 @@
     .card {
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(15, 23, 42, 0.90), rgba(15, 23, 42, 0.68));
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.64));
       padding: 22px;
-      transition: transform 0.16s ease, border-color 0.16s ease, background 0.16s ease, box-shadow 0.16s ease;
+      transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
     }
-    .card:hover, .work:hover {
+    .card:hover,
+    .case:hover {
       transform: translateY(-2px);
       border-color: rgba(148, 163, 184, 0.42);
       box-shadow: 0 18px 54px rgba(0, 0, 0, 0.22);
@@ -350,14 +338,21 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      color: var(--text);
-      font-size: 1.04rem;
-      line-height: 1.25;
       margin-bottom: 12px;
+      color: var(--text);
+      font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+      line-height: 1.28;
     }
-    .card-icon {
-      width: 38px;
-      height: 38px;
+    .card p,
+    .card li,
+    .case p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.68;
+    }
+    .icon {
+      width: 36px;
+      height: 36px;
       display: inline-grid;
       place-items: center;
       flex: 0 0 auto;
@@ -366,138 +361,40 @@
       background: rgba(255, 255, 255, 0.045);
       color: var(--cyan);
     }
-    .card-icon svg { width: 20px; height: 20px; stroke-width: 1.8; }
-    .card-icon.green { color: var(--green); background: rgba(16, 185, 129, 0.08); }
-    .card-icon.amber { color: var(--amber); background: rgba(245, 158, 11, 0.08); }
-    .card-icon.violet { color: var(--violet); background: rgba(139, 92, 246, 0.08); }
+    .icon svg { width: 19px; height: 19px; stroke-width: 1.8; }
+    .icon.green { color: var(--green); background: rgba(16, 185, 129, 0.08); }
+    .icon.amber { color: var(--amber); background: rgba(245, 158, 11, 0.08); }
+    .icon.violet { color: var(--violet); background: rgba(167, 139, 250, 0.08); }
     .marker {
       width: 9px;
       height: 9px;
       background: var(--cyan);
       box-shadow: 0 0 22px rgba(34, 211, 238, 0.38);
+      flex: 0 0 auto;
     }
     .marker.green { background: var(--green); box-shadow: 0 0 22px rgba(16, 185, 129, 0.38); }
     .marker.amber { background: var(--amber); box-shadow: 0 0 22px rgba(245, 158, 11, 0.32); }
-    .marker.violet { background: var(--violet); box-shadow: 0 0 22px rgba(139, 92, 246, 0.32); }
-    .card p, .card li { color: var(--muted); font-size: 14px; line-height: 1.65; }
-    ul.clean { list-style: none; display: grid; gap: 9px; }
-    ul.clean li {
-      position: relative;
-      padding-left: 18px;
-    }
-    ul.clean li::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0.72em;
-      width: 6px;
-      height: 1px;
-      background: var(--cyan);
-    }
-    .card:nth-child(1) ul.clean li::before { background: var(--green); }
-    .card:nth-child(3) ul.clean li::before { background: var(--violet); }
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 16px;
-    }
-    .tag {
-      border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.04);
-      color: #dbeafe;
-      border-radius: 999px;
-      padding: 5px 9px;
-      font-family: var(--mono);
-      font-size: 11px;
-      line-height: 1.2;
-    }
-    .capability-grid {
-      counter-reset: capability;
-    }
-    .capability-card {
-      min-height: 220px;
+    .marker.violet { background: var(--violet); box-shadow: 0 0 22px rgba(167, 139, 250, 0.32); }
+    .cases {
       display: grid;
-      grid-template-rows: auto 1fr;
+      gap: 16px;
       position: relative;
-      overflow: hidden;
     }
-    .capability-card::before {
-      counter-increment: capability;
-      content: "0" counter(capability);
-      position: absolute;
-      right: 18px;
-      top: 14px;
-      font-family: var(--mono);
-      font-size: 12px;
-      color: rgba(148, 163, 184, 0.46);
-    }
-    .capability-card h3 {
+    .case {
       display: grid;
-      grid-template-columns: auto minmax(0, 1fr);
-      padding-right: 36px;
-      font-size: clamp(1.12rem, 2vw, 1.38rem);
-    }
-    .capability-card p {
-      max-width: 58ch;
-      align-self: end;
-    }
-    .stack-system {
-      position: relative;
-      padding: 18px;
-      border: 1px solid rgba(148, 163, 184, 0.12);
-      border-radius: var(--radius);
-      background:
-        linear-gradient(90deg, transparent 0 calc(33.333% - 1px), rgba(34, 211, 238, 0.12) calc(33.333% - 1px) 33.333%, transparent 33.333% calc(66.666% - 1px), rgba(139, 92, 246, 0.10) calc(66.666% - 1px) 66.666%, transparent 66.666%),
-        rgba(2, 6, 23, 0.22);
-    }
-    .stack-system .card {
-      min-height: 100%;
-      background: rgba(15, 23, 42, 0.78);
-    }
-    .timeline {
-      display: grid;
-      gap: 0;
-      position: relative;
-    }
-    .timeline::before {
-      content: "";
-      position: absolute;
-      top: 14px;
-      bottom: 14px;
-      left: 91px;
-      width: 1px;
-      background: linear-gradient(var(--green), var(--cyan), var(--violet), var(--amber));
-      opacity: 0.62;
-    }
-    .work {
-      position: relative;
-      display: grid;
-      grid-template-columns: 180px minmax(0, 1fr);
+      grid-template-columns: 190px minmax(0, 1fr);
       gap: 24px;
       border: 1px solid var(--border);
-      background: linear-gradient(180deg, rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.68));
       border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.90), rgba(15, 23, 42, 0.66));
       padding: 22px;
       transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
     }
-    .work + .work { margin-top: 16px; }
-    .work::before {
-      content: "";
-      position: absolute;
-      left: 86px;
-      top: 28px;
-      width: 11px;
-      height: 11px;
-      border: 2px solid var(--cyan);
-      background: var(--bg);
-      box-shadow: 0 0 0 6px rgba(34, 211, 238, 0.08);
-    }
-    .work-label {
+    .case-label {
       align-self: start;
       width: max-content;
       max-width: 100%;
-      border: 1px solid rgba(34, 211, 238, 0.22);
+      border: 1px solid rgba(34, 211, 238, 0.24);
       border-radius: 999px;
       background: rgba(34, 211, 238, 0.07);
       padding: 6px 10px;
@@ -507,32 +404,128 @@
       text-transform: uppercase;
       letter-spacing: 0.08em;
     }
-    .work:nth-child(1) .work-label, .work:nth-child(1)::before { color: var(--green); border-color: rgba(16, 185, 129, 0.30); }
-    .work:nth-child(1) .work-label { background: rgba(16, 185, 129, 0.08); }
-    .work:nth-child(3) .work-label, .work:nth-child(3)::before { color: var(--violet); border-color: rgba(139, 92, 246, 0.30); }
-    .work:nth-child(3) .work-label { background: rgba(139, 92, 246, 0.08); }
-    .work:nth-child(4) .work-label, .work:nth-child(4)::before { color: var(--amber); border-color: rgba(245, 158, 11, 0.30); }
-    .work:nth-child(4) .work-label { background: rgba(245, 158, 11, 0.08); }
-    .work h3 {
-      max-width: 760px;
+    .case h3 {
+      max-width: 780px;
       margin-bottom: 8px;
-      font-size: clamp(1.12rem, 2vw, 1.42rem);
+      font-size: clamp(1.15rem, 2vw, 1.48rem);
       line-height: 1.25;
     }
-    .work p { max-width: 760px; color: var(--muted); font-size: 14px; line-height: 1.68; }
-    .truth {
-      border-left: 2px solid rgba(16, 185, 129, 0.62);
-      background: rgba(16, 185, 129, 0.07);
+    .case-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(220px, 0.9fr);
+      gap: 18px;
+      margin-top: 14px;
     }
-    .agents-contrast .card {
-      min-height: 260px;
+    .case-box {
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      border-radius: var(--radius);
+      background: rgba(2, 6, 23, 0.28);
+      padding: 14px;
     }
-    .agents-contrast .card:first-child {
-      border-color: rgba(16, 185, 129, 0.34);
+    .case-box strong,
+    .small-label {
+      display: block;
+      margin-bottom: 7px;
+      font-family: var(--mono);
+      color: var(--text);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
     }
-    .agents-contrast .card:last-child {
-      border-color: rgba(245, 158, 11, 0.28);
-      background: linear-gradient(180deg, rgba(15, 23, 42, 0.86), rgba(29, 20, 7, 0.36));
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .tag {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      color: #dbeafe;
+      padding: 5px 9px;
+      font-family: var(--mono);
+      font-size: 11px;
+      line-height: 1.2;
+    }
+    .method {
+      border: 1px solid rgba(16, 185, 129, 0.24);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(90deg, rgba(16, 185, 129, 0.07), transparent 46%),
+        rgba(2, 6, 23, 0.36);
+      padding: clamp(22px, 4vw, 34px);
+    }
+    .method-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 28px;
+      align-items: start;
+    }
+    .method-intro p {
+      color: var(--soft);
+      font-size: clamp(1rem, 1.4vw, 1.14rem);
+      line-height: 1.75;
+    }
+    .clean {
+      list-style: none;
+      display: grid;
+      gap: 9px;
+    }
+    .clean li {
+      position: relative;
+      padding-left: 18px;
+    }
+    .clean li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.72em;
+      width: 6px;
+      height: 1px;
+      background: var(--cyan);
+    }
+    .skill-block {
+      min-height: 100%;
+    }
+    .skill-block .small-label { color: var(--green); }
+    .skill-block p { margin-bottom: 12px; }
+    .profile {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+    .profile-main {
+      border-left: 2px solid rgba(16, 185, 129, 0.72);
+    }
+    .quote {
+      border: 1px solid rgba(245, 158, 11, 0.26);
+      border-radius: var(--radius);
+      background: rgba(245, 158, 11, 0.07);
+      padding: 22px;
+    }
+    .quote p {
+      color: var(--soft);
+      font-size: clamp(1rem, 1.5vw, 1.16rem);
+      line-height: 1.7;
+    }
+    .contact-band {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(90deg, rgba(16, 185, 129, 0.10), rgba(34, 211, 238, 0.06), transparent),
+        rgba(15, 23, 42, 0.78);
+      padding: clamp(24px, 4vw, 38px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .contact-band p {
+      max-width: 650px;
+      margin-top: 10px;
+      color: var(--muted);
     }
     footer {
       border-top: 1px solid var(--border);
@@ -548,7 +541,8 @@
     }
     .footer-links { display: flex; gap: 14px; flex-wrap: wrap; }
     .footer-links a { color: var(--muted); text-decoration: none; }
-    .footer-links a:hover, .footer-links a:focus-visible { color: var(--text); }
+    .footer-links a:hover,
+    .footer-links a:focus-visible { color: var(--text); }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         scroll-behavior: auto !important;
@@ -558,13 +552,13 @@
       }
     }
     @media (max-width: 1024px) {
-      .hero {
-        grid-template-columns: minmax(0, 1fr);
-        min-height: auto;
+      .hero,
+      .method-grid,
+      .profile {
+        grid-template-columns: 1fr;
       }
-      .terminal { max-width: 680px; }
-      .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .stack-system { background: rgba(2, 6, 23, 0.22); }
+      .hero-panel { max-width: 720px; }
+      .proof-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .grid-3 { grid-template-columns: 1fr; }
       .section-head { align-items: start; }
     }
@@ -582,8 +576,6 @@
         width: 100%;
         min-width: 0;
         max-width: 100%;
-        display: flex;
-        gap: 6px;
         overflow-x: auto;
         overflow-y: hidden;
         padding-bottom: 2px;
@@ -591,40 +583,43 @@
       }
       .nav-links::-webkit-scrollbar { display: none; }
       .nav-links a { padding: 7px 9px; }
-      .hero { padding-top: 34px; }
+      .hero {
+        min-height: auto;
+        padding-top: 34px;
+      }
       h1 { font-size: clamp(2.05rem, 10vw, 4.2rem); overflow-wrap: break-word; }
       .lead { max-width: 100%; }
       .actions { margin-top: 24px; gap: 8px; }
       .button { min-height: 44px; }
-      .metrics, .grid-2 { grid-template-columns: 1fr; }
-      .metrics { margin-top: 0; }
-      section, section.priority { padding: 58px 0; }
+      .proof-strip,
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+      section { padding: 58px 0; }
       .section-head { display: block; }
       .section-note { margin-top: 12px; }
-      .capability-card { min-height: auto; }
-      .stack-system { padding: 0; border: 0; background: transparent; }
-      .timeline::before { left: 9px; }
-      .work {
+      .case {
         grid-template-columns: 1fr;
         gap: 14px;
-        padding-left: 28px;
       }
-      .work::before { left: 4px; top: 31px; }
+      .case-grid { grid-template-columns: 1fr; }
+      .contact-band {
+        display: grid;
+      }
     }
     @media (max-width: 420px) {
       .wrap { width: min(100% - 24px, 1160px); }
       .brand { font-size: 12px; }
       .eyebrow { font-size: 11px; letter-spacing: 0.10em; }
-      h1 { font-size: clamp(1.95rem, 9.8vw, 2.75rem); }
-      .lead { margin-top: 20px; font-size: 0.98rem; line-height: 1.62; }
-      .terminal-body { padding: 16px; font-size: 11.5px; }
-      .term-line { grid-template-columns: 10px minmax(0, 1fr); gap: 8px; }
+      h1 { font-size: clamp(1.82rem, 9.1vw, 2.48rem); }
+      .lead { margin-top: 18px; font-size: 0.94rem; line-height: 1.56; }
+      .hero { padding-top: 28px; }
       .actions { display: grid; grid-template-columns: 1fr 1fr; }
       .button.primary { grid-column: 1 / -1; }
-      .button { width: 100%; }
-      .card, .work { padding: 18px; }
-      .work { padding-left: 26px; }
-      .tags { gap: 6px; }
+      .signal { grid-template-columns: 1fr; gap: 6px; }
+      .card,
+      .case,
+      .quote { padding: 18px; }
       .tag { max-width: 100%; overflow-wrap: anywhere; }
     }
   </style>
@@ -635,227 +630,334 @@
       <div class="wrap nav-inner">
         <a class="brand" href="#top"><span class="brand-mark"></span>Dennis Kappel</a>
         <div class="nav-links">
-          <a href="#capabilities">Capabilities</a>
-          <a href="#work">Selected Work</a>
-          <a href="#stack">Stack</a>
-          <a href="#agents">LLMs & Agents</a>
-          <a href="#next">Next</a>
+          <a href="#bring">What I Bring</a>
+          <a href="#work">Work</a>
+          <a href="#ai">AI Workflow</a>
+          <a href="#skills">Skills</a>
+          <a href="#direction">Direction</a>
+          <a href="#contact">Contact</a>
         </div>
       </div>
     </nav>
 
     <header id="top" class="wrap hero">
-      <div class="hero-copy">
-        <div class="eyebrow">IT operations, homelab, automation</div>
-        <h1>I build useful systems and keep them understandable.</h1>
+      <div>
+        <div class="eyebrow">Linux infrastructure, k3s, operations, automation</div>
+        <h1>I turn infrastructure problems into running systems and repeatable operations.</h1>
         <p class="lead">
-          I work hands-on with Linux servers, Raspberry Pi infrastructure, Docker, k3s,
-          private networking, monitoring, and Git-backed runbooks. I also use LLMs and
-          self-hosted agents as serious tooling: <strong>they help me move faster, but I still verify,
-          operate, document, and learn the systems myself.</strong>
+          I am an infrastructure-focused IT professional moving toward DevOps, SRE, platform engineering, and Kubernetes-focused work.
+          My strength is practical ownership: Linux hosts, containers, private networking, observability, Git-backed configuration, and
+          <strong>AI-assisted execution where live systems, logs, diffs, and tests decide what is true.</strong>
         </p>
         <div class="actions">
-          <a class="button primary" href="#work">View practical work</a>
+          <a class="button primary" href="#work">View infrastructure work</a>
           <a class="button" href="https://github.com/ffworker" target="_blank" rel="noopener noreferrer">GitHub</a>
           <a class="button" href="mailto:denniskappel@gmx.net">Contact</a>
         </div>
       </div>
 
-      <aside class="terminal" aria-label="Current operating snapshot">
-        <div class="terminal-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-        <div class="terminal-body">
-          <div class="term-line"><span class="prompt">$</span><span>whoami</span></div>
-          <div class="term-line term-result"><span></span><span class="ok">practical operator, still learning deliberately</span></div>
-          <div class="term-line"><span class="prompt">$</span><span>current-focus</span></div>
-          <div class="term-line term-result"><span></span><span>k3s, observability, NetBird, Ansible, backups</span></div>
-          <div class="term-line"><span class="prompt">$</span><span>agent-workflow --honest</span></div>
-          <div class="term-line term-result"><span></span><span class="warn">LLMs assist, humans verify, Git records truth</span></div>
-          <div class="term-line"><span class="prompt">$</span><span>status</span></div>
-          <div class="term-line term-result"><span></span><span class="quiet">not expert-posturing; building real operating muscle</span></div>
+      <aside class="hero-panel" aria-label="Professional operating snapshot">
+        <div class="panel-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+        <div class="signal-list">
+          <div class="signal">
+            <div class="signal-label">Operate</div>
+            <div><strong>Linux, VPS, Raspberry Pi, containers</strong><span>Services have to start, route, persist data, expose the right ports, and be recoverable.</span></div>
+          </div>
+          <div class="signal">
+            <div class="signal-label">Migrate</div>
+            <div><strong>Docker and static services into k3s</strong><span>Small systems, real cutovers, rollback thinking, and Kubernetes objects that can be inspected.</span></div>
+          </div>
+          <div class="signal">
+            <div class="signal-label">Verify</div>
+            <div><strong>Logs, metrics, Git diffs, rollouts</strong><span>Generated suggestions are useful. Verified state is authoritative.</span></div>
+          </div>
+          <div class="signal">
+            <div class="signal-label">Document</div>
+            <div><strong>Runbooks and desired state</strong><span>The next fix should be easier because the last one left a trail.</span></div>
+          </div>
         </div>
       </aside>
     </header>
 
-    <div class="wrap metrics" aria-label="Short profile facts">
-      <div class="metric"><div class="metric-value">Linux</div><div class="metric-label">daily server and service operations</div></div>
-      <div class="metric"><div class="metric-value">k3s</div><div class="metric-label">small clusters, manifests, service routing</div></div>
-      <div class="metric"><div class="metric-value">Git</div><div class="metric-label">infra state, docs, runbooks, commits</div></div>
-      <div class="metric"><div class="metric-value">Agents</div><div class="metric-label">LLM-assisted workflows with verification</div></div>
+    <div class="wrap proof-strip" aria-label="Short professional signals">
+      <div class="proof"><strong>Linux operations</strong><span>Host health, SSH, systemd, Docker, ports, logs, storage, and service recovery.</span></div>
+      <div class="proof"><strong>k3s practice</strong><span>Nodes, pods, Deployments, Services, Ingress, PVCs, rollouts, events, and manifests.</span></div>
+      <div class="proof"><strong>Private access</strong><span>NetBird, DNS boundaries, routed homelab access, Cloudflare Tunnel, and explicit exposure models.</span></div>
+      <div class="proof"><strong>AI workflow</strong><span>Fast drafting and investigation with human context, review, and operational verification.</span></div>
     </div>
 
     <main>
-      <section id="capabilities" class="wrap priority">
+      <section id="bring" class="wrap">
         <div class="section-head">
           <div>
-            <div class="section-kicker">What I Can Do Today</div>
-            <h2>Useful, honest, employable skills</h2>
+            <span class="kicker">What I Bring</span>
+            <h2>Useful infrastructure behavior beyond tool familiarity</h2>
           </div>
-          <p class="section-note">I am not selling myself as a senior Kubernetes engineer. I am selling someone who learns fast, operates carefully, and documents reality.</p>
+          <p class="section-note">The strongest signal is how I handle imperfect systems: inspect, isolate, change carefully, verify, document, and improve the next run.</p>
         </div>
-        <div class="grid-2 capability-grid">
-          <article class="card capability-card">
-            <h3><span class="card-icon green" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16v10H4z"/><path d="M8 21h8"/><path d="M12 17v4"/><path d="M8 11h.01"/><path d="M12 11h.01"/><path d="M16 11h.01"/></svg></span>Operate small infrastructure</h3>
-            <p>I can keep small Linux, VPS, and Raspberry Pi environments running: inspect services, read logs, understand dependencies, check ports, manage containers, and recover from common breakages.</p>
+        <div class="grid-2">
+          <article class="card">
+            <h3><span class="icon green" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16v10H4z"/><path d="M8 21h8"/><path d="M12 17v4"/><path d="M8 11h.01"/><path d="M12 11h.01"/><path d="M16 11h.01"/></svg></span>Practical infrastructure ownership</h3>
+            <p>I work across Linux hosts, VPS systems, Raspberry Pi infrastructure, Docker, k3s, DNS, private networking, tunnels, storage, monitoring, and Git-backed configuration. I care whether the service actually works after the diagram looks good.</p>
           </article>
-          <article class="card capability-card">
-            <h3><span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/><path d="M5 6v12"/></svg></span>Build practical deployment paths</h3>
-            <p>I can move a simple service from Docker Compose into Kubernetes, define Services and Deployments, wire a Cloudflare Tunnel, test rollout state, and keep the change in Git.</p>
+          <article class="card">
+            <h3><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/><path d="M5 6v12"/></svg></span>Structured troubleshooting</h3>
+            <p>I trace problems through the layer that is actually failing: DNS, routing, ports, containers, Kubernetes objects, storage, logs, events, or application behavior. I prefer evidence over guesses and rollback plans over heroics.</p>
           </article>
-          <article class="card capability-card">
-            <h3><span class="card-icon violet" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 19V5"/><path d="M4 19h16"/><path d="m7 15 3-4 3 2 4-6"/></svg></span>Make systems observable</h3>
-            <p>I can add host and Kubernetes metrics, build readable Grafana dashboards, separate missing data from healthy data, and use monitoring to find what actually needs attention.</p>
+          <article class="card">
+            <h3><span class="icon violet" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 19V5"/><path d="M4 19h16"/><path d="m7 15 3-4 3 2 4-6"/></svg></span>Operational visibility</h3>
+            <p>I use dashboards, probes, node metrics, kube-state metrics, and health checks to turn "it feels broken" into something inspectable. Monitoring is most useful when it helps decide what to check next.</p>
           </article>
-          <article class="card capability-card">
-            <h3><span class="card-icon amber" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M7 4h10v16H7z"/><path d="M9 8h6"/><path d="M9 12h6"/><path d="M9 16h3"/></svg></span>Turn fixes into runbooks</h3>
-            <p>I can document commands, rollback paths, access patterns, and setup steps. I am actively turning repeatable work into Ansible playbooks and concise operational cheat sheets.</p>
+          <article class="card">
+            <h3><span class="icon amber" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M7 4h10v16H7z"/><path d="M9 8h6"/><path d="M9 12h6"/><path d="M9 16h3"/></svg></span>Repeatability and documentation</h3>
+            <p>I turn one-off fixes into runbooks, command references, Ansible starts, and desired-state repos. Good documentation is not decoration; it is how a system becomes safer to operate next week.</p>
           </article>
         </div>
       </section>
 
-      <section id="work" class="wrap priority">
+      <section id="work" class="wrap">
         <div class="section-head">
           <div>
-            <div class="section-kicker">Selected Work</div>
-            <h2>Recent work that reflects my real level</h2>
+            <span class="kicker">Selected Infrastructure Work</span>
+            <h2>Real projects that show the level and the working style</h2>
           </div>
-          <p class="section-note">These are small but real systems with tradeoffs, not toy screenshots.</p>
+          <p class="section-note">Concise case studies from real environments where access, state, routing, observability, and documentation matter.</p>
         </div>
-        <div class="timeline">
-          <article class="work">
-            <div class="work-label">Public edge</div>
+        <div class="cases">
+          <article class="case">
+            <div class="case-label">Public edge</div>
             <div>
-              <h3>Moved public static sites into pi-k3s behind Cloudflare Tunnel</h3>
-              <p>Staged Kubernetes manifests, created the tunnel Secret, deployed cloudflared and static nginx services, verified public routes, then stopped the old VPS tunnel and web containers.</p>
-              <div class="tags"><span class="tag">k3s</span><span class="tag">Cloudflare</span><span class="tag">Kubernetes Secret</span><span class="tag">nginx</span></div>
+              <h3>Moved small public Bytegeist sites into a Raspberry Pi k3s public-edge app</h3>
+              <p>Shifted <code>tools.bytegeist.dev</code> and <code>cv.bytegeist.dev</code> away from old VPS-hosted static containers into a k3s namespace served by nginx and reached through Cloudflare Tunnel.</p>
+              <div class="case-grid">
+                <div class="case-box">
+                  <strong>What it demonstrates</strong>
+                  <p>Service migration, Kubernetes ConfigMaps, Deployments, Services, Cloudflare Tunnel origins, public hostname routing, cutover cleanup, and a preference for Git-backed desired state.</p>
+                </div>
+                <div class="case-box">
+                  <strong>Ownership model</strong>
+                  <p>AI-assisted planning and implementation, with live verification, route checks, rollout checks, and documentation used to decide whether the migration was actually done.</p>
+                </div>
+              </div>
+              <div class="tags"><span class="tag">k3s</span><span class="tag">Cloudflare Tunnel</span><span class="tag">nginx</span><span class="tag">Kustomize</span><span class="tag">Git</span></div>
             </div>
           </article>
-          <article class="work">
-            <div class="work-label">Monitoring</div>
+
+          <article class="case">
+            <div class="case-label">k3s workload</div>
             <div>
-              <h3>Built an outside-in observer stack for homelab and VPS visibility</h3>
-              <p>Runs Prometheus, Grafana, Alertmanager, blackbox-exporter, node-exporter, and kube-state-metrics scraping so downtime and cluster problems are visible from outside the Pi cluster.</p>
-              <div class="tags"><span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">Alertmanager</span><span class="tag">PromQL</span></div>
+              <h3>Built a controlled migration pattern for ntfy on the Pi cluster</h3>
+              <p>Defined ntfy as a live k3s workload with its own namespace, pinned image, ClusterIP Service, private ingress path, PVC-backed state, health probes, security context, and explicit backup gap.</p>
+              <div class="case-grid">
+                <div class="case-box">
+                  <strong>What it demonstrates</strong>
+                  <p>Kubernetes object reasoning, persistent state caution, private exposure design, rollout validation, day-2 checks, and honest documentation of what must be solved before wider use.</p>
+                </div>
+                <div class="case-box">
+                  <strong>Ownership model</strong>
+                  <p>Kubernetes learning with AI support: explanations, manifest drafts, review, and troubleshooting help, while the important work stays in understanding objects, access, storage, logs, and failure states.</p>
+                </div>
+              </div>
+              <div class="tags"><span class="tag">Kubernetes</span><span class="tag">PVC</span><span class="tag">Ingress</span><span class="tag">NetworkPolicy</span><span class="tag">ntfy</span></div>
             </div>
           </article>
-          <article class="work">
-            <div class="work-label">Private network</div>
+
+          <article class="case">
+            <div class="case-label">Observability</div>
             <div>
-              <h3>Operated a NetBird-routed homelab path through a Raspberry Pi jumper</h3>
-              <p>Kept DNS filtering, LAN gateway/NAT, and NetBird subnet routing conceptually separate, then verified actual routes, interfaces, ports, node metrics, and service reachability.</p>
-              <div class="tags"><span class="tag">NetBird</span><span class="tag">Pi-hole</span><span class="tag">Routing</span><span class="tag">SSH</span></div>
+              <h3>Directed and verified an outside-in monitoring stack for VPS and Pi infrastructure</h3>
+              <p>Created a VPS01 observer stack that watches public entrypoints, private services, VPS peers, Pi nodes, and k3s workload metrics from outside the Pi cluster failure domain.</p>
+              <div class="case-grid">
+                <div class="case-box">
+                  <strong>What it demonstrates</strong>
+                  <p>Operational requirements, target selection, blackbox checks, node-exporter, kube-state metrics, Grafana dashboards, Prometheus queries, and the ability to notice when dashboard data is wrong or empty.</p>
+                </div>
+                <div class="case-box">
+                  <strong>Ownership model</strong>
+                  <p>Mostly agent-led implementation with human direction and verification. I defined what needed visibility, supplied infrastructure context, checked the live result, corrected bad assumptions, and use the system operationally.</p>
+                </div>
+              </div>
+              <div class="tags"><span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">blackbox-exporter</span><span class="tag">node-exporter</span><span class="tag">kube-state-metrics</span></div>
             </div>
           </article>
-          <article class="work">
-            <div class="work-label">Runbooks</div>
+
+          <article class="case">
+            <div class="case-label">Private access</div>
             <div>
-              <h3>Started Ansible-backed host and control-plane setup practice</h3>
-              <p>Created conservative playbooks for OpenClaw access and Raspberry Pi control-plane preparation, with destructive steps kept explicit and documented.</p>
-              <div class="tags"><span class="tag">Ansible</span><span class="tag">SSH</span><span class="tag">sudo</span><span class="tag">Git</span></div>
+              <h3>Separated public, private, and lab access with NetBird, DNS, and routing boundaries</h3>
+              <p>Worked through the migration from Tailscale toward NetBird, private service reachability, routed homelab paths, DNS zones, and the difference between public tunnel origins and private overlay addresses.</p>
+              <div class="case-grid">
+                <div class="case-box">
+                  <strong>What it demonstrates</strong>
+                  <p>Network boundary thinking, explicit exposure models, route verification, private DNS, service reachability, and the judgment to avoid pointing public DNS at private overlay addresses.</p>
+                </div>
+                <div class="case-box">
+                  <strong>Ownership model</strong>
+                  <p>Collaborative infrastructure design with AI support, but grounded in live tests, route behavior, service checks, and the practical need to keep access paths recoverable.</p>
+                </div>
+              </div>
+              <div class="tags"><span class="tag">NetBird</span><span class="tag">DNS</span><span class="tag">Cloudflare</span><span class="tag">Routing</span><span class="tag">SSH</span></div>
+            </div>
+          </article>
+
+          <article class="case">
+            <div class="case-label">Runbooks</div>
+            <div>
+              <h3>Started turning host setup and operational habits into Git-backed automation</h3>
+              <p>Built an `infra-configs` structure with Kubernetes manifests, migration notes, command references, backup checks, and first-pass Ansible playbooks for OpenClaw access and Raspberry Pi control-plane preparation.</p>
+              <div class="case-grid">
+                <div class="case-box">
+                  <strong>What it demonstrates</strong>
+                  <p>Documentation discipline, conservative automation, dry-run thinking, secrets boundaries, host bootstrap planning, and keeping destructive steps explicit instead of hidden in scripts.</p>
+                </div>
+                <div class="case-box">
+                  <strong>Ownership model</strong>
+                  <p>AI-assisted drafting and review, with a deliberately cautious approach: inspect first, use <code>--check</code> and diffs, commit what changed, and avoid storing secrets in the repo.</p>
+                </div>
+              </div>
+              <div class="tags"><span class="tag">Ansible</span><span class="tag">Runbooks</span><span class="tag">Git</span><span class="tag">Backups</span><span class="tag">SSH</span></div>
             </div>
           </article>
         </div>
       </section>
 
-      <section id="stack" class="wrap">
-        <div class="section-head">
-          <div>
-            <div class="section-kicker">Current Stack</div>
-            <h2>What I actually run and practice now</h2>
+      <section id="ai" class="wrap">
+        <div class="method">
+          <div class="method-grid">
+            <div class="method-intro">
+              <span class="kicker">AI-assisted Work</span>
+              <h2>Fast help, fallible output, human responsibility</h2>
+              <p>I work with AI agents like capable colleagues who can inspect, draft, compare, and document quickly. That is useful, but it is not authority. The authority is the live system: logs, metrics, diffs, commands, health checks, and whether the service still works after the change.</p>
+            </div>
+            <div class="grid-2">
+              <article class="card">
+                <h3><span class="marker green"></span>What the AI is good at</h3>
+                <ul class="clean">
+                  <li>Breaking vague infrastructure goals into inspectable stages.</li>
+                  <li>Drafting manifests, scripts, dashboards, runbooks, and migration plans.</li>
+                  <li>Comparing approaches and reading more context than one person can hold at once.</li>
+                  <li>Producing useful documentation while the work is still fresh.</li>
+                </ul>
+              </article>
+              <article class="card">
+                <h3><span class="marker amber"></span>Where I do not trust it blindly</h3>
+                <ul class="clean">
+                  <li>It can miss local context, misunderstand an imprecise problem, or solve the wrong thing neatly.</li>
+                  <li>It can produce plausible commands that are unsafe in the current environment.</li>
+                  <li>It can overcomplicate a small change or forget an earlier constraint.</li>
+                  <li>It still needs someone who understands the outage risk before applying the patch.</li>
+                </ul>
+              </article>
+              <article class="card">
+                <h3><span class="marker"></span>My part of the workflow</h3>
+                <ul class="clean">
+                  <li>Provide context, constraints, and the actual objective.</li>
+                  <li>Challenge assumptions before touching live services.</li>
+                  <li>Test against real commands, logs, metrics, rollouts, and URLs.</li>
+                  <li>Keep configuration and decisions in Git so the work can be reviewed.</li>
+                </ul>
+              </article>
+              <article class="card">
+                <h3><span class="marker violet"></span>Why this matters professionally</h3>
+                <p>The useful skill is not copying commands. It is coordinating fast technical help while keeping enough judgment to notice when the answer is wrong, too risky, or missing the operational point.</p>
+              </article>
+            </div>
           </div>
-          <p class="section-note">This is current practice, not a list of everything I have ever touched.</p>
-        </div>
-        <div class="grid-3 stack-system">
-          <article class="card">
-            <h3><span class="marker green"></span>Hosts and runtime</h3>
-            <ul class="clean">
-              <li>Debian/Linux VPS hosts and Raspberry Pi systems.</li>
-              <li>Docker Engine and Docker Compose for simple service stacks.</li>
-              <li>k3s clusters for Kubernetes practice and homelab workloads.</li>
-              <li>Systemd services, SSH access, sudo, package updates, and logs.</li>
-            </ul>
-            <div class="tags"><span class="tag">Linux</span><span class="tag">Docker</span><span class="tag">k3s</span></div>
-          </article>
-          <article class="card">
-            <h3><span class="marker"></span>Networking and access</h3>
-            <ul class="clean">
-              <li>NetBird for private access and routed homelab reachability.</li>
-              <li>Pi-hole DNS and a Raspberry Pi jumper for LAN routing.</li>
-              <li>Cloudflare Tunnel for public services without inbound home ports.</li>
-              <li>Reverse proxy basics, DNS records, tunnel origins, and service names.</li>
-            </ul>
-            <div class="tags"><span class="tag">NetBird</span><span class="tag">Cloudflare Tunnel</span><span class="tag">DNS</span></div>
-          </article>
-          <article class="card">
-            <h3><span class="marker violet"></span>Observability</h3>
-            <ul class="clean">
-              <li>Prometheus, Grafana, Alertmanager, and blackbox-exporter.</li>
-              <li>node-exporter and kube-state-metrics for host and cluster truth.</li>
-              <li>Dashboards focused on availability, CPU, memory, disk, pods, and failures.</li>
-              <li>Older InfluxDB/Grafana notes are legacy learning, not my preferred new path.</li>
-            </ul>
-            <div class="tags"><span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">kube-state</span></div>
-          </article>
         </div>
       </section>
 
-      <section id="agents" class="wrap">
+      <section id="skills" class="wrap">
         <div class="section-head">
           <div>
-            <div class="section-kicker">LLMs And Self-hosted Agents</div>
-            <h2>I use agents openly, not magically</h2>
+            <span class="kicker">Skills And Direction</span>
+            <h2>Grouped by working reality instead of proficiency theater</h2>
           </div>
-          <p class="section-note">I do not hide that LLMs help me. I also do not confuse generated output with verified infrastructure.</p>
-        </div>
-        <div class="grid-2 agents-contrast">
-          <article class="card truth">
-            <h3><span class="marker green"></span>How I use them well</h3>
-            <ul class="clean">
-              <li>Break vague goals into inspectable steps.</li>
-              <li>Generate drafts, scripts, manifests, and dashboards faster.</li>
-              <li>Compare output against live systems, logs, metrics, and Git diffs.</li>
-              <li>Keep secrets out of repos and treat production changes carefully.</li>
-            </ul>
-          </article>
-          <article class="card">
-            <h3><span class="marker amber"></span>What still stays human</h3>
-            <ul class="clean">
-              <li>Choosing the operational tradeoff.</li>
-              <li>Understanding what should not be deleted.</li>
-              <li>Verifying that a change actually works.</li>
-              <li>Admitting gaps and turning them into practice plans.</li>
-            </ul>
-          </article>
-        </div>
-      </section>
-
-      <section id="next" class="wrap">
-        <div class="section-head">
-          <div>
-            <div class="section-kicker">Next Practice</div>
-            <h2>Where I am improving next</h2>
-          </div>
-          <p class="section-note">Clear next steps are more useful than inflated claims.</p>
+          <p class="section-note">Some areas are operating tools, some are active deepening, and some are professional background that helps me debug across layers.</p>
         </div>
         <div class="grid-3">
-          <article class="card">
-            <h3><span class="marker"></span>Ansible depth</h3>
-            <p>Turn more first-run host setup, SSH access, backups, and Raspberry Pi rebuild steps into reusable playbooks.</p>
+          <article class="card skill-block">
+            <span class="small-label">Operate now</span>
+            <p>Linux servers, Raspberry Pi systems, Docker Compose stacks, SSH, systemd, nginx, Cloudflare Tunnel, NetBird, DNS, Git, and service troubleshooting.</p>
+            <div class="tags"><span class="tag">Linux</span><span class="tag">Docker</span><span class="tag">SSH</span><span class="tag">DNS</span><span class="tag">NetBird</span></div>
+          </article>
+          <article class="card skill-block">
+            <span class="small-label">Kubernetes depth</span>
+            <p>k3s, namespaces, pods, Deployments, Services, Ingress, PVCs, storage, events, logs, rollouts, kubeconfig, Kustomize, and CKA-style fundamentals.</p>
+            <div class="tags"><span class="tag">k3s</span><span class="tag">Kubernetes</span><span class="tag">Kustomize</span><span class="tag">Ingress</span><span class="tag">PVC</span></div>
+          </article>
+          <article class="card skill-block">
+            <span class="small-label">Observability</span>
+            <p>Prometheus, Grafana, Alertmanager, blackbox checks, node-exporter, kube-state metrics, dashboard review, and using monitoring to guide investigation.</p>
+            <div class="tags"><span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">Alertmanager</span><span class="tag">Metrics</span></div>
+          </article>
+          <article class="card skill-block">
+            <span class="small-label">Automation and docs</span>
+            <p>Ansible starts, operational cheat sheets, backup checklists, migration runbooks, Git-backed desired state, and careful handling of secrets and destructive steps.</p>
+            <div class="tags"><span class="tag">Ansible</span><span class="tag">Runbooks</span><span class="tag">Git</span><span class="tag">Backups</span></div>
+          </article>
+          <article class="card skill-block">
+            <span class="small-label">IT operations base</span>
+            <p>Professional IT exposure across Windows infrastructure, Exchange, VMware, Horizon VDI, user-facing troubleshooting, and the habit of keeping operational systems understandable.</p>
+            <div class="tags"><span class="tag">Windows</span><span class="tag">Exchange</span><span class="tag">VMware</span><span class="tag">Horizon</span></div>
+          </article>
+          <article class="card skill-block">
+            <span class="small-label">Current trajectory</span>
+            <p>DevOps, platform engineering, SRE practices, Kubernetes operations, infrastructure automation, observability, backup discipline, and safer service migration patterns.</p>
+            <div class="tags"><span class="tag">DevOps</span><span class="tag">SRE</span><span class="tag">Platform</span><span class="tag">CKA path</span></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="direction" class="wrap">
+        <div class="section-head">
+          <div>
+            <span class="kicker">Professional Direction</span>
+            <h2>The direction is infrastructure engineering through ownership</h2>
+          </div>
+          <p class="section-note">I am aiming for roles where practical operations, learning speed, troubleshooting discipline, and modern tooling are valuable together.</p>
+        </div>
+        <div class="profile">
+          <article class="card profile-main">
+            <h3><span class="marker green"></span>Where I fit best</h3>
+            <p>I am a strong fit for environments that need someone who can own practical infrastructure tasks, investigate across layers, document what changed, and grow into deeper Kubernetes, DevOps, SRE, or platform responsibilities. I do not need the system to be perfect before I start; I need enough access, context, and trust to inspect it properly.</p>
           </article>
           <article class="card">
-            <h3><span class="marker violet"></span>Kubernetes fundamentals</h3>
-            <p>Keep practicing storage, networking, ingresses, NetworkPolicies, kubeconfig handling, workloads, and failure states.</p>
+            <h3><span class="marker amber"></span>What I am actively sharpening</h3>
+            <ul class="clean">
+              <li>Kubernetes fundamentals toward CKA-level confidence.</li>
+              <li>Storage, ingress, networking, NetworkPolicies, and failure states.</li>
+              <li>Better Ansible coverage for host setup and access management.</li>
+              <li>Monitoring that leads to action instead of dashboard noise.</li>
+            </ul>
           </article>
-          <article class="card">
-            <h3><span class="marker green"></span>Operational maturity</h3>
-            <p>Improve alerting, backup drills, dashboard quality, and documentation so the systems are easier to recover and explain.</p>
-          </article>
+        </div>
+      </section>
+
+      <section id="contact" class="wrap">
+        <div class="contact-band">
+          <div>
+            <span class="kicker">Next Step</span>
+            <h2>Talk to me about infrastructure work that rewards careful curiosity.</h2>
+            <p>I am interested in IT operations, infrastructure engineering, DevOps, SRE, platform, and Kubernetes-adjacent roles where I can take responsibility, learn deeply, and make systems easier to operate.</p>
+          </div>
+          <div class="actions">
+            <a class="button primary" href="mailto:denniskappel@gmx.net">Contact me</a>
+            <a class="button" href="https://github.com/ffworker" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="wrap" aria-label="AI coworker note">
+        <div class="quote">
+          <span class="kicker">From the other half of the terminal</span>
+          <p>I can draft the manifest at 3 a.m.; Dennis is the one who remembers which route is private, which service has state, and why a confident green check still needs a real curl.</p>
         </div>
       </section>
     </main>
 
     <footer>
       <div class="wrap footer-inner">
-        <div>Dennis Kappel - practical IT operations, homelab, automation</div>
+        <div>Dennis Kappel - infrastructure operations, Kubernetes practice, AI-assisted delivery</div>
         <div class="footer-links">
           <a href="mailto:denniskappel@gmx.net">Email</a>
           <a href="https://github.com/ffworker" target="_blank" rel="noopener noreferrer">GitHub</a>
@@ -864,6 +966,7 @@
       </div>
     </footer>
   </div>
+
   <script>
     const navLinks = Array.from(document.querySelectorAll(".nav-links a"));
     const sections = navLinks

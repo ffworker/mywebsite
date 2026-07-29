@@ -1,25 +1,26 @@
 # mywebsite
 
-Public CV / learning snapshot for Dennis Kappel.
+Public technical portfolio for Dennis Kappel.
 
-This repo is intentionally honest: it shows what I am practicing, what I have
-operated myself, and what is still evolving. It does not try to be a complete
-portfolio or a polished expert profile.
+The current landing page positions Dennis around practical infrastructure
+operations, k3s/Kubernetes learning through real systems, Git-backed runbooks,
+observability, private access, and disciplined AI-assisted delivery.
 
-## Current Focus
+## Current Story
 
-- Kubernetes and k3s operations in a small homelab.
-- Cloudflare Tunnel as a public edge for static services.
-- Outside-in monitoring with Prometheus, Grafana, node-exporter, blackbox, and
-  kube-state-metrics.
-- Ansible runbooks for repeatable host/control-plane setup.
-- Clear documentation of what is live, what is legacy, and what still needs
-  practice.
+- Infrastructure-focused IT professional moving toward DevOps, SRE, platform
+  engineering, and Kubernetes-focused work.
+- Practical ownership across Linux hosts, VPS systems, Raspberry Pi
+  infrastructure, containers, networking, service exposure, and monitoring.
+- Evidence-led troubleshooting: logs, metrics, Git diffs, rollout state, health
+  checks, and live service behavior matter more than generated output.
+- AI is represented as a working method with clear verification boundaries, not
+  as a replacement for technical judgment.
 
-## Legacy Notes
+## Notes
 
-- `sites/projects.html` and `sites/skills.html` are older Bootstrap-era pages.
-  They are kept as a learning snapshot but should not be treated as the main CV.
-- References to InfluxDB 1.8 and older Grafana dashboards are historical unless
-  explicitly tied to a current live service.
 - The current landing page is `index.html`.
+- `sites/projects.html` and `sites/skills.html` are older Bootstrap-era pages.
+  They remain as historical learning snapshots, not as the primary CV.
+- The strongest infrastructure evidence currently lives in the private
+  `ffworker/infra-configs` repository and the live Bytegeist environment.
