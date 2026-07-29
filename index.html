@@ -83,6 +83,7 @@
       transition: grid-template-columns 480ms cubic-bezier(.22, 1, .36, 1);
     }
     .side {
+      min-width: 0;
       min-height: 100svh;
       display: flex;
       flex-direction: column;
@@ -97,10 +98,15 @@
     }
     .side:hover h1,
     .side:hover .summary,
-    .side:hover .fact-list {
+    .side:hover .fact-list,
+    .side.is-active h1,
+    .side.is-active .summary,
+    .side.is-active .fact-list {
       transform: translateY(-8px);
     }
-    .split-hero:hover .side:not(:hover) {
+    .split-hero:hover .side:not(:hover),
+    .split-hero.is-professional-active .lab,
+    .split-hero.is-lab-active .professional {
       filter: contrast(0.96);
     }
     .professional {
@@ -554,7 +560,32 @@
   <script>
     (() => {
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const splitHero = document.querySelector(".split-hero");
+      const professionalSide = document.querySelector(".professional");
+      const labSide = document.querySelector(".lab");
       const revealItems = Array.from(document.querySelectorAll("[data-reveal]"));
+
+      if (!reduceMotion && splitHero && professionalSide && labSide && window.matchMedia("(min-width: 900px)").matches) {
+        function activate(side) {
+          const professionalActive = side === "professional";
+          splitHero.style.gridTemplateColumns = professionalActive ? "54fr 46fr" : "46fr 54fr";
+          splitHero.classList.toggle("is-professional-active", professionalActive);
+          splitHero.classList.toggle("is-lab-active", !professionalActive);
+          professionalSide.classList.toggle("is-active", professionalActive);
+          labSide.classList.toggle("is-active", !professionalActive);
+        }
+
+        function resetSplit() {
+          splitHero.style.gridTemplateColumns = "1fr 1fr";
+          splitHero.classList.remove("is-professional-active", "is-lab-active");
+          professionalSide.classList.remove("is-active");
+          labSide.classList.remove("is-active");
+        }
+
+        professionalSide.addEventListener("pointerenter", () => activate("professional"));
+        labSide.addEventListener("pointerenter", () => activate("lab"));
+        splitHero.addEventListener("pointerleave", resetSplit);
+      }
 
       if (reduceMotion || !("IntersectionObserver" in window)) {
         revealItems.forEach((item) => item.classList.add("is-visible"));
