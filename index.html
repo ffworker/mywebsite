@@ -290,11 +290,11 @@
       border-right-color: var(--dark-line);
     }
     .detail-rail h2 {
-      max-width: 520px;
+      max-width: 460px;
       margin-top: 14px;
-      font-size: clamp(36px, 5vw, 74px);
-      line-height: 0.94;
-      letter-spacing: -0.015em;
+      font-size: clamp(28px, 3.5vw, 52px);
+      line-height: 1;
+      letter-spacing: -0.01em;
       text-wrap: balance;
     }
     .selector {
@@ -386,11 +386,11 @@
     }
     .context-row {
       display: grid;
-      grid-template-columns: minmax(180px, 0.42fr) minmax(0, 1fr);
-      gap: clamp(14px, 2.4vw, 32px);
-      min-height: 116px;
+      grid-template-columns: minmax(190px, 0.34fr) minmax(0, 1fr);
+      gap: clamp(16px, 2.4vw, 34px);
+      min-height: 104px;
       background: #fbfcfa;
-      padding: clamp(16px, 2.4vw, 26px);
+      padding: clamp(16px, 2vw, 22px);
       transition:
         opacity 360ms var(--ease),
         transform 420ms var(--ease),
@@ -402,15 +402,17 @@
       background: var(--dark-2);
     }
     .context-row h3 {
-      font-size: clamp(20px, 1.9vw, 28px);
-      line-height: 1.06;
-      letter-spacing: -0.012em;
+      font-family: var(--mono);
+      font-size: clamp(15px, 1.2vw, 18px);
+      line-height: 1.22;
+      letter-spacing: 0;
       text-wrap: balance;
     }
     .context-row p {
-      max-width: 780px;
+      max-width: 760px;
       color: var(--muted);
-      font-size: 16px;
+      font-size: 14px;
+      line-height: 1.55;
     }
     .detail-stage[data-active="lab"] .context-row p {
       color: var(--dark-muted);
@@ -418,6 +420,30 @@
     .context-row .detail-meta {
       display: block;
       margin-bottom: 10px;
+    }
+    .context-list {
+      display: grid;
+      gap: 6px;
+      margin-top: 12px;
+      padding: 0;
+      list-style: none;
+      color: var(--muted);
+      font: 12px/1.45 var(--mono);
+    }
+    .context-list li {
+      position: relative;
+      padding-left: 16px;
+    }
+    .context-list li::before {
+      content: "ok";
+      position: absolute;
+      left: 0;
+      color: var(--green);
+      font-size: 10px;
+      transform: translateY(1px);
+    }
+    .detail-stage[data-active="lab"] .context-list {
+      color: var(--dark-muted);
     }
     .cv-js .context-row {
       opacity: 0;
@@ -431,10 +457,10 @@
     .cv-js .context-row.is-visible {
       opacity: 1;
       transform: translateY(0);
-      min-height: 116px;
-      max-height: 320px;
-      padding-top: clamp(16px, 2.4vw, 26px);
-      padding-bottom: clamp(16px, 2.4vw, 26px);
+      min-height: 104px;
+      max-height: 520px;
+      padding-top: clamp(16px, 2vw, 22px);
+      padding-bottom: clamp(16px, 2vw, 22px);
     }
     .context-health {
       display: grid;
@@ -912,10 +938,10 @@
       .cv-js .context-row {
         opacity: 1 !important;
         transform: none !important;
-        min-height: 116px !important;
+        min-height: 104px !important;
         max-height: none !important;
-        padding-top: clamp(16px, 2.4vw, 26px) !important;
-        padding-bottom: clamp(16px, 2.4vw, 26px) !important;
+        padding-top: clamp(16px, 2vw, 22px) !important;
+        padding-bottom: clamp(16px, 2vw, 22px) !important;
       }
     }
   </style>
@@ -978,30 +1004,51 @@
           <div class="context-build" data-context-build="professional">
             <div class="context-terminal" aria-label="Professional context build">
               <div class="type-line" data-type-line="load context: professional-system-administration">load context: professional-system-administration</div>
-              <div class="type-line" data-type-line="map scope: windows / vdi / m365 / exchange / incidents">map scope: windows / vdi / m365 / exchange / incidents</div>
-              <div class="type-line" data-type-line="render view: operations / troubleshooting / continuity">render view: operations / troubleshooting / continuity</div>
+              <div class="type-line" data-type-line="map scope: vmware-horizon / vdi / m365 / exchange / windows">map scope: vmware-horizon / vdi / m365 / exchange / windows</div>
+              <div class="type-line" data-type-line="render view: operations / incidents / service-continuity">render view: operations / incidents / service-continuity</div>
             </div>
             <div class="context-output">
               <section class="context-row">
                 <div>
-                  <span class="detail-meta">Operating context</span>
-                  <h3>Systems people depend on during the workday</h3>
+                  <span class="detail-meta">skill group</span>
+                  <h3>vmware-horizon / vdi-environment</h3>
                 </div>
-                <p>Professional focus around Windows infrastructure, VMware Horizon / VDI, Microsoft 365 and Exchange, where support work has to stay practical, understandable and tied to service continuity.</p>
+                <div>
+                  <p>User-facing virtual desktop infrastructure where support work has to connect client symptoms, sessions, access paths and operational impact.</p>
+                  <ul class="context-list">
+                    <li>VMware Horizon / VDI environment support</li>
+                    <li>user access, session and client-side troubleshooting</li>
+                    <li>practical escalation notes for issues that need deeper platform changes</li>
+                  </ul>
+                </div>
               </section>
               <section class="context-row">
                 <div>
-                  <span class="detail-meta">Troubleshooting shape</span>
-                  <h3>From symptom to layer to next safe step</h3>
+                  <span class="detail-meta">skill group</span>
+                  <h3>microsoft-365 / exchange / windows</h3>
                 </div>
-                <p>Incidents usually start with incomplete information, so the work is to identify the affected layer, check what changed, verify assumptions and avoid making the situation harder to recover from.</p>
+                <div>
+                  <p>Professional operations around Microsoft 365, Exchange and Windows infrastructure, with the focus on administration, support and service continuity.</p>
+                  <ul class="context-list">
+                    <li>Microsoft 365 administration and user support</li>
+                    <li>Exchange support in operational environments</li>
+                    <li>Windows infrastructure troubleshooting under real constraints</li>
+                  </ul>
+                </div>
               </section>
               <section class="context-row">
                 <div>
-                  <span class="detail-meta">Useful habits</span>
-                  <h3>Clear notes, handover and repeatable fixes</h3>
+                  <span class="detail-meta">operating mode</span>
+                  <h3>incidents / handover / repeatable-fixes</h3>
                 </div>
-                <p>The professional value is not only fixing the immediate issue, but making the result explainable enough that the next person, or future me, can understand what happened.</p>
+                <div>
+                  <p>Incidents usually start with incomplete information, so the work is to identify the affected layer, verify assumptions and keep the next step recoverable.</p>
+                  <ul class="context-list">
+                    <li>operational support with real users waiting</li>
+                    <li>clear notes for handover and future investigation</li>
+                    <li>fixes that are understandable, not just lucky</li>
+                  </ul>
+                </div>
               </section>
             </div>
           </div>
@@ -1037,24 +1084,42 @@
             <div class="context-output">
               <section class="context-row">
                 <div>
-                  <span class="detail-meta">Lab environment</span>
-                  <h3>Linux services across Pi and VPS systems</h3>
+                  <span class="detail-meta">lab scope</span>
+                  <h3>linux / docker / pi-and-vps-services</h3>
                 </div>
-                <p>The private lab is where Linux, Docker, Raspberry Pis, storage, backups and service exposure become real systems rather than abstract study topics.</p>
+                <div>
+                  <p>The private lab is where Linux, Docker, Raspberry Pis, storage, backups and service exposure become real systems rather than abstract study topics.</p>
+                  <ul class="context-list">
+                    <li>services operated across Raspberry Pi and VPS systems</li>
+                    <li>storage, backups and service exposure practiced on real workloads</li>
+                  </ul>
+                </div>
               </section>
               <section class="context-row">
                 <div>
-                  <span class="detail-meta">Kubernetes practice</span>
-                  <h3>Selected workloads moved into k3s</h3>
+                  <span class="detail-meta">practice area</span>
+                  <h3>kubernetes / k3s / workload-migration</h3>
                 </div>
-                <p>Kubernetes is an active practical learning area: manifests, ingress, storage, rollouts, logs and failure states are tested against services I actually run.</p>
+                <div>
+                  <p>Kubernetes is an active practical learning area: manifests, ingress, storage, rollouts, logs and failure states are tested against services I actually run.</p>
+                  <ul class="context-list">
+                    <li>selected services moved from containers into k3s</li>
+                    <li>cluster access, logs, events and rollouts used for validation</li>
+                  </ul>
+                </div>
               </section>
               <section class="context-row">
                 <div>
-                  <span class="detail-meta">Access and verification</span>
-                  <h3>NetBird, monitoring and Git-backed notes</h3>
+                  <span class="detail-meta">control loop</span>
+                  <h3>netbird / monitoring / git-backed-notes</h3>
                 </div>
-                <p>Private access, safe aggregate monitoring, Git-backed configuration and AI-assisted documentation turn experiments into something I can revisit, verify and improve.</p>
+                <div>
+                  <p>Private access, safe aggregate monitoring, Git-backed configuration and AI-assisted documentation turn experiments into something I can revisit, verify and improve.</p>
+                  <ul class="context-list">
+                    <li>private access through NetBird instead of exposing admin paths</li>
+                    <li>Grafana, Prometheus and Git-backed notes used as verification tools</li>
+                  </ul>
+                </div>
               </section>
             </div>
           </div>
