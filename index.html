@@ -266,11 +266,13 @@
       color: var(--dark);
     }
     .detail-stage {
+      position: relative;
       min-height: 86svh;
       display: grid;
       grid-template-columns: minmax(280px, 0.68fr) minmax(0, 1.32fr);
       border-top: 1px solid var(--line);
       background: var(--paper);
+      overflow: hidden;
       transition: background-color 420ms var(--ease), color 420ms var(--ease);
     }
     .detail-stage[data-active="lab"] {
@@ -341,10 +343,12 @@
       display: grid;
       animation: detailIn 420ms var(--ease) both;
     }
+    .detail-stage.is-resolving .detail-rail,
     .detail-stage.is-resolving .detail-panel.is-active {
-      opacity: 0;
-      transform: translateY(6px);
-      transition: opacity 160ms var(--ease), transform 180ms var(--ease);
+      opacity: 0.12;
+      transform: translateY(8px);
+      clip-path: inset(0 0 18% 0);
+      transition: opacity 170ms var(--ease), transform 180ms var(--ease), clip-path 220ms var(--ease);
     }
     .detail-resolve {
       position: absolute;
@@ -353,8 +357,10 @@
       display: none;
       align-content: center;
       gap: 8px;
-      padding: clamp(28px, 5vw, 72px);
-      background: inherit;
+      padding: clamp(28px, 5vw, 72px) clamp(28px, 6vw, 92px);
+      background:
+        linear-gradient(90deg, rgba(22, 130, 93, 0.06), transparent 36%, rgba(22, 130, 93, 0.05)),
+        color-mix(in srgb, currentColor 3%, transparent);
       color: var(--muted);
       font-family: var(--mono);
       font-size: 12px;
@@ -365,6 +371,24 @@
     }
     .detail-stage.is-resolving .detail-resolve {
       display: grid;
+    }
+    .detail-resolve::before,
+    .detail-resolve::after {
+      content: "";
+      position: absolute;
+      left: clamp(28px, 6vw, 92px);
+      right: clamp(28px, 6vw, 92px);
+      height: 1px;
+      background: linear-gradient(90deg, var(--green), transparent);
+      transform-origin: left;
+      animation: resolveBar 460ms var(--ease) both;
+    }
+    .detail-resolve::before {
+      top: clamp(28px, 5vw, 72px);
+    }
+    .detail-resolve::after {
+      bottom: clamp(28px, 5vw, 72px);
+      animation-delay: 90ms;
     }
     .resolve-line {
       opacity: 0;
@@ -379,6 +403,10 @@
     @keyframes resolveLine {
       from { opacity: 0; transform: translateY(4px); clip-path: inset(0 100% 0 0); }
       to { opacity: 1; transform: translateY(0); clip-path: inset(0 0 0 0); }
+    }
+    @keyframes resolveBar {
+      from { opacity: 0; transform: scaleX(0); }
+      to { opacity: 0.82; transform: scaleX(1); }
     }
     @keyframes detailIn {
       from { opacity: 0; transform: translateY(12px); }
@@ -844,12 +872,6 @@
       </aside>
 
       <div class="detail-body">
-        <div class="detail-resolve" aria-hidden="true">
-          <div class="resolve-line"><span>context</span> -> <span data-resolve-target>professional</span></div>
-          <div class="resolve-line"><span>detail</span> -> binding panel</div>
-          <div class="resolve-line"><span>render</span> -> ready</div>
-        </div>
-
         <article class="detail-panel is-active" id="panel-professional" role="tabpanel" aria-labelledby="tab-professional" data-panel="professional">
           <div class="detail-grid">
             <section class="detail-card">
@@ -922,6 +944,12 @@
             </div>
           </div>
         </article>
+      </div>
+
+      <div class="detail-resolve" aria-hidden="true">
+        <div class="resolve-line"><span>context</span> -> <span data-resolve-target>professional</span></div>
+        <div class="resolve-line"><span>detail</span> -> binding panel</div>
+        <div class="resolve-line"><span>render</span> -> ready</div>
       </div>
     </section>
 
