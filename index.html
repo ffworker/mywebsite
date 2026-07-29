@@ -309,7 +309,8 @@
       border-right: 1px solid currentColor;
       background: transparent;
       color: inherit;
-      font: 800 12px/1 var(--mono);
+      padding: 0 12px;
+      font: 800 10.5px/1.18 var(--mono);
       letter-spacing: 0.08em;
       text-transform: uppercase;
       cursor: pointer;
@@ -491,13 +492,15 @@
       min-height: 160px;
     }
     .agent-note {
-      display: grid;
-      grid-template-columns: minmax(240px, 0.45fr) minmax(0, 1fr);
-      gap: clamp(22px, 4vw, 58px);
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 12px;
       border-top: 1px solid var(--line);
-      padding: clamp(28px, 5vw, 62px) clamp(22px, 5vw, 72px);
-      color: #2c372f;
+      padding: 16px clamp(20px, 4vw, 48px);
+      color: var(--muted);
       background: #fbfcfa;
+      opacity: 0.78;
     }
     .note-label {
       color: var(--green);
@@ -507,10 +510,9 @@
       text-transform: uppercase;
     }
     .agent-note p {
-      max-width: 980px;
-      font-size: clamp(21px, 2.6vw, 38px);
-      line-height: 1.16;
-      text-wrap: balance;
+      max-width: 720px;
+      font-size: 13px;
+      line-height: 1.45;
     }
     footer {
       display: flex;
@@ -797,8 +799,8 @@
           <h2 data-detail-title>Operations work with real users and real constraints.</h2>
         </div>
         <div class="selector" role="tablist" aria-label="Profile detail selector">
-          <button type="button" role="tab" id="tab-professional" aria-controls="panel-professional" aria-selected="true" data-tab="professional">Professional</button>
-          <button type="button" role="tab" id="tab-lab" aria-controls="panel-lab" aria-selected="false" data-tab="lab">Private lab</button>
+          <button type="button" role="tab" id="tab-professional" aria-controls="panel-professional" aria-selected="true" data-tab="professional">Switch to context Professional</button>
+          <button type="button" role="tab" id="tab-lab" aria-controls="panel-lab" aria-selected="false" data-tab="lab">Switch to context Private lab</button>
         </div>
       </aside>
 
