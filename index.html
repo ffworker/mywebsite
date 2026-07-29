@@ -11,16 +11,20 @@
     * { margin: 0; }
     :root {
       --green: #16825d;
+      --green-soft: #dcebe3;
       --ink: #101418;
-      --muted: #56616c;
-      --paper: #f3f6f1;
-      --paper-2: #e7ece6;
+      --muted: #59636c;
+      --paper: #f4f6f1;
+      --paper-2: #e7ece4;
       --dark: #0c1210;
       --dark-2: #141c19;
-      --dark-line: rgba(226, 232, 240, 0.16);
+      --dark-text: #eef5ef;
+      --dark-muted: #9facaa;
       --line: rgba(16, 20, 24, 0.16);
+      --dark-line: rgba(226, 232, 240, 0.16);
       --ui: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       --mono: "JetBrains Mono", "Fira Code", "Cascadia Code", ui-monospace, SFMono-Regular, Menlo, monospace;
+      --ease: cubic-bezier(.22, 1, .36, 1);
     }
     html { scroll-behavior: smooth; }
     body {
@@ -31,14 +35,15 @@
       -webkit-font-smoothing: antialiased;
     }
     a { color: inherit; }
-    a:focus-visible {
+    a:focus-visible,
+    button:focus-visible {
       outline: 2px solid var(--green);
       outline-offset: 4px;
     }
     .topbar {
       position: fixed;
       inset: 0 0 auto;
-      z-index: 10;
+      z-index: 20;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -56,8 +61,11 @@
     .brand,
     .label,
     .fact,
-    .note-label,
-    figcaption {
+    .detail-kicker,
+    .detail-meta,
+    .metric span,
+    .refresh,
+    .note-label {
       font-family: var(--mono);
     }
     .brand {
@@ -72,15 +80,13 @@
       gap: 14px;
       font-size: 13px;
     }
-    .nav a {
-      text-decoration: none;
-    }
+    .nav a { text-decoration: none; }
     .split-hero {
       width: 100%;
       min-height: 100svh;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      transition: grid-template-columns 480ms cubic-bezier(.22, 1, .36, 1);
+      transition: grid-template-columns 520ms var(--ease);
     }
     .side {
       min-width: 0;
@@ -89,39 +95,47 @@
       flex-direction: column;
       justify-content: center;
       padding: clamp(82px, 9vw, 132px) clamp(24px, 5vw, 82px) clamp(42px, 6vw, 82px);
-      transition: background-color 480ms cubic-bezier(.22, 1, .36, 1), filter 480ms cubic-bezier(.22, 1, .36, 1);
+      border: 0;
+      color: inherit;
+      text-align: left;
+      cursor: pointer;
+      transition: background-color 520ms var(--ease), filter 520ms var(--ease), color 520ms var(--ease);
     }
     .side h1,
     .side .summary,
-    .side .fact-list {
-      transition: transform 480ms cubic-bezier(.22, 1, .36, 1), opacity 480ms cubic-bezier(.22, 1, .36, 1);
+    .side .fact-list,
+    .side .actions {
+      transition: transform 520ms var(--ease), opacity 520ms var(--ease);
     }
     .side:hover h1,
     .side:hover .summary,
     .side:hover .fact-list,
+    .side:hover .actions,
     .side.is-active h1,
     .side.is-active .summary,
-    .side.is-active .fact-list {
+    .side.is-active .fact-list,
+    .side.is-active .actions {
       transform: translateY(-8px);
     }
-    .split-hero:hover .side:not(:hover),
+    .split-hero.is-professional-active { grid-template-columns: 54fr 46fr; }
+    .split-hero.is-lab-active { grid-template-columns: 46fr 54fr; }
     .split-hero.is-professional-active .lab,
     .split-hero.is-lab-active .professional {
-      filter: contrast(0.96);
+      filter: contrast(0.94) saturate(0.92);
     }
     .professional {
       background:
-        linear-gradient(90deg, rgba(16, 20, 24, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16, 20, 24, 0.055) 1px, transparent 1px),
         var(--paper);
       background-size: 72px 72px;
       color: var(--ink);
     }
     .lab {
       background:
-        linear-gradient(90deg, rgba(226, 232, 240, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(226, 232, 240, 0.045) 1px, transparent 1px),
         var(--dark);
       background-size: 72px 72px;
-      color: #eef5ef;
+      color: var(--dark-text);
     }
     .label {
       color: var(--green);
@@ -131,25 +145,21 @@
       text-transform: uppercase;
     }
     h1 {
-      max-width: 680px;
+      max-width: 700px;
       margin-top: 18px;
       font-size: clamp(46px, 5.4vw, 78px);
       line-height: 0.92;
       letter-spacing: -0.015em;
       text-wrap: balance;
     }
-    .lab h1 {
-      color: #f7fff9;
-    }
+    .lab h1 { color: #f7fff9; }
     .summary {
       max-width: 640px;
       margin-top: 24px;
       color: var(--muted);
       font-size: clamp(18px, 1.55vw, 23px);
     }
-    .lab .summary {
-      color: #a7b7ae;
-    }
+    .lab .summary { color: var(--dark-muted); }
     .fact-list {
       display: grid;
       gap: 10px;
@@ -158,9 +168,7 @@
       padding-top: 22px;
       border-top: 1px solid var(--line);
     }
-    .lab .fact-list {
-      border-top-color: var(--dark-line);
-    }
+    .lab .fact-list { border-top-color: var(--dark-line); }
     .fact {
       display: flex;
       justify-content: space-between;
@@ -178,9 +186,7 @@
       color: var(--muted);
       text-align: right;
     }
-    .lab .fact span:last-child {
-      color: #8fa099;
-    }
+    .lab .fact span:last-child { color: #8fa099; }
     .actions {
       display: flex;
       flex-wrap: wrap;
@@ -199,7 +205,7 @@
       font-weight: 760;
       text-decoration: none;
       overflow: hidden;
-      transition: border-color 260ms cubic-bezier(.22, 1, .36, 1), background-color 260ms cubic-bezier(.22, 1, .36, 1), color 260ms cubic-bezier(.22, 1, .36, 1);
+      transition: border-color 260ms var(--ease), background-color 260ms var(--ease), color 260ms var(--ease);
     }
     .button::after {
       content: "";
@@ -209,35 +215,154 @@
       background: currentColor;
       transform: scaleX(0);
       transform-origin: left;
-      transition: transform 360ms cubic-bezier(.22, 1, .36, 1);
+      transition: transform 360ms var(--ease);
     }
     .button:hover::after,
-    .button:focus-visible::after {
-      transform: scaleX(1);
-    }
+    .button:focus-visible::after { transform: scaleX(1); }
     .professional .button:first-child {
       background: var(--ink);
       color: var(--paper);
     }
     .lab .button:first-child {
-      background: #eef5ef;
+      background: var(--dark-text);
       color: var(--dark);
     }
-    .evidence {
-      background: #fbfcfa;
-      border-top: 1px solid var(--line);
-      padding: clamp(34px, 5vw, 70px) clamp(20px, 4vw, 54px);
-    }
-    .lab-health {
+    .detail-stage {
+      min-height: 86svh;
       display: grid;
-      grid-template-columns: minmax(360px, 0.92fr) minmax(0, 1.08fr);
-      gap: clamp(24px, 4vw, 62px);
+      grid-template-columns: minmax(280px, 0.68fr) minmax(0, 1.32fr);
+      border-top: 1px solid var(--line);
+      background: var(--paper);
+      transition: background-color 420ms var(--ease), color 420ms var(--ease);
+    }
+    .detail-stage[data-active="lab"] {
+      background: var(--dark);
+      color: var(--dark-text);
+      border-top-color: var(--dark-line);
+    }
+    .detail-rail {
+      padding: clamp(28px, 5vw, 72px);
+      border-right: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 36px;
+    }
+    .detail-stage[data-active="lab"] .detail-rail {
+      border-right-color: var(--dark-line);
+    }
+    .detail-rail h2 {
+      max-width: 520px;
+      margin-top: 14px;
+      font-size: clamp(36px, 5vw, 74px);
+      line-height: 0.94;
+      letter-spacing: -0.015em;
+      text-wrap: balance;
+    }
+    .selector {
+      display: inline-grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid currentColor;
+      width: min(100%, 430px);
+    }
+    .selector button {
+      min-height: 48px;
+      border: 0;
+      border-right: 1px solid currentColor;
+      background: transparent;
+      color: inherit;
+      font: 800 12px/1 var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background-color 240ms var(--ease), color 240ms var(--ease);
+    }
+    .selector button:last-child { border-right: 0; }
+    .selector button[aria-selected="true"] {
+      background: currentColor;
+      color: var(--paper);
+    }
+    .detail-stage[data-active="lab"] .selector button[aria-selected="true"] {
+      color: var(--dark);
+    }
+    .detail-body {
+      position: relative;
+      min-height: 100%;
+      overflow: hidden;
+    }
+    .detail-panel {
+      display: none;
+      min-height: 100%;
+      padding: clamp(28px, 5vw, 72px);
+      grid-template-columns: minmax(0, 1fr);
+      align-content: center;
+      gap: 28px;
+    }
+    .detail-panel.is-active {
+      display: grid;
+      animation: detailIn 420ms var(--ease) both;
+    }
+    @keyframes detailIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+    .detail-stage[data-active="lab"] .detail-grid {
+      background: var(--dark-line);
+      border-color: var(--dark-line);
+    }
+    .detail-card {
+      min-height: 220px;
+      background: #fbfcfa;
+      padding: clamp(18px, 2.5vw, 28px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 24px;
+      transition: transform 320ms var(--ease), background-color 320ms var(--ease);
+    }
+    .detail-stage[data-active="lab"] .detail-card {
+      background: var(--dark-2);
+    }
+    .detail-card:hover { transform: translateY(-4px); }
+    .detail-card h3 {
+      max-width: 360px;
+      font-size: clamp(24px, 2.8vw, 40px);
+      line-height: 1.02;
+      letter-spacing: -0.012em;
+      text-wrap: balance;
+    }
+    .detail-card p {
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 430px;
+    }
+    .detail-stage[data-active="lab"] .detail-card p {
+      color: var(--dark-muted);
+    }
+    .detail-meta {
+      color: var(--green);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .lab-composite {
+      display: grid;
+      grid-template-columns: minmax(320px, 0.86fr) minmax(0, 1.14fr);
+      gap: clamp(20px, 3vw, 42px);
       align-items: stretch;
     }
     .health-card {
       position: relative;
-      border: 1px solid var(--line);
-      background: #f2f5ef;
+      border: 1px solid var(--dark-line);
+      background: #101815;
       padding: clamp(22px, 4vw, 42px);
       overflow: hidden;
     }
@@ -245,13 +370,9 @@
       content: "";
       position: absolute;
       inset: 0 auto 0 0;
-      width: 0;
-      background: var(--green);
-      opacity: 0.9;
-      transition: width 620ms cubic-bezier(.22, 1, .36, 1);
-    }
-    .health-card.is-visible::before {
       width: 4px;
+      background: var(--green);
+      opacity: 0.95;
     }
     .health-top {
       display: flex;
@@ -259,16 +380,16 @@
       gap: 18px;
       align-items: start;
     }
-    .health-card h2 {
+    .health-card h3 {
       margin-top: 12px;
-      font-size: clamp(34px, 5vw, 68px);
+      font-size: clamp(32px, 4.5vw, 62px);
       line-height: 0.95;
       letter-spacing: -0.014em;
       text-wrap: balance;
     }
     .health-state {
-      min-width: 116px;
-      border: 1px solid var(--line);
+      min-width: 122px;
+      border: 1px solid var(--dark-line);
       padding: 9px 10px;
       color: var(--green);
       font-family: var(--mono);
@@ -277,23 +398,26 @@
       text-align: center;
       text-transform: uppercase;
     }
+    .health-card.is-unavailable .health-state,
+    .health-card.is-stale .health-state {
+      color: #d7a855;
+    }
     .metrics {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 1px;
       margin-top: 28px;
-      background: var(--line);
-      border: 1px solid var(--line);
+      background: var(--dark-line);
+      border: 1px solid var(--dark-line);
     }
     .metric {
       min-height: 104px;
-      background: #fbfcfa;
+      background: var(--dark);
       padding: 16px;
     }
     .metric span {
       display: block;
-      color: var(--muted);
-      font-family: var(--mono);
+      color: var(--dark-muted);
       font-size: 11px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -307,84 +431,48 @@
     }
     .refresh {
       margin-top: 18px;
-      color: var(--muted);
-      font-family: var(--mono);
+      color: var(--dark-muted);
       font-size: 12px;
     }
     .live-error {
       display: none;
       margin-top: 14px;
-      color: #7b4b11;
+      color: #d7a855;
       font-size: 14px;
     }
-    .health-card.is-unavailable .live-error {
-      display: block;
-    }
-    .summaries {
+    .health-card.is-unavailable .live-error,
+    .health-card.is-stale .live-error { display: block; }
+    .lab-list {
       display: grid;
-      gap: 0;
-      border-top: 1px solid var(--line);
+      grid-template-columns: 1fr;
+      gap: 1px;
+      background: var(--dark-line);
+      border: 1px solid var(--dark-line);
     }
-    .summary-row {
-      position: relative;
-      border-bottom: 1px solid var(--line);
-      padding: clamp(22px, 3vw, 34px) 0;
-      opacity: 0;
-      transform: translateY(14px);
-      transition: opacity 520ms cubic-bezier(.22, 1, .36, 1), transform 520ms cubic-bezier(.22, 1, .36, 1);
-      overflow: hidden;
-    }
-    .summary-row::before {
-      content: "";
-      position: absolute;
-      inset: 0 auto auto 0;
-      width: 0;
-      height: 1px;
-      background: var(--green);
-      transition: width 680ms cubic-bezier(.22, 1, .36, 1);
-    }
-    .summary-row.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .summary-row.is-visible::before {
-      width: 100%;
-    }
-    .summary-row h3 {
-      max-width: 760px;
-      font-size: clamp(24px, 3.2vw, 42px);
-      line-height: 1.02;
-      letter-spacing: -0.012em;
-    }
-    .summary-row p {
-      max-width: 780px;
-      margin-top: 10px;
-      color: var(--muted);
-      font-size: 17px;
-    }
-    .summary-row .role {
-      margin-top: 10px;
-      color: #344039;
-      font-size: 14px;
+    .lab-list .detail-card {
+      min-height: 160px;
     }
     .agent-note {
-      position: relative;
-      max-width: 880px;
-      margin: 0 auto;
-      padding: clamp(34px, 5vw, 62px) clamp(22px, 5vw, 60px);
+      display: grid;
+      grid-template-columns: minmax(240px, 0.45fr) minmax(0, 1fr);
+      gap: clamp(22px, 4vw, 58px);
+      border-top: 1px solid var(--line);
+      padding: clamp(28px, 5vw, 62px) clamp(22px, 5vw, 72px);
       color: #2c372f;
-      font-size: clamp(20px, 2.4vw, 34px);
-      line-height: 1.2;
-      text-align: center;
+      background: #fbfcfa;
     }
     .note-label {
-      display: block;
-      margin-bottom: 12px;
       color: var(--green);
       font-size: 12px;
       font-weight: 800;
       letter-spacing: 0.12em;
       text-transform: uppercase;
+    }
+    .agent-note p {
+      max-width: 980px;
+      font-size: clamp(21px, 2.6vw, 38px);
+      line-height: 1.16;
+      text-wrap: balance;
     }
     footer {
       display: flex;
@@ -399,12 +487,23 @@
       color: var(--ink);
       text-decoration: none;
     }
-    @media (hover: hover) and (min-width: 900px) {
-      .split-hero:has(.professional:hover) {
-        grid-template-columns: 1.08fr 0.92fr;
+    @media (max-width: 1080px) {
+      .detail-stage,
+      .lab-composite {
+        grid-template-columns: 1fr;
       }
-      .split-hero:has(.lab:hover) {
-        grid-template-columns: 0.92fr 1.08fr;
+      .detail-rail {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .detail-stage[data-active="lab"] .detail-rail {
+        border-bottom-color: var(--dark-line);
+      }
+      .detail-grid {
+        grid-template-columns: 1fr;
+      }
+      .detail-card {
+        min-height: 170px;
       }
     }
     @media (max-width: 900px) {
@@ -415,8 +514,7 @@
         color: var(--ink);
       }
       .nav a:not(:last-child) { display: none; }
-      .split-hero,
-      .lab-health {
+      .split-hero {
         grid-template-columns: 1fr;
       }
       .side {
@@ -425,9 +523,14 @@
       .lab {
         min-height: 72svh;
       }
+      .agent-note {
+        grid-template-columns: 1fr;
+      }
     }
     @media (max-width: 560px) {
-      .side {
+      .side,
+      .detail-rail,
+      .detail-panel {
         padding-inline: 20px;
       }
       .fact {
@@ -437,6 +540,12 @@
         display: block;
         margin-top: 3px;
         text-align: left;
+      }
+      .selector {
+        width: 100%;
+      }
+      .metrics {
+        grid-template-columns: 1fr;
       }
       footer {
         display: block;
@@ -450,21 +559,10 @@
       *, *::before, *::after {
         scroll-behavior: auto !important;
         transition-duration: 0.001ms !important;
+        animation-duration: 0.001ms !important;
       }
     }
   </style>
-  <noscript>
-    <style>
-      [data-reveal] {
-        opacity: 1 !important;
-        transform: none !important;
-      }
-      .summary-row::before,
-      .health-card::before {
-        width: 100% !important;
-      }
-    </style>
-  </noscript>
 </head>
 <body>
   <header class="topbar">
@@ -478,78 +576,126 @@
 
   <main id="top">
     <section class="split-hero" aria-label="Professional and private infrastructure profile">
-      <article class="side professional" id="professional">
-        <p class="label">Professional</p>
+      <article class="side professional is-active" id="professional" data-side="professional" tabindex="0" aria-label="Show professional detail" aria-controls="profile-detail">
+        <span class="label">Professional</span>
         <h1>System Administrator</h1>
-        <p class="summary">I work in IT operations with Windows infrastructure, VMware Horizon/VDI, Microsoft 365, Exchange, operational support, incidents and troubleshooting.</p>
-        <div class="fact-list">
-          <div class="fact"><span>VMware Horizon / VDI</span><span>user-facing infrastructure</span></div>
-          <div class="fact"><span>Microsoft 365 / Exchange</span><span>administration and support</span></div>
-          <div class="fact"><span>Windows infrastructure</span><span>operations and continuity</span></div>
-          <div class="fact"><span>Incidents</span><span>troubleshooting under real constraints</span></div>
-        </div>
-        <div class="actions">
+        <span class="summary">I work in IT operations with Windows infrastructure, VMware Horizon/VDI, Microsoft 365, Exchange, operational support, incidents and troubleshooting.</span>
+        <span class="fact-list">
+          <span class="fact"><span>VMware Horizon / VDI</span><span>user-facing infrastructure</span></span>
+          <span class="fact"><span>Microsoft 365 / Exchange</span><span>administration and support</span></span>
+          <span class="fact"><span>Windows infrastructure</span><span>operations and continuity</span></span>
+          <span class="fact"><span>Incidents</span><span>troubleshooting under real constraints</span></span>
+        </span>
+        <span class="actions">
           <a class="button" href="mailto:denniskappel@gmx.net">Contact</a>
           <a class="button" href="https://github.com/ffworker" target="_blank" rel="noopener noreferrer">GitHub</a>
-        </div>
+        </span>
       </article>
 
-      <article class="side lab" id="lab">
-        <p class="label">Private Infrastructure Lab</p>
+      <article class="side lab" id="lab" data-side="lab" tabindex="0" aria-label="Show private lab detail" aria-controls="profile-detail">
+        <span class="label">Private Infrastructure Lab</span>
         <h1>Private Infrastructure Lab</h1>
-        <p class="summary">Linux · k3s · networking · automation</p>
-        <div class="fact-list">
-          <div class="fact"><span>Linux / Docker</span><span>services I run and troubleshoot</span></div>
-          <div class="fact"><span>Kubernetes / k3s</span><span>important learning and practice area</span></div>
-          <div class="fact"><span>Networking / NetBird</span><span>private service access and routing</span></div>
-          <div class="fact"><span>Monitoring / automation</span><span>Grafana, Prometheus, Git and runbooks</span></div>
-        </div>
+        <span class="summary">Linux · k3s · networking · automation</span>
+        <span class="fact-list">
+          <span class="fact"><span>Linux / Docker</span><span>services I run and troubleshoot</span></span>
+          <span class="fact"><span>Kubernetes / k3s</span><span>important learning and practice area</span></span>
+          <span class="fact"><span>Networking / NetBird</span><span>private service access and routing</span></span>
+          <span class="fact"><span>Monitoring / automation</span><span>Grafana, Prometheus, Git and runbooks</span></span>
+        </span>
       </article>
     </section>
 
-    <section class="evidence" aria-label="Private lab health and evidence summaries">
-      <div class="lab-health">
-        <article class="health-card" data-reveal>
-          <div class="health-top">
-            <div>
-              <p class="label">Live evidence</p>
-              <h2>Pi/k3s Lab Health</h2>
-            </div>
-            <div class="health-state" data-health-state>Loading</div>
+    <section class="detail-stage" id="profile-detail" data-active="professional" aria-live="polite">
+      <aside class="detail-rail">
+        <div>
+          <p class="detail-kicker label" data-detail-kicker>Professional detail</p>
+          <h2 data-detail-title>Operations work with real users and real constraints.</h2>
+        </div>
+        <div class="selector" role="tablist" aria-label="Profile detail selector">
+          <button type="button" role="tab" id="tab-professional" aria-controls="panel-professional" aria-selected="true" data-tab="professional">Professional</button>
+          <button type="button" role="tab" id="tab-lab" aria-controls="panel-lab" aria-selected="false" data-tab="lab">Private lab</button>
+        </div>
+      </aside>
+
+      <div class="detail-body">
+        <article class="detail-panel is-active" id="panel-professional" role="tabpanel" aria-labelledby="tab-professional" data-panel="professional">
+          <div class="detail-grid">
+            <section class="detail-card">
+              <div>
+                <p class="detail-meta">User-facing infrastructure</p>
+                <h3>VDI, Microsoft 365 and Windows operations</h3>
+              </div>
+              <p>Professional IT operations experience across VMware Horizon/VDI, Microsoft 365, Exchange and Windows infrastructure, with support work that has to stay understandable under pressure.</p>
+            </section>
+            <section class="detail-card">
+              <div>
+                <p class="detail-meta">Troubleshooting</p>
+                <h3>Incidents before perfect lab conditions</h3>
+              </div>
+              <p>I’m used to working from symptoms, constraints and incomplete information: checking what changed, isolating layers and keeping the next step reversible.</p>
+            </section>
+            <section class="detail-card">
+              <div>
+                <p class="detail-meta">Working style</p>
+                <h3>Documentation, handover and practical ownership</h3>
+              </div>
+              <p>I value clear notes, repeatable fixes and boring operational reliability more than impressive-looking complexity.</p>
+            </section>
           </div>
-          <div class="metrics" aria-label="Safe aggregate lab metrics">
-            <div class="metric"><span>Cluster</span><strong data-cluster>...</strong></div>
-            <div class="metric"><span>Nodes ready</span><strong data-nodes>...</strong></div>
-            <div class="metric"><span>Workloads</span><strong data-workloads>...</strong></div>
-            <div class="metric"><span>Targets up</span><strong data-targets>...</strong></div>
-          </div>
-          <p class="refresh" data-refresh>Fetching cached aggregate data.</p>
-          <p class="live-error">Live data unavailable. This is not shown as healthy.</p>
         </article>
 
-        <div class="summaries">
-          <article class="summary-row" data-reveal>
-            <h3>Monitoring across VPS, Raspberry Pi and Kubernetes</h3>
-            <p>Prometheus and Grafana track only the operational signals I need to verify whether the private lab is reachable and healthy.</p>
-            <p class="role">Role note: I set the goals, used AI-assisted implementation where useful, then checked the real metrics.</p>
-          </article>
-          <article class="summary-row" data-reveal>
-            <h3>Service migrations into k3s</h3>
-            <p>I move selected services from VPS containers into k3s to practice manifests, ingress, storage, rollouts, logs and rollback thinking.</p>
-            <p class="role">Role note: AI helps with drafts and review; I validate against the actual cluster.</p>
-          </article>
-          <article class="summary-row" data-reveal>
-            <h3>Private access through NetBird</h3>
-            <p>NetBird keeps admin paths private while I work through routing, access, DNS and service exposure decisions.</p>
-            <p class="role">Role note: planning, troubleshooting, documentation and final responsibility stay with me.</p>
-          </article>
-        </div>
+        <article class="detail-panel" id="panel-lab" role="tabpanel" aria-labelledby="tab-lab" data-panel="lab" hidden>
+          <div class="lab-composite">
+            <section class="health-card" aria-label="Pi and k3s lab health">
+              <div class="health-top">
+                <div>
+                  <p class="label">Live evidence</p>
+                  <h3>Pi/k3s Lab Health</h3>
+                </div>
+                <div class="health-state" data-health-state>Loading</div>
+              </div>
+              <div class="metrics" aria-label="Safe aggregate lab metrics">
+                <div class="metric"><span>Cluster</span><strong data-cluster>...</strong></div>
+                <div class="metric"><span>Nodes ready</span><strong data-nodes>...</strong></div>
+                <div class="metric"><span>Workloads</span><strong data-workloads>...</strong></div>
+                <div class="metric"><span>Targets up</span><strong data-targets>...</strong></div>
+              </div>
+              <p class="refresh" data-refresh>Fetching safe aggregate data.</p>
+              <p class="refresh" data-next-refresh>Next refresh will be shown after the first successful fetch.</p>
+              <p class="live-error">Live data is unavailable or older than five minutes. This is not shown as healthy.</p>
+            </section>
+
+            <div class="lab-list">
+              <section class="detail-card">
+                <div>
+                  <p class="detail-meta">Monitoring</p>
+                  <h3>VPS, Raspberry Pi and Kubernetes signals</h3>
+                </div>
+                <p>Prometheus and Grafana track the operational signals I need to verify whether the private lab is reachable and healthy.</p>
+              </section>
+              <section class="detail-card">
+                <div>
+                  <p class="detail-meta">Kubernetes practice</p>
+                  <h3>Selected services moved into k3s</h3>
+                </div>
+                <p>I move selected services from VPS containers into k3s to practice manifests, ingress, storage, rollouts, logs and rollback thinking.</p>
+              </section>
+              <section class="detail-card">
+                <div>
+                  <p class="detail-meta">Private access</p>
+                  <h3>NetBird, DNS and service exposure decisions</h3>
+                </div>
+                <p>NetBird keeps admin paths private while I work through routing, access, DNS and service exposure decisions.</p>
+              </section>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
 
     <aside class="agent-note">
       <span class="note-label">From Dennis' daily AI agent</span>
-      I know more commands. Dennis knows which machine we meant. The logs decide which one of us misunderstood the problem.
+      <p>I know more commands. Dennis knows which machine we meant. The logs decide which one of us misunderstood the problem.</p>
     </aside>
   </main>
 
@@ -561,44 +707,66 @@
     (() => {
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const splitHero = document.querySelector(".split-hero");
-      const professionalSide = document.querySelector(".professional");
-      const labSide = document.querySelector(".lab");
-      const revealItems = Array.from(document.querySelectorAll("[data-reveal]"));
+      const sides = Array.from(document.querySelectorAll("[data-side]"));
+      const stage = document.querySelector(".detail-stage");
+      const tabs = Array.from(document.querySelectorAll("[data-tab]"));
+      const panels = Array.from(document.querySelectorAll("[data-panel]"));
+      const kicker = document.querySelector("[data-detail-kicker]");
+      const title = document.querySelector("[data-detail-title]");
+      let lockedSide = "professional";
 
-      if (!reduceMotion && splitHero && professionalSide && labSide && window.matchMedia("(min-width: 900px)").matches) {
-        function activate(side) {
-          const professionalActive = side === "professional";
-          splitHero.style.gridTemplateColumns = professionalActive ? "54fr 46fr" : "46fr 54fr";
-          splitHero.classList.toggle("is-professional-active", professionalActive);
-          splitHero.classList.toggle("is-lab-active", !professionalActive);
-          professionalSide.classList.toggle("is-active", professionalActive);
-          labSide.classList.toggle("is-active", !professionalActive);
+      const copy = {
+        professional: {
+          kicker: "Professional detail",
+          title: "Operations work with real users and real constraints."
+        },
+        lab: {
+          kicker: "Private lab detail",
+          title: "A working lab for Linux, k3s, networking and automation practice."
         }
+      };
 
-        function resetSplit() {
-          splitHero.style.gridTemplateColumns = "1fr 1fr";
-          splitHero.classList.remove("is-professional-active", "is-lab-active");
-          professionalSide.classList.remove("is-active");
-          labSide.classList.remove("is-active");
-        }
-
-        professionalSide.addEventListener("pointerenter", () => activate("professional"));
-        labSide.addEventListener("pointerenter", () => activate("lab"));
-        splitHero.addEventListener("pointerleave", resetSplit);
+      function setSplit(side) {
+        if (!splitHero) return;
+        splitHero.classList.toggle("is-professional-active", side === "professional");
+        splitHero.classList.toggle("is-lab-active", side === "lab");
       }
 
-      if (reduceMotion || !("IntersectionObserver" in window)) {
-        revealItems.forEach((item) => item.classList.add("is-visible"));
-      } else {
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
-          });
-        }, { threshold: 0.18 });
-        revealItems.forEach((item) => observer.observe(item));
+      function setActive(side, lock = false) {
+        if (!copy[side]) return;
+        if (lock) lockedSide = side;
+        stage?.setAttribute("data-active", side);
+        if (kicker) kicker.textContent = copy[side].kicker;
+        if (title) title.textContent = copy[side].title;
+        setSplit(side);
+
+        sides.forEach((item) => {
+          const active = item.dataset.side === side;
+          item.classList.toggle("is-active", active);
+        });
+        tabs.forEach((tab) => tab.setAttribute("aria-selected", String(tab.dataset.tab === side)));
+        panels.forEach((panel) => {
+          const active = panel.dataset.panel === side;
+          panel.classList.toggle("is-active", active);
+          panel.hidden = !active;
+        });
       }
+
+      sides.forEach((side) => {
+        side.addEventListener("pointerenter", () => {
+          if (!reduceMotion && window.matchMedia("(min-width: 900px)").matches) setActive(side.dataset.side);
+        });
+        side.addEventListener("focus", () => setActive(side.dataset.side));
+        side.addEventListener("click", () => setActive(side.dataset.side, true));
+        side.addEventListener("keydown", (event) => {
+          if (event.key !== "Enter" && event.key !== " ") return;
+          event.preventDefault();
+          setActive(side.dataset.side, true);
+        });
+      });
+
+      splitHero?.addEventListener("pointerleave", () => setActive(lockedSide));
+      tabs.forEach((tab) => tab.addEventListener("click", () => setActive(tab.dataset.tab, true)));
 
       const healthCard = document.querySelector(".health-card");
       const state = document.querySelector("[data-health-state]");
@@ -607,42 +775,84 @@
       const workloads = document.querySelector("[data-workloads]");
       const targets = document.querySelector("[data-targets]");
       const refresh = document.querySelector("[data-refresh]");
-
-      function unavailable() {
-        healthCard?.classList.add("is-unavailable");
-        if (state) state.textContent = "Unavailable";
-        if (cluster) cluster.textContent = "Unknown";
-        if (nodes) nodes.textContent = "- / -";
-        if (workloads) workloads.textContent = "- / -";
-        if (targets) targets.textContent = "- / -";
-        if (refresh) refresh.textContent = "No recent safe aggregate data available.";
-      }
+      const nextRefresh = document.querySelector("[data-next-refresh]");
+      let nextRefreshAt = null;
 
       function ratio(up, total) {
         if (!Number.isFinite(up) || !Number.isFinite(total) || total <= 0) return "- / -";
         return `${up} / ${total}`;
       }
 
-      fetch("lab-health.json", { cache: "no-store" })
-        .then((response) => {
-          if (!response.ok) throw new Error("health unavailable");
-          return response.json();
-        })
-        .then((data) => {
-          const healthy = data.status === "healthy";
-          if (state) state.textContent = healthy ? "Healthy" : "Degraded";
-          if (cluster) cluster.textContent = healthy ? "Healthy" : "Degraded";
-          if (nodes) nodes.textContent = ratio(data.nodesReady, data.nodesTotal);
-          if (workloads) workloads.textContent = ratio(data.workloadsHealthy, data.workloadsTotal);
-          if (targets) targets.textContent = ratio(data.targetsUp, data.targetsTotal);
-          if (refresh) {
-            const updated = data.updatedAt ? new Date(data.updatedAt) : null;
-            refresh.textContent = updated && !Number.isNaN(updated.valueOf())
-              ? `Last safe aggregate refresh: ${updated.toLocaleString([], { dateStyle: "medium", timeStyle: "short" })}.`
-              : "Safe aggregate data loaded.";
-          }
-        })
-        .catch(unavailable);
+      function secondsText(value) {
+        const seconds = Math.max(0, Math.round(value));
+        if (seconds < 60) return `${seconds}s`;
+        const minutes = Math.floor(seconds / 60);
+        const rest = seconds % 60;
+        return rest ? `${minutes}m ${rest}s` : `${minutes}m`;
+      }
+
+      function unavailable(message = "No recent safe aggregate data available.") {
+        healthCard?.classList.add("is-unavailable");
+        healthCard?.classList.remove("is-stale");
+        if (state) state.textContent = "Unavailable";
+        if (cluster) cluster.textContent = "Unknown";
+        if (nodes) nodes.textContent = "- / -";
+        if (workloads) workloads.textContent = "- / -";
+        if (targets) targets.textContent = "- / -";
+        if (refresh) refresh.textContent = message;
+        if (nextRefresh) nextRefresh.textContent = "Refresh countdown unavailable.";
+      }
+
+      function renderHealth(data) {
+        const updated = data.updatedAt ? new Date(data.updatedAt) : null;
+        const ageSeconds = Number.isFinite(data.ageSeconds)
+          ? data.ageSeconds
+          : updated ? (Date.now() - updated.getTime()) / 1000 : Infinity;
+        const maxAge = Number.isFinite(data.maxAgeSeconds) ? data.maxAgeSeconds : 300;
+        const stale = !updated || Number.isNaN(updated.valueOf()) || ageSeconds > maxAge;
+
+        healthCard?.classList.toggle("is-stale", stale);
+        healthCard?.classList.toggle("is-unavailable", data.status === "unavailable");
+        if (state) state.textContent = stale ? "Stale" : data.status || "Unknown";
+        if (cluster) cluster.textContent = stale ? "Stale" : data.status || "Unknown";
+        if (nodes) nodes.textContent = ratio(data.nodesReady, data.nodesTotal);
+        if (workloads) workloads.textContent = ratio(data.workloadsHealthy, data.workloadsTotal);
+        if (targets) targets.textContent = ratio(data.targetsUp, data.targetsTotal);
+        if (refresh) {
+          refresh.textContent = updated && !Number.isNaN(updated.valueOf())
+            ? `Last safe refresh: ${updated.toLocaleString([], { dateStyle: "medium", timeStyle: "short" })} (${secondsText(ageSeconds)} old, max ${secondsText(maxAge)}).`
+            : "No valid refresh timestamp received.";
+        }
+
+        nextRefreshAt = data.nextRefreshAt ? new Date(data.nextRefreshAt) : null;
+        updateCountdown();
+      }
+
+      function updateCountdown() {
+        if (!nextRefresh) return;
+        if (!nextRefreshAt || Number.isNaN(nextRefreshAt.valueOf())) {
+          nextRefresh.textContent = "Next refresh time unavailable.";
+          return;
+        }
+        const seconds = (nextRefreshAt.getTime() - Date.now()) / 1000;
+        nextRefresh.textContent = seconds > 0
+          ? `Next server refresh in about ${secondsText(seconds)}.`
+          : "Server refresh is due now.";
+      }
+
+      function fetchHealth() {
+        fetch("lab-health.json", { cache: "no-store" })
+          .then((response) => {
+            if (!response.ok) throw new Error("health unavailable");
+            return response.json();
+          })
+          .then(renderHealth)
+          .catch(() => unavailable());
+      }
+
+      fetchHealth();
+      window.setInterval(updateCountdown, 1000);
+      window.setInterval(fetchHealth, 60000);
     })();
   </script>
 </body>
