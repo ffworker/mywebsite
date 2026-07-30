@@ -551,6 +551,19 @@
       line-height: 1.35;
       text-transform: uppercase;
     }
+    .context-build .lab-status-strip {
+      margin-top: calc(clamp(18px, 3vw, 32px) * -0.35);
+      margin-bottom: calc(clamp(18px, 3vw, 32px) * -0.35);
+    }
+    .cv-js .lab-status-strip {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    .cv-js .lab-status-strip.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 360ms var(--ease), transform 440ms var(--ease);
+    }
     .lab-status-strip [hidden] {
       display: none !important;
     }
@@ -622,7 +635,6 @@
     .cv-js.cv-build-pending .side .fact,
     .cv-js.cv-build-pending .side .actions,
     .cv-js.cv-build-pending .detail-stage,
-    .cv-js.cv-build-pending .lab-status-strip,
     .cv-js.cv-build-pending .agent-note,
     .cv-js.cv-build-pending footer {
       opacity: 0;
@@ -708,12 +720,6 @@
     .cv-js.cv-build-complete .detail-card,
     .cv-js.cv-build-complete .selector,
     .cv-js.cv-build-complete .detail-rail h2 {
-      opacity: 1;
-      transform: translateY(0);
-      transition: opacity 360ms var(--ease), transform 440ms var(--ease);
-    }
-    .cv-js.cv-build-step-health .lab-status-strip,
-    .cv-js.cv-build-complete .lab-status-strip {
       opacity: 1;
       transform: translateY(0);
       transition: opacity 360ms var(--ease), transform 440ms var(--ease);
@@ -826,7 +832,6 @@
       .cv-js.cv-build-pending .side .fact,
       .cv-js.cv-build-pending .side .actions,
       .cv-js.cv-build-pending .detail-stage,
-      .cv-js.cv-build-pending .lab-status-strip,
       .cv-js.cv-build-pending .agent-note,
       .cv-js.cv-build-pending footer,
       .cv-js.cv-build-pending .detail-card,
@@ -854,6 +859,10 @@
         max-height: none !important;
         padding-top: clamp(16px, 2vw, 22px) !important;
         padding-bottom: clamp(16px, 2vw, 22px) !important;
+      }
+      .cv-js .lab-status-strip {
+        opacity: 1 !important;
+        transform: none !important;
       }
     }
   </style>
@@ -981,7 +990,16 @@
             <div class="context-terminal" aria-label="Private lab context build">
               <div class="type-line" data-type-line="load context: private-infrastructure-lab">load context: private-infrastructure-lab</div>
               <div class="type-line" data-type-line="render profile: ready">render profile: ready</div>
+              <div class="type-line" data-type-line="loading live cluster-data:">loading live cluster-data:</div>
             </div>
+            <section class="lab-status-strip is-unavailable" aria-label="Bytegeist lab status" data-lab-status-strip>
+              <span class="status-title">BYTEGEIST LAB STATUS</span>
+              <span class="status-dot is-unavailable" aria-hidden="true" data-status-dot></span>
+              <span class="status-text" data-status-text>telemetry unavailable</span>
+              <span class="status-metric" data-status-nodes hidden>nodes <strong data-nodes>- / -</strong></span>
+              <span class="status-metric" data-status-targets hidden>targets <strong data-targets>- / -</strong></span>
+              <span class="status-metric" data-status-updated hidden>updated <strong data-updated-age>-</strong></span>
+            </section>
             <div class="context-output">
               <section class="context-row">
                 <div>
@@ -1035,15 +1053,6 @@
           </div>
         </article>
       </div>
-    </section>
-
-    <section class="lab-status-strip is-unavailable" aria-label="Bytegeist lab status" data-lab-status-strip>
-      <span class="status-title">BYTEGEIST LAB STATUS</span>
-      <span class="status-dot is-unavailable" aria-hidden="true" data-status-dot></span>
-      <span class="status-text" data-status-text>telemetry unavailable</span>
-      <span class="status-metric" data-status-nodes hidden>nodes <strong data-nodes>- / -</strong></span>
-      <span class="status-metric" data-status-targets hidden>targets <strong data-targets>- / -</strong></span>
-      <span class="status-metric" data-status-updated hidden>updated <strong data-updated-age>-</strong></span>
     </section>
 
     <aside class="agent-note">
@@ -1279,9 +1288,11 @@
 
         const lines = Array.from(panel.querySelectorAll("[data-type-line]"));
         const rows = Array.from(panel.querySelectorAll(".context-row"));
+        const statusStrip = panel.querySelector("[data-lab-status-strip]");
 
         panel.dataset.contextBuilt = "false";
         rows.forEach((row) => row.classList.remove("is-visible"));
+        statusStrip?.classList.remove("is-visible");
 
         if (reduceMotion) {
           lines.forEach((line) => {
@@ -1289,6 +1300,7 @@
             line.classList.remove("is-typing");
           });
           rows.forEach((row) => row.classList.add("is-visible"));
+          statusStrip?.classList.add("is-visible");
           panel.dataset.contextBuilt = "true";
           return;
         }
@@ -1297,11 +1309,14 @@
           const fullText = line.dataset.typeLine || line.textContent;
           await typeLine(line, fullText, buildId);
           if (buildId !== contextBuildId) return;
-          rows[index]?.classList.add("is-visible");
+          if (side === "lab" && line.dataset.typeLine === "loading live cluster-data:") {
+            statusStrip?.classList.add("is-visible");
+          }
+          if (side !== "lab") rows[index]?.classList.add("is-visible");
           await wait(DETAIL_LINE_PAUSE, buildId);
         }
 
-        for (const row of rows.slice(lines.length)) {
+        for (const row of rows.slice(side === "lab" ? 0 : lines.length)) {
           if (buildId !== contextBuildId) return;
           row.classList.add("is-visible");
           await wait(DETAIL_ROW_DELAY, buildId);
