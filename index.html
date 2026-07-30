@@ -130,17 +130,20 @@
     .side h1,
     .side .summary,
     .side .fact-list,
-    .side .actions {
+    .side .actions,
+    .side .side-quote {
       transition: transform 520ms var(--ease), opacity 520ms var(--ease);
     }
     .side:hover h1,
     .side:hover .summary,
     .side:hover .fact-list,
     .side:hover .actions,
+    .side:hover .side-quote,
     .side.is-active h1,
     .side.is-active .summary,
     .side.is-active .fact-list,
-    .side.is-active .actions {
+    .side.is-active .actions,
+    .side.is-active .side-quote {
       transform: translateY(-8px);
     }
     .split-hero.is-professional-active { grid-template-columns: 54fr 46fr; }
@@ -229,6 +232,31 @@
       flex-wrap: wrap;
       gap: 12px;
       margin-top: 34px;
+    }
+    .side-quote {
+      position: relative;
+      display: block;
+      max-width: 520px;
+      margin-top: clamp(24px, 4vh, 44px);
+      padding-left: 36px;
+      color: rgba(15, 23, 42, 0.72);
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    .side-quote::before {
+      content: "“";
+      position: absolute;
+      left: 0;
+      top: -18px;
+      color: var(--blue);
+      font: 700 58px/1 Georgia, serif;
+    }
+    .lab .side-quote {
+      color: rgba(220, 232, 223, 0.78);
+    }
+    .lab .side-quote::before {
+      color: var(--green);
     }
     .button {
       position: relative;
@@ -477,7 +505,7 @@
       opacity: 1;
       transform: translateY(0);
       min-height: 104px;
-      max-height: 520px;
+      max-height: 1600px;
       padding-top: clamp(16px, 2vw, 22px);
       padding-bottom: clamp(16px, 2vw, 22px);
     }
@@ -563,6 +591,13 @@
     }
     .cluster-peek {
       align-items: start;
+      border-left: 2px solid var(--green);
+      background:
+        linear-gradient(90deg, rgba(106, 181, 96, 0.14), rgba(106, 181, 96, 0.035) 42%, rgba(255, 255, 255, 0.02)),
+        #101713 !important;
+    }
+    .cluster-peek .detail-meta {
+      color: var(--green);
     }
     .cluster-peek-trigger {
       display: flex;
@@ -736,6 +771,7 @@
     .cv-js.cv-build-pending .side .summary,
     .cv-js.cv-build-pending .side .fact,
     .cv-js.cv-build-pending .side .actions,
+    .cv-js.cv-build-pending .side .side-quote,
     .cv-js.cv-build-pending .detail-stage,
     .cv-js.cv-build-pending .agent-note,
     .cv-js.cv-build-pending footer {
@@ -799,8 +835,10 @@
     }
     .cv-js.cv-build-step-facts .side .fact,
     .cv-js.cv-build-step-facts .side .actions,
+    .cv-js.cv-build-step-facts .side .side-quote,
     .cv-js.cv-build-complete .side .fact,
-    .cv-js.cv-build-complete .side .actions {
+    .cv-js.cv-build-complete .side .actions,
+    .cv-js.cv-build-complete .side .side-quote {
       opacity: 1;
       transform: translateY(0);
       transition: opacity 320ms var(--ease), transform 420ms var(--ease);
@@ -941,6 +979,7 @@
       .cv-js.cv-build-pending .side .summary,
       .cv-js.cv-build-pending .side .fact,
       .cv-js.cv-build-pending .side .actions,
+      .cv-js.cv-build-pending .side .side-quote,
       .cv-js.cv-build-pending .detail-stage,
       .cv-js.cv-build-pending .agent-note,
       .cv-js.cv-build-pending footer,
@@ -1003,6 +1042,7 @@
           <a class="button" href="mailto:denniskappel@gmx.net">Contact</a>
           <a class="button" href="https://github.com/ffworker" target="_blank" rel="noopener noreferrer">GitHub</a>
         </span>
+        <span class="side-quote">Good operations make the boring days possible.</span>
       </article>
 
       <article class="side lab" id="lab" data-side="lab" tabindex="0" aria-label="Show private lab detail" aria-controls="profile-detail">
@@ -1015,6 +1055,7 @@
           <span class="fact"><span>Networking / NetBird</span><span>private service access and routing</span></span>
           <span class="fact"><span>Monitoring / automation</span><span>Grafana, Prometheus, Git and runbooks</span></span>
         </span>
+        <span class="side-quote">It worked in the lab, which is how the adventure started.</span>
       </article>
     </section>
 
