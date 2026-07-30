@@ -606,33 +606,10 @@
     }
     .cluster-peek {
       align-items: start;
-      border-left: 2px solid #d7a855;
-      background:
-        linear-gradient(90deg, rgba(215, 168, 85, 0.13), rgba(106, 181, 96, 0.04) 44%, rgba(255, 255, 255, 0.02)),
-        #0d1411 !important;
     }
     .cluster-peek .detail-meta {
       color: var(--green);
     }
-    .cluster-peek-trigger {
-      display: flex;
-      align-items: stretch;
-      width: 100%;
-      max-width: 100%;
-      border: 0;
-      background: transparent;
-      color: inherit;
-      cursor: pointer;
-      font: inherit;
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: 0;
-      line-height: 1.2;
-      padding: 0;
-      text-align: left;
-      transition: border-color 180ms var(--ease), color 180ms var(--ease), transform 180ms var(--ease);
-    }
-    .cluster-command-copy,
     .cluster-bash-copy {
       border: 1px solid var(--dark-line);
       background:
@@ -642,34 +619,14 @@
       color: #f2f8f3;
       padding: 11px 13px;
     }
-    .cluster-command-copy {
-      flex: 1 1 auto;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      min-width: 0;
-      overflow-wrap: anywhere;
-    }
-    .cluster-command-copy::before,
     .terminal-command::before {
       content: "$ ";
       color: var(--green);
     }
     .cluster-bash-copy {
-      border-left: 0;
       color: var(--green);
       flex: 0 0 auto;
       white-space: nowrap;
-    }
-    .cluster-peek-trigger:hover,
-    .cluster-peek-trigger:focus-visible {
-      color: #ffffff;
-      outline: 0;
-      transform: translateY(-1px);
-    }
-    .cluster-peek-trigger:hover .cluster-command-copy,
-    .cluster-peek-trigger:hover .cluster-bash-copy,
-    .cluster-peek-trigger:focus-visible .cluster-command-copy,
-    .cluster-peek-trigger:focus-visible .cluster-bash-copy {
-      border-color: var(--green);
     }
     .cluster-peek .lab-status-strip {
       grid-column: 1 / -1;
@@ -683,6 +640,10 @@
       box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.025);
       letter-spacing: 0;
       text-transform: none;
+    }
+    .cv-js .cluster-peek .lab-status-strip {
+      opacity: 1;
+      transform: none;
     }
     .cv-js .lab-status-strip {
       opacity: 0;
@@ -743,6 +704,55 @@
     }
     .terminal-command {
       color: #eef5ef;
+      font-weight: 900;
+    }
+    .terminal-command-line {
+      display: flex;
+      align-items: stretch;
+      width: 100%;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      cursor: pointer;
+      font: inherit;
+      padding: 0;
+      text-align: left;
+    }
+    .terminal-command-line .terminal-command {
+      flex: 1 1 auto;
+      min-width: 0;
+      border: 1px solid #26342d;
+      border-right: 0;
+      background: rgba(255, 255, 255, 0.025);
+      padding: 10px 12px;
+      overflow-wrap: anywhere;
+    }
+    .terminal-command-line .cluster-bash-copy {
+      border-color: #26342d;
+      background: rgba(255, 255, 255, 0.025);
+    }
+    .terminal-command-line:hover .terminal-command,
+    .terminal-command-line:hover .cluster-bash-copy,
+    .terminal-command-line:focus-visible .terminal-command,
+    .terminal-command-line:focus-visible .cluster-bash-copy {
+      border-color: var(--green);
+    }
+    .terminal-command-line:focus-visible {
+      outline: 0;
+    }
+    .terminal-result {
+      display: grid;
+      gap: 10px;
+    }
+    .terminal-updated {
+      grid-column: 1 / -1;
+      margin-top: 7px;
+      color: #8fa099;
+      font: 11px/1.25 var(--mono);
+      text-align: right;
+    }
+    .terminal-updated strong {
+      color: #dce8df;
       font-weight: 900;
     }
     .terminal-table {
@@ -1246,12 +1256,9 @@
                   <h3>run this command to take a sanitized peek into my live-cluster.</h3>
                 </div>
                 <div>
-                  <button class="cluster-peek-trigger" type="button" aria-expanded="false" aria-controls="cluster-peek-output" data-cluster-peek-trigger>
-                    <span class="cluster-command-copy">kubectl get pods,nodes -A --context=Cluster01</span>
-                    <span class="cluster-bash-copy">'bash' me</span>
-                  </button>
+                  <p>The terminal is built client-side; the output stays hidden until the command is bashed.</p>
                 </div>
-                <div class="lab-status-strip is-unavailable" id="cluster-peek-output" aria-label="Bytegeist lab status" data-lab-status-strip hidden>
+                <div class="lab-status-strip is-unavailable" id="cluster-peek-output" aria-label="Bytegeist lab status" data-lab-status-strip>
                   <div class="terminal-titlebar" aria-hidden="true">
                     <span class="terminal-dot"></span>
                     <span class="terminal-dot"></span>
@@ -1259,19 +1266,24 @@
                     <span>bash / sanitized cluster peek</span>
                   </div>
                   <div class="status-output" data-status-output>
-                    <div class="terminal-command" data-terminal-command data-command-text="kubectl get pods,nodes -A --context=Cluster01"></div>
-                    <div class="terminal-unavailable" data-terminal-unavailable hidden><span class="status-dot is-unavailable" aria-hidden="true" data-status-dot></span> <span data-cluster-state>telemetry unavailable</span></div>
-                    <div class="terminal-table" data-pod-table hidden>
-                      <div class="terminal-row is-header"><span>NAMESPACE</span><span>NAME</span><span>READY</span><span>STATUS</span><span>AGE</span></div>
-                      <div data-pod-rows></div>
+                    <button class="terminal-command-line" type="button" aria-expanded="false" aria-controls="cluster-terminal-result" data-cluster-peek-trigger>
+                      <span class="terminal-command" data-terminal-command data-command-text="kubectl get pods,nodes -A --context=Cluster01"></span>
+                      <span class="cluster-bash-copy">'bash' me</span>
+                    </button>
+                    <div class="terminal-result" id="cluster-terminal-result" data-terminal-result hidden>
+                      <div class="terminal-unavailable" data-terminal-unavailable hidden><span class="status-dot is-unavailable" aria-hidden="true" data-status-dot></span> <span data-cluster-state>telemetry unavailable</span></div>
+                      <div class="terminal-table" data-pod-table hidden>
+                        <div class="terminal-row is-header"><span>NAMESPACE</span><span>NAME</span><span>READY</span><span>STATUS</span><span>AGE</span></div>
+                        <div data-pod-rows></div>
+                      </div>
+                      <div class="terminal-table" data-node-table hidden>
+                        <div class="terminal-row is-header has-version"><span>NAMESPACE</span><span>NAME</span><span>READY</span><span>STATUS</span><span>AGE</span><span>VERSION</span></div>
+                        <div data-node-rows></div>
+                      </div>
                     </div>
-                    <div class="terminal-table" data-node-table hidden>
-                      <div class="terminal-row is-header has-version"><span>NAMESPACE</span><span>NAME</span><span>READY</span><span>STATUS</span><span>AGE</span><span>VERSION</span></div>
-                      <div data-node-rows></div>
-                    </div>
-                    <div class="terminal-row" data-status-updated hidden><span>updated</span><strong data-updated-age>-</strong></div>
                   </div>
                 </div>
+                <div class="terminal-updated" data-status-updated hidden><span>updated</span> <strong data-updated-age>-</strong></div>
               </section>
             </div>
           </div>
@@ -1504,8 +1516,8 @@
         });
         panel.querySelectorAll(".context-row").forEach((row) => row.classList.remove("is-visible"));
         const statusStrip = panel.querySelector("[data-lab-status-strip]");
-        statusStrip?.classList.remove("is-visible");
-        if (statusStrip) statusStrip.hidden = true;
+        statusStrip?.classList.add("is-visible");
+        if (statusStrip) statusStrip.hidden = false;
         panel.querySelector("[data-cluster-peek-trigger]")?.setAttribute("aria-expanded", "false");
         panel.querySelectorAll("[data-pod-rows], [data-node-rows]").forEach((container) => {
           container.textContent = "";
@@ -1518,6 +1530,8 @@
         const nodeTable = panel.querySelector("[data-node-table]");
         const unavailableLine = panel.querySelector("[data-terminal-unavailable]");
         const updatedLine = panel.querySelector("[data-status-updated]");
+        const result = panel.querySelector("[data-terminal-result]");
+        if (result) result.hidden = true;
         if (podTable) podTable.hidden = true;
         if (nodeTable) nodeTable.hidden = true;
         if (unavailableLine) unavailableLine.hidden = true;
@@ -1544,13 +1558,11 @@
         line.classList.remove("is-typing");
       }
 
-      async function typeTerminalOutput(panel, buildId) {
+      async function typeTerminalCommand(panel, buildId) {
         const command = panel.querySelector("[data-terminal-command]");
         if (command) {
           await typeLine(command, command.dataset.commandText || "", buildId);
         }
-        if (buildId !== contextBuildId) return;
-        panel.dataset.terminalReady = "true";
       }
 
       async function startContextBuild(side) {
@@ -1572,6 +1584,8 @@
             line.classList.remove("is-typing");
           });
           rows.forEach((row) => row.classList.add("is-visible"));
+          const command = panel.querySelector("[data-terminal-command]");
+          if (command) command.textContent = command.dataset.commandText || "";
           panel.dataset.contextBuilt = "true";
           return;
         }
@@ -1587,6 +1601,9 @@
         for (const row of rows.slice(side === "lab" ? 0 : lines.length)) {
           if (buildId !== contextBuildId) return;
           row.classList.add("is-visible");
+          if (side === "lab" && row.matches("[data-cluster-peek]")) {
+            await typeTerminalCommand(panel, buildId);
+          }
           await wait(DETAIL_ROW_DELAY, buildId);
         }
 
@@ -1648,6 +1665,7 @@
 
       function unavailable() {
         setStatusClass("unavailable");
+        document.querySelector("[data-terminal-result]")?.removeAttribute("hidden");
         if (clusterState) clusterState.textContent = "telemetry unavailable";
         if (unavailableLine) unavailableLine.hidden = false;
         if (podTable) podTable.hidden = true;
@@ -1703,6 +1721,7 @@
         updateLabQuoteAge(safeNodeRows);
         const normalizedStatus = data.status === "healthy" ? "healthy" : "degraded";
         setStatusClass(normalizedStatus);
+        document.querySelector("[data-terminal-result]")?.removeAttribute("hidden");
         if (clusterState) clusterState.textContent = normalizedStatus === "healthy" ? "healthy" : "degraded";
         if (unavailableLine) unavailableLine.hidden = true;
         if (podTable) podTable.hidden = false;
@@ -1726,21 +1745,16 @@
           });
       }
 
-      async function runClusterPeek() {
+      function runClusterPeek() {
         const panel = panels.find((item) => item.dataset.panel === "lab");
-        const strip = panel?.querySelector("[data-lab-status-strip]");
-        if (!panel || !strip) return;
+        if (!panel) return;
 
-        clearContextTimers();
-        contextBuildId += 1;
-        const buildId = contextBuildId;
-        resetClusterTerminal(panel);
-        strip.hidden = false;
-        strip.classList.add("is-visible");
+        resetClusterOutput(panel);
+        panel.dataset.terminalReady = "true";
+        const command = panel.querySelector("[data-terminal-command]");
+        if (command && !command.textContent) command.textContent = command.dataset.commandText || "";
+        panel.querySelector("[data-terminal-result]")?.removeAttribute("hidden");
         clusterPeekTrigger?.setAttribute("aria-expanded", "true");
-
-        await typeTerminalOutput(panel, buildId);
-        if (buildId !== contextBuildId) return;
         fetchHealth();
         if (!healthStarted) {
           healthStarted = true;
@@ -1748,19 +1762,16 @@
         }
       }
 
-      function resetClusterTerminal(panel) {
-        panel.dataset.terminalReady = "false";
+      function resetClusterOutput(panel) {
         panel.querySelectorAll("[data-pod-rows], [data-node-rows]").forEach((container) => {
           container.textContent = "";
-        });
-        panel.querySelectorAll("[data-terminal-command]").forEach((command) => {
-          command.textContent = "";
-          command.classList.remove("is-typing");
         });
         const podTable = panel.querySelector("[data-pod-table]");
         const nodeTable = panel.querySelector("[data-node-table]");
         const unavailableLine = panel.querySelector("[data-terminal-unavailable]");
         const updatedLine = panel.querySelector("[data-status-updated]");
+        const result = panel.querySelector("[data-terminal-result]");
+        if (result) result.hidden = true;
         if (podTable) podTable.hidden = true;
         if (nodeTable) nodeTable.hidden = true;
         if (unavailableLine) unavailableLine.hidden = true;
