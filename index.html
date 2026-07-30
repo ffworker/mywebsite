@@ -590,21 +590,47 @@
     .status-dot.is-unavailable { background: transparent; }
     .status-output {
       display: grid;
-      gap: 4px;
+      gap: 10px;
     }
-    .status-row {
-      display: grid;
-      grid-template-columns: minmax(110px, 0.36fr) minmax(0, 0.64fr);
-      gap: 12px;
-      color: var(--dark-muted);
-    }
-    .status-row strong {
+    .terminal-command {
       color: #eef5ef;
       font-weight: 900;
     }
-    .lab-status-strip.is-unavailable .status-row strong,
-    .lab-status-strip.is-stale .status-row strong {
+    .terminal-table {
+      display: grid;
+      gap: 3px;
+      min-width: 0;
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+    .terminal-row {
+      display: grid;
+      grid-template-columns: minmax(88px, 0.9fr) minmax(170px, 1.7fr) minmax(58px, 0.55fr) minmax(92px, 0.8fr) minmax(54px, 0.5fr);
+      gap: 10px;
+      min-width: 580px;
+      color: var(--dark-muted);
+      white-space: nowrap;
+    }
+    .terminal-row.has-version {
+      grid-template-columns: minmax(88px, 0.8fr) minmax(150px, 1.3fr) minmax(58px, 0.5fr) minmax(118px, 0.95fr) minmax(54px, 0.45fr) minmax(116px, 0.9fr);
+      min-width: 680px;
+    }
+    .terminal-row.is-header {
+      color: #f2f8f3;
+      font-weight: 900;
+    }
+    .terminal-row strong,
+    .terminal-row b {
+      color: #eef5ef;
+      font-weight: 900;
+    }
+    .lab-status-strip.is-unavailable .terminal-row strong,
+    .lab-status-strip.is-stale .terminal-row strong {
       color: #d7a855;
+    }
+    .terminal-unavailable {
+      color: #d7a855;
+      font-weight: 900;
     }
     .agent-note {
       display: flex;
@@ -823,9 +849,9 @@
         gap: 6px 10px;
         font-size: 11px;
       }
-      .status-row {
-        grid-template-columns: 1fr;
-        gap: 1px;
+      .terminal-row,
+      .terminal-row.has-version {
+        min-width: 620px;
       }
       footer {
         display: block;
@@ -1006,17 +1032,20 @@
             <div class="context-terminal" aria-label="Private lab context build">
               <div class="type-line" data-type-line="load context: private-infrastructure-lab"></div>
               <div class="type-line" data-type-line="render profile: ready"></div>
-              <div class="type-line" data-type-line="loading real-time cluster-data: kubectl get nodes,pods -A --context=bytegeist-****"></div>
+              <div class="type-line" data-type-line="loading real-time cluster-data: kubectl get pods,nodes -A --context=Cluster01"></div>
               <div class="lab-status-strip is-unavailable" aria-label="Bytegeist lab status" data-lab-status-strip>
-                <span class="status-title">BYTEGEIST LAB STATUS</span>
                 <div class="status-output" data-status-output>
-                  <div class="status-row">
-                    <span>cluster</span>
-                    <strong><span class="status-dot is-unavailable" aria-hidden="true" data-status-dot></span> <span data-cluster-state>telemetry unavailable</span></strong>
+                  <div class="terminal-command">kubectl get pods,nodes -A</div>
+                  <div class="terminal-unavailable" data-terminal-unavailable><span class="status-dot is-unavailable" aria-hidden="true" data-status-dot></span> <span data-cluster-state>telemetry unavailable</span></div>
+                  <div class="terminal-table" data-pod-table hidden>
+                    <div class="terminal-row is-header"><span>NAMESPACE</span><span>NAME</span><span>READY</span><span>STATUS</span><span>AGE</span></div>
+                    <div data-pod-rows></div>
                   </div>
-                  <div class="status-row" data-status-nodes hidden><span>nodes ready</span><strong data-nodes>- / -</strong></div>
-                  <div class="status-row" data-status-pods hidden><span>pods ready</span><strong data-pods>- / -</strong></div>
-                  <div class="status-row" data-status-updated hidden><span>updated</span><strong data-updated-age>-</strong></div>
+                  <div class="terminal-table" data-node-table hidden>
+                    <div class="terminal-row is-header has-version"><span>NAMESPACE</span><span>NAME</span><span>READY</span><span>STATUS</span><span>AGE</span><span>VERSION</span></div>
+                    <div data-node-rows></div>
+                  </div>
+                  <div class="terminal-row" data-status-updated hidden><span>updated</span><strong data-updated-age>-</strong></div>
                 </div>
               </div>
             </div>
@@ -1183,7 +1212,10 @@
       function activate(side) {
         const nextSide = copySide(side);
         if (!nextSide) return;
-        if (nextSide === activeSide && stage?.dataset.active === nextSide) return;
+        if (nextSide === activeSide && stage?.dataset.active === nextSide) {
+          if (detailBuildAvailable || reduceMotion) startContextBuild(nextSide);
+          return;
+        }
         activeSide = nextSide;
         storeSide(activeSide);
         setActive(activeSide);
@@ -1287,6 +1319,15 @@
         });
         panel.querySelectorAll(".context-row").forEach((row) => row.classList.remove("is-visible"));
         panel.querySelector("[data-lab-status-strip]")?.classList.remove("is-visible");
+        panel.querySelectorAll("[data-pod-rows], [data-node-rows]").forEach((container) => {
+          container.textContent = "";
+        });
+        const podTable = panel.querySelector("[data-pod-table]");
+        const nodeTable = panel.querySelector("[data-node-table]");
+        const unavailableLine = panel.querySelector("[data-terminal-unavailable]");
+        if (podTable) podTable.hidden = true;
+        if (nodeTable) nodeTable.hidden = true;
+        if (unavailableLine) unavailableLine.hidden = false;
       }
 
       function wait(ms, buildId) {
@@ -1339,7 +1380,7 @@
           const fullText = line.dataset.typeLine || line.textContent;
           await typeLine(line, fullText, buildId);
           if (buildId !== contextBuildId) return;
-          if (side === "lab" && line.dataset.typeLine === "loading real-time cluster-data: kubectl get nodes,pods -A --context=bytegeist-****") {
+          if (side === "lab" && line.dataset.typeLine === "loading real-time cluster-data: kubectl get pods,nodes -A --context=Cluster01") {
             statusStrip?.classList.add("is-visible");
           }
           if (side !== "lab") rows[index]?.classList.add("is-visible");
@@ -1358,11 +1399,12 @@
       const labStatus = document.querySelector("[data-lab-status-strip]");
       const statusDot = document.querySelector("[data-status-dot]");
       const clusterState = document.querySelector("[data-cluster-state]");
-      const nodesMetric = document.querySelector("[data-status-nodes]");
-      const podsMetric = document.querySelector("[data-status-pods]");
+      const unavailableLine = document.querySelector("[data-terminal-unavailable]");
+      const podTable = document.querySelector("[data-pod-table]");
+      const nodeTable = document.querySelector("[data-node-table]");
+      const podRows = document.querySelector("[data-pod-rows]");
+      const nodeRows = document.querySelector("[data-node-rows]");
       const updatedMetric = document.querySelector("[data-status-updated]");
-      const nodes = document.querySelector("[data-nodes]");
-      const pods = document.querySelector("[data-pods]");
       const updatedAge = document.querySelector("[data-updated-age]");
 
       function ratio(up, total) {
@@ -1389,8 +1431,35 @@
       function unavailable() {
         setStatusClass("unavailable");
         if (clusterState) clusterState.textContent = "telemetry unavailable";
-        [nodesMetric, podsMetric, updatedMetric].forEach((metric) => {
-          if (metric) metric.hidden = true;
+        if (unavailableLine) unavailableLine.hidden = false;
+        if (podTable) podTable.hidden = true;
+        if (nodeTable) nodeTable.hidden = true;
+        if (updatedMetric) updatedMetric.hidden = true;
+        if (podRows) podRows.textContent = "";
+        if (nodeRows) nodeRows.textContent = "";
+      }
+
+      function textCell(value, strong = false) {
+        const cell = document.createElement(strong ? "strong" : "span");
+        cell.textContent = value || "-";
+        return cell;
+      }
+
+      function renderRows(container, rows, version = false) {
+        if (!container) return;
+        container.textContent = "";
+        rows.forEach((item) => {
+          const row = document.createElement("div");
+          row.className = `terminal-row${version ? " has-version" : ""}`;
+          row.append(
+            textCell(item.namespace),
+            textCell(item.name, true),
+            textCell(item.ready),
+            textCell(item.status, item.status !== "Running" && item.status !== "Ready"),
+            textCell(item.age)
+          );
+          if (version) row.append(textCell(item.version));
+          container.append(row);
         });
       }
 
@@ -1403,8 +1472,10 @@
         const stale = !updated || Number.isNaN(updated.valueOf()) || ageSeconds > maxAge;
         const nodeRatio = ratio(data.nodesReady, data.nodesTotal);
         const podRatio = ratio(data.podsReady, data.podsTotal);
+        const safePodRows = Array.isArray(data.podRows) ? data.podRows : [];
+        const safeNodeRows = Array.isArray(data.nodeRows) ? data.nodeRows : [];
 
-        if (stale || data.status === "unavailable" || !nodeRatio || !podRatio) {
+        if (stale || data.status === "unavailable" || !nodeRatio || !podRatio || !safePodRows.length || !safeNodeRows.length) {
           unavailable();
           return;
         }
@@ -1412,12 +1483,13 @@
         const normalizedStatus = data.status === "healthy" ? "healthy" : "degraded";
         setStatusClass(normalizedStatus);
         if (clusterState) clusterState.textContent = normalizedStatus === "healthy" ? "healthy" : "degraded";
-        if (nodes) nodes.textContent = nodeRatio;
-        if (pods) pods.textContent = podRatio;
+        if (unavailableLine) unavailableLine.hidden = true;
+        if (podTable) podTable.hidden = false;
+        if (nodeTable) nodeTable.hidden = false;
+        renderRows(podRows, safePodRows);
+        renderRows(nodeRows, safeNodeRows, true);
         if (updatedAge) updatedAge.textContent = `${secondsText(ageSeconds)} ago`;
-        [nodesMetric, podsMetric, updatedMetric].forEach((metric) => {
-          if (metric) metric.hidden = false;
-        });
+        if (updatedMetric) updatedMetric.hidden = false;
       }
 
       function fetchHealth() {
