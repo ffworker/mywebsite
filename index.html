@@ -553,6 +553,14 @@
       margin-top: calc(clamp(18px, 3vw, 32px) * -0.35);
       margin-bottom: calc(clamp(18px, 3vw, 32px) * -0.35);
     }
+    .context-terminal .lab-status-strip {
+      margin: 8px 0 0;
+      padding: 10px 0 0;
+      border-top: 1px solid var(--dark-line);
+      border-bottom: 0;
+      background: transparent;
+      background-size: auto;
+    }
     .cv-js .lab-status-strip {
       opacity: 0;
       transform: translateY(8px);
@@ -932,8 +940,8 @@
         <article class="detail-panel is-active" id="panel-professional" role="tabpanel" aria-labelledby="tab-professional" data-panel="professional">
           <div class="context-build" data-context-build="professional">
             <div class="context-terminal" aria-label="Professional context build">
-              <div class="type-line" data-type-line="load context: professional-operations">load context: professional-operations</div>
-              <div class="type-line" data-type-line="render profile: ready">render profile: ready</div>
+              <div class="type-line" data-type-line="load context: professional-operations"></div>
+              <div class="type-line" data-type-line="render profile: ready"></div>
             </div>
             <div class="context-output">
               <section class="context-row">
@@ -996,23 +1004,23 @@
         <article class="detail-panel" id="panel-lab" role="tabpanel" aria-labelledby="tab-lab" data-panel="lab" hidden>
           <div class="context-build" data-context-build="lab">
             <div class="context-terminal" aria-label="Private lab context build">
-              <div class="type-line" data-type-line="load context: private-infrastructure-lab">load context: private-infrastructure-lab</div>
-              <div class="type-line" data-type-line="render profile: ready">render profile: ready</div>
-              <div class="type-line" data-type-line="loading live cluster-data:">loading live cluster-data:</div>
-              <div class="type-line" data-type-line="kubectl get nodes,pods -A --context=bytegeist-****">kubectl get nodes,pods -A --context=bytegeist-****</div>
-            </div>
-            <section class="lab-status-strip is-unavailable" aria-label="Bytegeist lab status" data-lab-status-strip>
-              <span class="status-title">BYTEGEIST LAB STATUS</span>
-              <div class="status-output" data-status-output>
-                <div class="status-row">
-                  <span>cluster</span>
-                  <strong><span class="status-dot is-unavailable" aria-hidden="true" data-status-dot></span> <span data-cluster-state>telemetry unavailable</span></strong>
+              <div class="type-line" data-type-line="load context: private-infrastructure-lab"></div>
+              <div class="type-line" data-type-line="render profile: ready"></div>
+              <div class="type-line" data-type-line="loading live cluster-data:"></div>
+              <div class="type-line" data-type-line="kubectl get nodes,pods -A --context=bytegeist-****"></div>
+              <div class="lab-status-strip is-unavailable" aria-label="Bytegeist lab status" data-lab-status-strip>
+                <span class="status-title">BYTEGEIST LAB STATUS</span>
+                <div class="status-output" data-status-output>
+                  <div class="status-row">
+                    <span>cluster</span>
+                    <strong><span class="status-dot is-unavailable" aria-hidden="true" data-status-dot></span> <span data-cluster-state>telemetry unavailable</span></strong>
+                  </div>
+                  <div class="status-row" data-status-nodes hidden><span>nodes ready</span><strong data-nodes>- / -</strong></div>
+                  <div class="status-row" data-status-pods hidden><span>pods ready</span><strong data-pods>- / -</strong></div>
+                  <div class="status-row" data-status-updated hidden><span>updated</span><strong data-updated-age>-</strong></div>
                 </div>
-                <div class="status-row" data-status-nodes hidden><span>nodes ready</span><strong data-nodes>- / -</strong></div>
-                <div class="status-row" data-status-pods hidden><span>pods ready</span><strong data-pods>- / -</strong></div>
-                <div class="status-row" data-status-updated hidden><span>updated</span><strong data-updated-age>-</strong></div>
               </div>
-            </section>
+            </div>
             <div class="context-output">
               <section class="context-row">
                 <div>
@@ -1322,7 +1330,7 @@
           const fullText = line.dataset.typeLine || line.textContent;
           await typeLine(line, fullText, buildId);
           if (buildId !== contextBuildId) return;
-          if (side === "lab" && line.dataset.typeLine === "loading live cluster-data:") {
+          if (side === "lab" && line.dataset.typeLine === "kubectl get nodes,pods -A --context=bytegeist-****") {
             statusStrip?.classList.add("is-visible");
           }
           if (side !== "lab") rows[index]?.classList.add("is-visible");
