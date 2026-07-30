@@ -77,8 +77,7 @@
     .fact,
     .detail-kicker,
     .detail-meta,
-    .metric span,
-    .refresh,
+    .lab-status-strip,
     .note-label {
       font-family: var(--mono);
     }
@@ -465,49 +464,6 @@
     .tech.javascript { color: #b89500; }
     .tech.ai { color: #b77936; }
     .detail-stage[data-active="lab"] .tech.javascript { color: #f1d95a; }
-    .skill-control-map {
-      display: grid;
-      gap: 1px;
-      margin-top: 14px;
-      border: 1px solid var(--line);
-      background: var(--line);
-      font-family: var(--mono);
-      font-size: 11px;
-      line-height: 1.45;
-    }
-    .detail-stage[data-active="lab"] .skill-control-map {
-      border-color: var(--dark-line);
-      background: var(--dark-line);
-    }
-    .map-row {
-      display: grid;
-      grid-template-columns: minmax(120px, 0.36fr) minmax(150px, 0.34fr) minmax(0, 0.3fr);
-      gap: 14px;
-      padding: 10px 12px;
-      background: #fbfcfa;
-      color: var(--muted);
-    }
-    .detail-stage[data-active="lab"] .map-row {
-      background: var(--dark-2);
-      color: var(--dark-muted);
-    }
-    .map-row:first-child {
-      color: var(--ink);
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-    .detail-stage[data-active="lab"] .map-row:first-child {
-      color: var(--dark-text);
-    }
-    .map-row > span:first-child {
-      color: var(--ink);
-      font-weight: 800;
-    }
-    .detail-stage[data-active="lab"] .map-row > span:first-child {
-      color: var(--dark-text);
-    }
     .cv-js .context-row {
       opacity: 0;
       transform: translateY(8px);
@@ -524,58 +480,6 @@
       max-height: 520px;
       padding-top: clamp(16px, 2vw, 22px);
       padding-bottom: clamp(16px, 2vw, 22px);
-    }
-    .context-health {
-      display: grid;
-      grid-template-columns: minmax(320px, 0.82fr) minmax(0, 1.18fr);
-      gap: clamp(18px, 3vw, 32px);
-      align-items: stretch;
-    }
-    .lab-live {
-      display: block;
-    }
-    .lab-live .health-card {
-      padding: clamp(14px, 2vw, 18px);
-      display: grid;
-      grid-template-columns: minmax(190px, 0.7fr) minmax(0, 1.3fr);
-      gap: 16px;
-      align-items: start;
-    }
-    .lab-live .health-card::before {
-      width: 3px;
-    }
-    .lab-live .health-top {
-      display: grid;
-      gap: 10px;
-    }
-    .lab-live .health-card h3 {
-      margin-top: 6px;
-      font-size: clamp(22px, 2.1vw, 30px);
-      line-height: 1;
-    }
-    .lab-live .health-state {
-      width: fit-content;
-      min-width: 0;
-      padding: 7px 9px;
-      font-size: 11px;
-    }
-    .lab-live .metrics {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      margin-top: 0;
-    }
-    .lab-live .metric {
-      min-height: 68px;
-      padding: 10px;
-    }
-    .lab-live .metric strong {
-      margin-top: 8px;
-      font-size: clamp(20px, 2.2vw, 28px);
-    }
-    .lab-live .refresh,
-    .lab-live .live-error {
-      grid-column: 1 / -1;
-      margin-top: 0;
-      font-size: 11px;
     }
     @keyframes detailIn {
       from { opacity: 0; transform: translateY(12px); }
@@ -628,115 +532,63 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
     }
-    .lab-composite {
-      display: grid;
-      grid-template-columns: minmax(320px, 0.86fr) minmax(0, 1.14fr);
-      gap: clamp(20px, 3vw, 42px);
-      align-items: stretch;
-    }
-    .health-card {
-      position: relative;
-      border: 1px solid var(--dark-line);
-      background: #101815;
-      padding: clamp(22px, 4vw, 42px);
-      overflow: hidden;
-    }
-    .health-card::before {
-      content: "";
-      position: absolute;
-      inset: 0 auto 0 0;
-      width: 4px;
-      background: var(--green);
-      opacity: 0.95;
-    }
-    .health-top {
+    .lab-status-strip {
       display: flex;
-      justify-content: space-between;
-      gap: 18px;
-      align-items: start;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 14px;
+      border-top: 1px solid var(--dark-line);
+      border-bottom: 1px solid var(--dark-line);
+      background:
+        linear-gradient(90deg, rgba(226, 232, 240, 0.045) 1px, transparent 1px),
+        var(--dark);
+      background-size: 72px 72px;
+      padding: 12px clamp(20px, 4vw, 48px);
+      color: #dce8df;
+      font-size: 12px;
+      font-weight: 760;
+      letter-spacing: 0.06em;
+      line-height: 1.35;
+      text-transform: uppercase;
     }
-    .health-card h3 {
-      margin-top: 12px;
-      font-size: clamp(32px, 4.5vw, 62px);
-      line-height: 0.95;
-      letter-spacing: -0.014em;
-      text-wrap: balance;
+    .lab-status-strip [hidden] {
+      display: none !important;
     }
-    .health-state {
-      min-width: 122px;
-      border: 1px solid var(--dark-line);
-      padding: 9px 10px;
+    .status-title {
+      color: #f2f8f3;
+      font-weight: 900;
+    }
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border: 1px solid currentColor;
+      background: #d7a855;
+    }
+    .status-dot.is-healthy { background: var(--green); }
+    .status-dot.is-degraded { background: #d7a855; }
+    .status-dot.is-unavailable { background: transparent; }
+    .status-text {
       color: var(--green);
-      font-family: var(--mono);
-      font-size: 12px;
-      font-weight: 800;
-      text-align: center;
-      text-transform: uppercase;
     }
-    .health-card.is-unavailable .health-state,
-    .health-card.is-stale .health-state {
+    .lab-status-strip.is-unavailable .status-text,
+    .lab-status-strip.is-stale .status-text {
       color: #d7a855;
     }
-    .metrics {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1px;
-      margin-top: 28px;
-      background: var(--dark-line);
-      border: 1px solid var(--dark-line);
-    }
-    .metric {
-      min-height: 104px;
-      background: var(--dark);
-      padding: 16px;
-    }
-    .metric span {
-      display: block;
+    .status-metric {
       color: var(--dark-muted);
-      font-size: 11px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
     }
-    .metric strong {
-      display: block;
-      margin-top: 10px;
-      font-size: clamp(28px, 4vw, 48px);
-      line-height: 1;
-      letter-spacing: -0.01em;
-    }
-    .refresh {
-      margin-top: 18px;
-      color: var(--dark-muted);
-      font-size: 12px;
-    }
-    .live-error {
-      display: none;
-      margin-top: 14px;
-      color: #d7a855;
-      font-size: 14px;
-    }
-    .health-card.is-unavailable .live-error,
-    .health-card.is-stale .live-error { display: block; }
-    .lab-list {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1px;
-      background: var(--dark-line);
-      border: 1px solid var(--dark-line);
-    }
-    .lab-list .detail-card {
-      min-height: 160px;
+    .status-metric strong {
+      color: #eef5ef;
+      font-weight: 900;
     }
     .agent-note {
       display: flex;
       align-items: baseline;
       justify-content: center;
       gap: 12px;
-      border-top: 1px solid var(--line);
-      padding: 16px clamp(20px, 4vw, 48px);
-      color: var(--muted);
-      background: #fbfcfa;
-      opacity: 0.78;
+      padding: 18px clamp(20px, 4vw, 48px);
+      color: #dce8df;
+      background: var(--dark);
     }
     .note-label {
       color: var(--green);
@@ -746,8 +598,8 @@
       text-transform: uppercase;
     }
     .agent-note p {
-      max-width: 720px;
-      font-size: 13px;
+      max-width: 900px;
+      font-size: clamp(16px, 1.35vw, 18px);
       line-height: 1.45;
     }
     footer {
@@ -770,6 +622,7 @@
     .cv-js.cv-build-pending .side .fact,
     .cv-js.cv-build-pending .side .actions,
     .cv-js.cv-build-pending .detail-stage,
+    .cv-js.cv-build-pending .lab-status-strip,
     .cv-js.cv-build-pending .agent-note,
     .cv-js.cv-build-pending footer {
       opacity: 0;
@@ -792,7 +645,6 @@
       transform: scaleX(0);
     }
     .cv-js.cv-build-pending .detail-card,
-    .cv-js.cv-build-pending .health-card,
     .cv-js.cv-build-pending .selector,
     .cv-js.cv-build-pending .detail-rail h2 {
       opacity: 0;
@@ -860,8 +712,8 @@
       transform: translateY(0);
       transition: opacity 360ms var(--ease), transform 440ms var(--ease);
     }
-    .cv-js.cv-build-step-health .health-card,
-    .cv-js.cv-build-complete .health-card {
+    .cv-js.cv-build-step-health .lab-status-strip,
+    .cv-js.cv-build-complete .lab-status-strip {
       opacity: 1;
       transform: translateY(0);
       transition: opacity 360ms var(--ease), transform 440ms var(--ease);
@@ -883,9 +735,7 @@
     .cv-js.cv-build-step-facts .fact:nth-child(3)::after { transition-delay: 160ms; }
     .cv-js.cv-build-step-facts .fact:nth-child(4)::after { transition-delay: 230ms; }
     @media (max-width: 1080px) {
-      .detail-stage,
-      .lab-composite,
-      .context-health {
+      .detail-stage {
         grid-template-columns: 1fr;
       }
       .detail-rail {
@@ -899,12 +749,6 @@
         grid-template-columns: 1fr;
       }
       .context-row {
-        grid-template-columns: 1fr;
-      }
-      .map-row {
-        grid-template-columns: minmax(130px, 0.34fr) minmax(160px, 0.34fr) minmax(0, 0.32fr);
-      }
-      .lab-live .health-card {
         grid-template-columns: 1fr;
       }
       .detail-card {
@@ -934,6 +778,10 @@
       }
       .agent-note {
         grid-template-columns: 1fr;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
       }
     }
     @media (max-width: 560px) {
@@ -953,15 +801,9 @@
       .selector {
         width: 100%;
       }
-      .lab-live .metrics {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-      .map-row {
-        grid-template-columns: 1fr;
-        gap: 4px;
-      }
-      .metrics {
-        grid-template-columns: 1fr;
+      .lab-status-strip {
+        gap: 6px 10px;
+        font-size: 11px;
       }
       footer {
         display: block;
@@ -984,10 +826,10 @@
       .cv-js.cv-build-pending .side .fact,
       .cv-js.cv-build-pending .side .actions,
       .cv-js.cv-build-pending .detail-stage,
+      .cv-js.cv-build-pending .lab-status-strip,
       .cv-js.cv-build-pending .agent-note,
       .cv-js.cv-build-pending footer,
       .cv-js.cv-build-pending .detail-card,
-      .cv-js.cv-build-pending .health-card,
       .cv-js.cv-build-pending .selector,
       .cv-js.cv-build-pending .detail-rail h2 {
         opacity: 1 !important;
@@ -1045,7 +887,7 @@
       </article>
 
       <article class="side lab" id="lab" data-side="lab" tabindex="0" aria-label="Show private lab detail" aria-controls="profile-detail">
-        <span class="label">Private Infrastructure Lab</span>
+        <span class="label">Private / Hands-on</span>
         <h1>Private Infrastructure Lab</h1>
         <span class="summary">Linux · k3s · networking · automation</span>
         <span class="fact-list">
@@ -1064,8 +906,8 @@
           <h2 data-detail-title>Operations work with real users and real constraints.</h2>
         </div>
         <div class="selector" role="tablist" aria-label="Profile detail selector">
-          <button type="button" role="tab" id="tab-professional" aria-controls="panel-professional" aria-selected="true" data-tab="professional">Switch to context Professional</button>
-          <button type="button" role="tab" id="tab-lab" aria-controls="panel-lab" aria-selected="false" data-tab="lab">Switch to context Private lab</button>
+          <button type="button" role="tab" id="tab-professional" aria-label="Switch to professional context" aria-controls="panel-professional" aria-selected="true" data-tab="professional">Professional</button>
+          <button type="button" role="tab" id="tab-lab" aria-label="Switch to private lab context" aria-controls="panel-lab" aria-selected="false" data-tab="lab">Private Lab</button>
         </div>
       </aside>
 
@@ -1073,10 +915,8 @@
         <article class="detail-panel is-active" id="panel-professional" role="tabpanel" aria-labelledby="tab-professional" data-panel="professional">
           <div class="context-build" data-context-build="professional">
             <div class="context-terminal" aria-label="Professional context build">
-              <div class="type-line" data-type-line="load context: professional-system-administration">load context: professional-system-administration</div>
-              <div class="type-line" data-type-line="map scope: omnissa-horizon / uag / connection-server / images / backups">map scope: omnissa-horizon / uag / connection-server / images / backups</div>
-              <div class="type-line" data-type-line="render view: operations / incidents / service-continuity">render view: operations / incidents / service-continuity</div>
-              <div class="type-line" data-type-line="load skill-control-map: professional-ops">load skill-control-map: professional-ops</div>
+              <div class="type-line" data-type-line="load context: professional-operations">load context: professional-operations</div>
+              <div class="type-line" data-type-line="render profile: ready">render profile: ready</div>
             </div>
             <div class="context-output">
               <section class="context-row">
@@ -1125,18 +965,11 @@
               </section>
               <section class="context-row">
                 <div>
-                  <span class="detail-meta">skill-control-map</span>
-                  <h3>professional-ops / current-control</h3>
+                  <span class="detail-meta">current control</span>
+                  <h3>professional-ops / responsibility</h3>
                 </div>
                 <div>
-                  <p>A compact map of what I can currently take responsibility for in professional system administration contexts.</p>
-                  <div class="skill-control-map" role="table" aria-label="Professional skill control map">
-                    <div class="map-row" role="row"><span>area</span><span>current use</span><span>control level</span></div>
-                    <div class="map-row" role="row"><span><span class="tech omnissa">Omnissa Horizon / VDI</span></span><span>UAG, Connection Server, golden images and snapshots</span><span>build / maintain / troubleshoot</span></div>
-                    <div class="map-row" role="row"><span><span class="tech veeam">Veeam</span> backups</span><span>backup paths for the VDI-related infrastructure</span><span>maintain / verify</span></div>
-                    <div class="map-row" role="row"><span><span class="tech microsoft">Microsoft 365</span> / <span class="tech exchange">Exchange</span></span><span>administration and operational support</span><span>operate / support</span></div>
-                    <div class="map-row" role="row"><span><span class="tech windows">Windows infrastructure</span></span><span>incidents, access and service continuity</span><span>troubleshoot / document</span></div>
-                  </div>
+                  <p>My strongest professional ground is operating, maintaining and documenting the systems around Horizon/VDI, Microsoft 365, Exchange and Windows infrastructure, with a practical bias toward service continuity.</p>
                 </div>
               </section>
             </div>
@@ -1144,32 +977,10 @@
         </article>
 
         <article class="detail-panel" id="panel-lab" role="tabpanel" aria-labelledby="tab-lab" data-panel="lab" hidden>
-          <aside class="lab-live" aria-label="Private lab live evidence">
-            <section class="health-card" aria-label="Pi and k3s lab health">
-              <div class="health-top">
-                <div>
-                  <p class="label">Live evidence</p>
-                  <h3>Pi/k3s Lab Health</h3>
-                </div>
-                <div class="health-state" data-health-state>Loading</div>
-              </div>
-              <div class="metrics" aria-label="Safe aggregate lab metrics">
-                <div class="metric"><span>Cluster</span><strong data-cluster>...</strong></div>
-                <div class="metric"><span>Nodes ready</span><strong data-nodes>...</strong></div>
-                <div class="metric"><span>Workloads</span><strong data-workloads>...</strong></div>
-                <div class="metric"><span>Targets up</span><strong data-targets>...</strong></div>
-              </div>
-              <p class="refresh" data-refresh>Fetching safe aggregate data.</p>
-              <p class="refresh" data-next-refresh>Next refresh will be shown after the first successful fetch.</p>
-              <p class="live-error">Live data is unavailable or older than five minutes. This is not shown as healthy.</p>
-            </section>
-          </aside>
           <div class="context-build" data-context-build="lab">
             <div class="context-terminal" aria-label="Private lab context build">
               <div class="type-line" data-type-line="load context: private-infrastructure-lab">load context: private-infrastructure-lab</div>
-              <div class="type-line" data-type-line="map scope: linux / docker / k3s / netbird / monitoring">map scope: linux / docker / k3s / netbird / monitoring</div>
-              <div class="type-line" data-type-line="render view: lab health / migrations / private access">render view: lab health / migrations / private access</div>
-              <div class="type-line" data-type-line="load skill-control-map: lab-ai-learning">load skill-control-map: lab-ai-learning</div>
+              <div class="type-line" data-type-line="render profile: ready">render profile: ready</div>
             </div>
             <div class="context-output">
               <section class="context-row">
@@ -1181,7 +992,7 @@
                   <p>The private lab is where Linux, Docker, Raspberry Pis, storage, backups and service exposure become real systems rather than abstract study topics.</p>
                   <ul class="context-list">
                     <li>services operated across Raspberry Pi and VPS systems</li>
-                    <li>storage, backups and service exposure practiced on real workloads</li>
+                    <li>storage, backups and service exposure practiced on real services</li>
                   </ul>
                 </div>
               </section>
@@ -1213,25 +1024,26 @@
               </section>
               <section class="context-row">
                 <div>
-                  <span class="detail-meta">skill-control-map</span>
-                  <h3>lab-ai-learning / current-control</h3>
+                  <span class="detail-meta">ownership</span>
+                  <h3>ai-assisted / human-validated</h3>
                 </div>
                 <div>
-                  <p>Different areas have different ownership: some I operate directly, some I review and modify, and some are mostly AI-generated support code.</p>
-                  <div class="skill-control-map" role="table" aria-label="Private lab skill control map">
-                    <div class="map-row" role="row"><span>area</span><span>current use</span><span>control level</span></div>
-                    <div class="map-row" role="row"><span><span class="tech kubernetes">Kubernetes / k3s</span></span><span>workloads, ingress, storage, logs, events</span><span>active learning / troubleshoot</span></div>
-                    <div class="map-row" role="row"><span><span class="tech yaml">YAML</span> / <span class="tech json">JSON</span></span><span>AI drafts often; I review, edit and spot mistakes</span><span>modify / validate</span></div>
-                    <div class="map-row" role="row"><span><span class="tech grafana">Grafana</span> / <span class="tech prometheus">Prometheus</span></span><span>agent-assisted monitoring; I verify and use the result</span><span>validate / operate</span></div>
-                    <div class="map-row" role="row"><span><span class="tech netbird">NetBird</span></span><span>private access and routing decisions</span><span>operate / troubleshoot</span></div>
-                    <div class="map-row" role="row"><span><span class="tech javascript">JavaScript</span> / programming languages</span><span>mostly AI-generated site behavior or support code in whatever language the task needs</span><span>review / apply, not a learning focus</span></div>
-                  </div>
+                  <p>AI accelerates drafts and implementation. I provide context, review changes and validate them against the live systems.</p>
                 </div>
               </section>
             </div>
           </div>
         </article>
       </div>
+    </section>
+
+    <section class="lab-status-strip is-unavailable" aria-label="Bytegeist lab status" data-lab-status-strip>
+      <span class="status-title">BYTEGEIST LAB STATUS</span>
+      <span class="status-dot is-unavailable" aria-hidden="true" data-status-dot></span>
+      <span class="status-text" data-status-text>telemetry unavailable</span>
+      <span class="status-metric" data-status-nodes hidden>nodes <strong data-nodes>- / -</strong></span>
+      <span class="status-metric" data-status-targets hidden>targets <strong data-targets>- / -</strong></span>
+      <span class="status-metric" data-status-updated hidden>updated <strong data-updated-age>-</strong></span>
     </section>
 
     <aside class="agent-note">
@@ -1270,12 +1082,14 @@
       const DETAIL_TYPE_SPEED = 24;
       const DETAIL_LINE_PAUSE = 90;
       const DETAIL_ROW_DELAY = 70;
+      const HOVER_INTENT_DELAY = 150;
       let activeSide = readStoredSide() || "professional";
       let buildComplete = document.documentElement.classList.contains("cv-build-complete");
       let detailBuildAvailable = buildComplete;
       let healthStarted = false;
       let contextBuildId = 0;
       let currentContextSide = null;
+      let hoverIntentTimer = null;
 
       const copy = {
         professional: {
@@ -1400,8 +1214,23 @@
         });
       }
 
+      function clearHoverIntent() {
+        if (!hoverIntentTimer) return;
+        window.clearTimeout(hoverIntentTimer);
+        hoverIntentTimer = null;
+      }
+
+      function queueHoverIntent(side) {
+        clearHoverIntent();
+        hoverIntentTimer = window.setTimeout(() => {
+          hoverIntentTimer = null;
+          activate(side);
+        }, HOVER_INTENT_DELAY);
+      }
+
       sides.forEach((side) => {
-        side.addEventListener("pointerenter", () => activate(side.dataset.side));
+        side.addEventListener("pointerenter", () => queueHoverIntent(side.dataset.side));
+        side.addEventListener("pointerleave", clearHoverIntent);
         side.addEventListener("focus", () => activate(side.dataset.side));
         side.addEventListener("click", () => activate(side.dataset.side));
         side.addEventListener("keydown", (event) => {
@@ -1481,19 +1310,19 @@
         if (buildId === contextBuildId) panel.dataset.contextBuilt = "true";
       }
 
-      const healthCard = document.querySelector(".health-card");
-      const state = document.querySelector("[data-health-state]");
-      const cluster = document.querySelector("[data-cluster]");
+      const labStatus = document.querySelector("[data-lab-status-strip]");
+      const statusDot = document.querySelector("[data-status-dot]");
+      const statusText = document.querySelector("[data-status-text]");
+      const nodesMetric = document.querySelector("[data-status-nodes]");
+      const targetsMetric = document.querySelector("[data-status-targets]");
+      const updatedMetric = document.querySelector("[data-status-updated]");
       const nodes = document.querySelector("[data-nodes]");
-      const workloads = document.querySelector("[data-workloads]");
       const targets = document.querySelector("[data-targets]");
-      const refresh = document.querySelector("[data-refresh]");
-      const nextRefresh = document.querySelector("[data-next-refresh]");
-      let nextRefreshAt = null;
+      const updatedAge = document.querySelector("[data-updated-age]");
 
       function ratio(up, total) {
-        if (!Number.isFinite(up) || !Number.isFinite(total) || total <= 0) return "- / -";
-        return `${up} / ${total}`;
+        if (!Number.isFinite(up) || !Number.isFinite(total) || total <= 0) return null;
+        return `${up}/${total}`;
       }
 
       function secondsText(value) {
@@ -1504,16 +1333,20 @@
         return rest ? `${minutes}m ${rest}s` : `${minutes}m`;
       }
 
-      function unavailable(message = "No recent safe aggregate data available.") {
-        healthCard?.classList.add("is-unavailable");
-        healthCard?.classList.remove("is-stale");
-        if (state) state.textContent = "Unavailable";
-        if (cluster) cluster.textContent = "Unknown";
-        if (nodes) nodes.textContent = "- / -";
-        if (workloads) workloads.textContent = "- / -";
-        if (targets) targets.textContent = "- / -";
-        if (refresh) refresh.textContent = message;
-        if (nextRefresh) nextRefresh.textContent = "Refresh countdown unavailable.";
+      function setStatusClass(kind) {
+        labStatus?.classList.toggle("is-unavailable", kind === "unavailable");
+        labStatus?.classList.toggle("is-stale", kind === "stale");
+        statusDot?.classList.toggle("is-healthy", kind === "healthy");
+        statusDot?.classList.toggle("is-degraded", kind === "degraded" || kind === "stale");
+        statusDot?.classList.toggle("is-unavailable", kind === "unavailable");
+      }
+
+      function unavailable() {
+        setStatusClass("unavailable");
+        if (statusText) statusText.textContent = "telemetry unavailable";
+        [nodesMetric, targetsMetric, updatedMetric].forEach((metric) => {
+          if (metric) metric.hidden = true;
+        });
       }
 
       function renderHealth(data) {
@@ -1523,34 +1356,23 @@
           : updated ? (Date.now() - updated.getTime()) / 1000 : Infinity;
         const maxAge = Number.isFinite(data.maxAgeSeconds) ? data.maxAgeSeconds : 300;
         const stale = !updated || Number.isNaN(updated.valueOf()) || ageSeconds > maxAge;
+        const nodeRatio = ratio(data.nodesReady, data.nodesTotal);
+        const targetRatio = ratio(data.targetsUp, data.targetsTotal);
 
-        healthCard?.classList.toggle("is-stale", stale);
-        healthCard?.classList.toggle("is-unavailable", data.status === "unavailable");
-        if (state) state.textContent = stale ? "Stale" : data.status || "Unknown";
-        if (cluster) cluster.textContent = stale ? "Stale" : data.status || "Unknown";
-        if (nodes) nodes.textContent = ratio(data.nodesReady, data.nodesTotal);
-        if (workloads) workloads.textContent = ratio(data.workloadsHealthy, data.workloadsTotal);
-        if (targets) targets.textContent = ratio(data.targetsUp, data.targetsTotal);
-        if (refresh) {
-          refresh.textContent = updated && !Number.isNaN(updated.valueOf())
-            ? `Last safe refresh: ${updated.toLocaleString([], { dateStyle: "medium", timeStyle: "short" })} (${secondsText(ageSeconds)} old, max ${secondsText(maxAge)}).`
-            : "No valid refresh timestamp received.";
-        }
-
-        nextRefreshAt = data.nextRefreshAt ? new Date(data.nextRefreshAt) : null;
-        updateCountdown();
-      }
-
-      function updateCountdown() {
-        if (!nextRefresh) return;
-        if (!nextRefreshAt || Number.isNaN(nextRefreshAt.valueOf())) {
-          nextRefresh.textContent = "Next refresh time unavailable.";
+        if (stale || data.status === "unavailable" || !nodeRatio || !targetRatio) {
+          unavailable();
           return;
         }
-        const seconds = (nextRefreshAt.getTime() - Date.now()) / 1000;
-        nextRefresh.textContent = seconds > 0
-          ? `Next server refresh in about ${secondsText(seconds)}.`
-          : "Server refresh is due now.";
+
+        const normalizedStatus = data.status === "healthy" ? "healthy" : "degraded";
+        setStatusClass(normalizedStatus);
+        if (statusText) statusText.textContent = normalizedStatus === "healthy" ? "cluster healthy" : "cluster degraded";
+        if (nodes) nodes.textContent = nodeRatio;
+        if (targets) targets.textContent = targetRatio;
+        if (updatedAge) updatedAge.textContent = `${secondsText(ageSeconds)} ago`;
+        [nodesMetric, targetsMetric, updatedMetric].forEach((metric) => {
+          if (metric) metric.hidden = false;
+        });
       }
 
       function fetchHealth() {
@@ -1566,7 +1388,6 @@
 
       setActive(activeSide);
       startBuild();
-      window.setInterval(updateCountdown, 1000);
       window.setInterval(fetchHealth, 60000);
     })();
   </script>
