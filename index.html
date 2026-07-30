@@ -1035,8 +1035,8 @@
               <div class="type-line" data-type-line="loading real-time cluster-data: kubectl get pods,nodes -A --context=Cluster01"></div>
               <div class="lab-status-strip is-unavailable" aria-label="Bytegeist lab status" data-lab-status-strip>
                 <div class="status-output" data-status-output>
-                  <div class="terminal-command">kubectl get pods,nodes -A</div>
-                  <div class="terminal-unavailable" data-terminal-unavailable><span class="status-dot is-unavailable" aria-hidden="true" data-status-dot></span> <span data-cluster-state>telemetry unavailable</span></div>
+                  <div class="terminal-command" data-terminal-command data-command-text="kubectl get pods,nodes -A"></div>
+                  <div class="terminal-unavailable" data-terminal-unavailable hidden><span class="status-dot is-unavailable" aria-hidden="true" data-status-dot></span> <span data-cluster-state>telemetry unavailable</span></div>
                   <div class="terminal-table" data-pod-table hidden>
                     <div class="terminal-row is-header"><span>NAMESPACE</span><span>NAME</span><span>READY</span><span>STATUS</span><span>AGE</span></div>
                     <div data-pod-rows></div>
@@ -1137,6 +1137,7 @@
       ];
       const buildTimers = [];
       const contextTimers = [];
+      const LAB_CLUSTER_LINE = "loading real-time cluster-data: kubectl get pods,nodes -A --context=Cluster01";
       const DETAIL_TYPE_SPEED = 21;
       const DETAIL_LINE_PAUSE = 90;
       const DETAIL_ROW_DELAY = 70;
@@ -1148,6 +1149,7 @@
       let contextBuildId = 0;
       let currentContextSide = null;
       let hoverIntentTimer = null;
+      let lastHealthData = null;
 
       const copy = {
         professional: {
@@ -1313,6 +1315,7 @@
       function resetContextPanel(panel) {
         if (!panel) return;
         panel.dataset.contextBuilt = "false";
+        panel.dataset.terminalReady = "false";
         panel.querySelectorAll("[data-type-line]").forEach((line) => {
           line.textContent = "";
           line.classList.remove("is-typing");
@@ -1322,12 +1325,18 @@
         panel.querySelectorAll("[data-pod-rows], [data-node-rows]").forEach((container) => {
           container.textContent = "";
         });
+        panel.querySelectorAll("[data-terminal-command]").forEach((command) => {
+          command.textContent = "";
+          command.classList.remove("is-typing");
+        });
         const podTable = panel.querySelector("[data-pod-table]");
         const nodeTable = panel.querySelector("[data-node-table]");
         const unavailableLine = panel.querySelector("[data-terminal-unavailable]");
+        const updatedLine = panel.querySelector("[data-status-updated]");
         if (podTable) podTable.hidden = true;
         if (nodeTable) nodeTable.hidden = true;
-        if (unavailableLine) unavailableLine.hidden = false;
+        if (unavailableLine) unavailableLine.hidden = true;
+        if (updatedLine) updatedLine.hidden = true;
       }
 
       function wait(ms, buildId) {
@@ -1348,6 +1357,20 @@
           await wait(DETAIL_TYPE_SPEED, buildId);
         }
         line.classList.remove("is-typing");
+      }
+
+      async function typeTerminalOutput(panel, buildId) {
+        const command = panel.querySelector("[data-terminal-command]");
+        if (command) {
+          await typeLine(command, command.dataset.commandText || "", buildId);
+        }
+        if (buildId !== contextBuildId) return;
+        panel.dataset.terminalReady = "true";
+        if (lastHealthData) {
+          renderHealth(lastHealthData, false);
+        } else {
+          unavailable();
+        }
       }
 
       async function startContextBuild(side) {
@@ -1372,6 +1395,13 @@
           });
           rows.forEach((row) => row.classList.add("is-visible"));
           statusStrip?.classList.add("is-visible");
+          const command = panel.querySelector("[data-terminal-command]");
+          if (command) command.textContent = command.dataset.commandText || "";
+          panel.dataset.terminalReady = "true";
+          if (side === "lab") {
+            if (lastHealthData) renderHealth(lastHealthData, false);
+            else unavailable();
+          }
           panel.dataset.contextBuilt = "true";
           return;
         }
@@ -1380,8 +1410,9 @@
           const fullText = line.dataset.typeLine || line.textContent;
           await typeLine(line, fullText, buildId);
           if (buildId !== contextBuildId) return;
-          if (side === "lab" && line.dataset.typeLine === "loading real-time cluster-data: kubectl get pods,nodes -A --context=Cluster01") {
+          if (side === "lab" && line.dataset.typeLine === LAB_CLUSTER_LINE) {
             statusStrip?.classList.add("is-visible");
+            await typeTerminalOutput(panel, buildId);
           }
           if (side !== "lab") rows[index]?.classList.add("is-visible");
           await wait(DETAIL_LINE_PAUSE, buildId);
@@ -1406,6 +1437,10 @@
       const nodeRows = document.querySelector("[data-node-rows]");
       const updatedMetric = document.querySelector("[data-status-updated]");
       const updatedAge = document.querySelector("[data-updated-age]");
+
+      function terminalReady() {
+        return document.querySelector('[data-panel="lab"]')?.dataset.terminalReady === "true";
+      }
 
       function ratio(up, total) {
         if (!Number.isFinite(up) || !Number.isFinite(total) || total <= 0) return null;
@@ -1463,7 +1498,9 @@
         });
       }
 
-      function renderHealth(data) {
+      function renderHealth(data, cache = true) {
+        if (cache) lastHealthData = data;
+        if (!terminalReady()) return;
         const updated = data.updatedAt ? new Date(data.updatedAt) : null;
         const ageSeconds = Number.isFinite(data.ageSeconds)
           ? data.ageSeconds
@@ -1500,7 +1537,10 @@
             return response.json();
           })
           .then(renderHealth)
-          .catch(() => unavailable());
+          .catch(() => {
+            lastHealthData = null;
+            if (terminalReady()) unavailable();
+          });
       }
 
       setActive(activeSide);
