@@ -565,33 +565,59 @@
       align-items: start;
     }
     .cluster-peek-trigger {
-      width: fit-content;
+      display: flex;
+      align-items: stretch;
+      width: 100%;
       max-width: 100%;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      cursor: pointer;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0;
+      line-height: 1.2;
+      padding: 0;
+      text-align: left;
+      transition: border-color 180ms var(--ease), color 180ms var(--ease), transform 180ms var(--ease);
+    }
+    .cluster-command-copy,
+    .cluster-bash-copy {
       border: 1px solid var(--dark-line);
       background:
         linear-gradient(90deg, rgba(226, 232, 240, 0.055) 1px, transparent 1px),
         #111915;
       background-size: 32px 32px;
       color: #f2f8f3;
-      cursor: pointer;
-      font: inherit;
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      line-height: 1.2;
       padding: 11px 13px;
-      text-align: left;
-      text-transform: uppercase;
-      transition: border-color 180ms var(--ease), color 180ms var(--ease), transform 180ms var(--ease);
+    }
+    .cluster-command-copy {
+      flex: 1 1 auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+    .cluster-bash-copy {
+      border-left: 0;
+      color: var(--green);
+      flex: 0 0 auto;
+      white-space: nowrap;
     }
     .cluster-peek-trigger:hover,
     .cluster-peek-trigger:focus-visible {
-      border-color: var(--green);
       color: #ffffff;
       outline: 0;
       transform: translateY(-1px);
     }
+    .cluster-peek-trigger:hover .cluster-command-copy,
+    .cluster-peek-trigger:hover .cluster-bash-copy,
+    .cluster-peek-trigger:focus-visible .cluster-command-copy,
+    .cluster-peek-trigger:focus-visible .cluster-bash-copy {
+      border-color: var(--green);
+    }
     .cluster-peek .lab-status-strip {
+      grid-column: 1 / -1;
       margin-top: 12px;
       margin-bottom: 0;
       padding: 12px;
@@ -639,20 +665,19 @@
       display: grid;
       gap: 3px;
       min-width: 0;
-      overflow-x: auto;
-      scrollbar-width: thin;
     }
     .terminal-row {
       display: grid;
-      grid-template-columns: minmax(88px, 0.9fr) minmax(170px, 1.7fr) minmax(58px, 0.55fr) minmax(92px, 0.8fr) minmax(54px, 0.5fr);
+      grid-template-columns: minmax(68px, 0.8fr) minmax(0, 1.8fr) minmax(48px, 0.5fr) minmax(68px, 0.7fr) minmax(42px, 0.4fr);
       gap: 10px;
-      min-width: 580px;
+      min-width: 0;
       color: var(--dark-muted);
-      white-space: nowrap;
+      overflow-wrap: anywhere;
+      white-space: normal;
     }
     .terminal-row.has-version {
-      grid-template-columns: minmax(88px, 0.8fr) minmax(150px, 1.3fr) minmax(58px, 0.5fr) minmax(118px, 0.95fr) minmax(54px, 0.45fr) minmax(116px, 0.9fr);
-      min-width: 680px;
+      grid-template-columns: minmax(62px, 0.65fr) minmax(0, 1.25fr) minmax(48px, 0.42fr) minmax(78px, 0.78fr) minmax(42px, 0.35fr) minmax(96px, 0.8fr);
+      min-width: 0;
     }
     .terminal-row.is-header {
       color: #f2f8f3;
@@ -890,7 +915,11 @@
       }
       .terminal-row,
       .terminal-row.has-version {
-        min-width: 620px;
+        grid-template-columns: minmax(58px, 0.7fr) minmax(0, 1.45fr) minmax(42px, 0.45fr) minmax(58px, 0.62fr) minmax(38px, 0.34fr);
+        min-width: 0;
+      }
+      .terminal-row.has-version {
+        grid-template-columns: minmax(54px, 0.55fr) minmax(0, 1fr) minmax(42px, 0.38fr) minmax(58px, 0.56fr) minmax(38px, 0.3fr) minmax(78px, 0.7fr);
       }
       footer {
         display: block;
@@ -1124,24 +1153,27 @@
               <section class="context-row cluster-peek" data-cluster-peek>
                 <div>
                   <span class="detail-meta">optional live check</span>
-                  <h3>k3s / sanitized terminal peek</h3>
+                  <h3>run this command to take a sanitized peek into my live-cluster.</h3>
                 </div>
                 <div>
-                  <button class="cluster-peek-trigger" type="button" aria-expanded="false" aria-controls="cluster-peek-output" data-cluster-peek-trigger>take a peek at my live cluster</button>
-                  <div class="lab-status-strip is-unavailable" id="cluster-peek-output" aria-label="Bytegeist lab status" data-lab-status-strip hidden>
-                    <div class="status-output" data-status-output>
-                      <div class="terminal-command" data-terminal-command data-command-text="kubectl get pods,nodes -A --context=Cluster01"></div>
-                      <div class="terminal-unavailable" data-terminal-unavailable hidden><span class="status-dot is-unavailable" aria-hidden="true" data-status-dot></span> <span data-cluster-state>telemetry unavailable</span></div>
-                      <div class="terminal-table" data-pod-table hidden>
-                        <div class="terminal-row is-header"><span>NAMESPACE</span><span>NAME</span><span>READY</span><span>STATUS</span><span>AGE</span></div>
-                        <div data-pod-rows></div>
-                      </div>
-                      <div class="terminal-table" data-node-table hidden>
-                        <div class="terminal-row is-header has-version"><span>NAMESPACE</span><span>NAME</span><span>READY</span><span>STATUS</span><span>AGE</span><span>VERSION</span></div>
-                        <div data-node-rows></div>
-                      </div>
-                      <div class="terminal-row" data-status-updated hidden><span>updated</span><strong data-updated-age>-</strong></div>
+                  <button class="cluster-peek-trigger" type="button" aria-expanded="false" aria-controls="cluster-peek-output" data-cluster-peek-trigger>
+                    <span class="cluster-command-copy">kubectl get pods,nodes -A --context=Cluster01</span>
+                    <span class="cluster-bash-copy">'bash' me</span>
+                  </button>
+                </div>
+                <div class="lab-status-strip is-unavailable" id="cluster-peek-output" aria-label="Bytegeist lab status" data-lab-status-strip hidden>
+                  <div class="status-output" data-status-output>
+                    <div class="terminal-command" data-terminal-command data-command-text="kubectl get pods,nodes -A --context=Cluster01"></div>
+                    <div class="terminal-unavailable" data-terminal-unavailable hidden><span class="status-dot is-unavailable" aria-hidden="true" data-status-dot></span> <span data-cluster-state>telemetry unavailable</span></div>
+                    <div class="terminal-table" data-pod-table hidden>
+                      <div class="terminal-row is-header"><span>NAMESPACE</span><span>NAME</span><span>READY</span><span>STATUS</span><span>AGE</span></div>
+                      <div data-pod-rows></div>
                     </div>
+                    <div class="terminal-table" data-node-table hidden>
+                      <div class="terminal-row is-header has-version"><span>NAMESPACE</span><span>NAME</span><span>READY</span><span>STATUS</span><span>AGE</span><span>VERSION</span></div>
+                      <div data-node-rows></div>
+                    </div>
+                    <div class="terminal-row" data-status-updated hidden><span>updated</span><strong data-updated-age>-</strong></div>
                   </div>
                 </div>
               </section>
