@@ -303,7 +303,7 @@
     .detail-quote {
       position: relative;
       max-width: 430px;
-      margin: 0;
+      margin: clamp(20px, 3vw, 32px) 0 0;
       border-top: 1px solid var(--line);
       padding: 30px 0 0 42px;
       color: rgba(15, 23, 42, 0.74);
@@ -1126,12 +1126,12 @@
         <div>
           <p class="detail-kicker label" data-detail-kicker>Professional detail</p>
           <h2 data-detail-title>Operations work with real users and real constraints.</h2>
-        </div>
-        <div class="detail-rail-bottom">
           <blockquote class="detail-quote">
             <p data-detail-quote-text>A green status means the service is running. It does not mean the user can use it.</p>
             <cite data-detail-quote-cite>Operations, checking the whole journey</cite>
           </blockquote>
+        </div>
+        <div class="detail-rail-bottom">
           <div class="selector" role="tablist" aria-label="Profile detail selector">
             <button type="button" role="tab" id="tab-professional" aria-label="Switch to professional context" aria-controls="panel-professional" aria-selected="true" data-tab="professional">Professional</button>
             <button type="button" role="tab" id="tab-lab" aria-label="Switch to private lab context" aria-controls="panel-lab" aria-selected="false" data-tab="lab">Private Lab</button>
