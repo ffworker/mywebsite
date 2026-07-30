@@ -769,6 +769,15 @@
       overflow-wrap: anywhere;
       white-space: normal;
     }
+    .cv-js .terminal-row.is-streaming {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    .cv-js .terminal-row.is-streaming.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 140ms var(--ease), transform 160ms var(--ease);
+    }
     .terminal-row.has-version {
       grid-template-columns: minmax(62px, 0.65fr) minmax(0, 1.25fr) minmax(48px, 0.42fr) minmax(78px, 0.78fr) minmax(42px, 0.35fr) minmax(96px, 0.8fr);
       min-width: 0;
@@ -1326,9 +1335,11 @@
       ];
       const buildTimers = [];
       const contextTimers = [];
+      const outputTimers = [];
       const DETAIL_TYPE_SPEED = 21;
       const DETAIL_LINE_PAUSE = 90;
       const DETAIL_ROW_DELAY = 70;
+      const OUTPUT_ROW_DELAY = 24;
       const HOVER_INTENT_DELAY = 150;
       let activeSide = readStoredSide() || "professional";
       let buildComplete = document.documentElement.classList.contains("cv-build-complete");
@@ -1506,6 +1517,10 @@
         document.querySelectorAll(".type-line.is-typing").forEach((line) => line.classList.remove("is-typing"));
       }
 
+      function clearOutputTimers() {
+        outputTimers.splice(0).forEach((timer) => window.clearTimeout(timer));
+      }
+
       function resetContextPanel(panel) {
         if (!panel) return;
         panel.dataset.contextBuilt = "false";
@@ -1664,6 +1679,7 @@
       }
 
       function unavailable() {
+        clearOutputTimers();
         setStatusClass("unavailable");
         document.querySelector("[data-terminal-result]")?.removeAttribute("hidden");
         if (clusterState) clusterState.textContent = "telemetry unavailable";
@@ -1681,12 +1697,13 @@
         return cell;
       }
 
-      function renderRows(container, rows, version = false) {
-        if (!container) return;
+      function renderRows(container, rows, version = false, stream = false, offset = 0) {
+        if (!container) return 0;
         container.textContent = "";
-        rows.forEach((item) => {
+        rows.forEach((item, index) => {
           const row = document.createElement("div");
           row.className = `terminal-row${version ? " has-version" : ""}`;
+          if (stream && !reduceMotion) row.classList.add("is-streaming");
           row.append(
             textCell(item.namespace),
             textCell(item.name, true),
@@ -1696,12 +1713,19 @@
           );
           if (version) row.append(textCell(item.version));
           container.append(row);
+          if (stream && !reduceMotion) {
+            outputTimers.push(window.setTimeout(() => {
+              row.classList.add("is-visible");
+            }, (offset + index) * OUTPUT_ROW_DELAY));
+          }
         });
+        return rows.length;
       }
 
-      function renderHealth(data, cache = true) {
+      function renderHealth(data, cache = true, stream = false) {
         if (cache) lastHealthData = data;
         if (!terminalReady()) return;
+        clearOutputTimers();
         const updated = data.updatedAt ? new Date(data.updatedAt) : null;
         const ageSeconds = Number.isFinite(data.ageSeconds)
           ? data.ageSeconds
@@ -1726,19 +1750,19 @@
         if (unavailableLine) unavailableLine.hidden = true;
         if (podTable) podTable.hidden = false;
         if (nodeTable) nodeTable.hidden = false;
-        renderRows(podRows, safePodRows);
-        renderRows(nodeRows, safeNodeRows, true);
+        const podCount = renderRows(podRows, safePodRows, false, stream, 0);
+        renderRows(nodeRows, safeNodeRows, true, stream, podCount);
         if (updatedAge) updatedAge.textContent = `${secondsText(ageSeconds)} ago`;
         if (updatedMetric) updatedMetric.hidden = false;
       }
 
-      function fetchHealth() {
+      function fetchHealth(stream = false) {
         return fetch("lab-health.json", { cache: "no-store" })
           .then((response) => {
             if (!response.ok) throw new Error("health unavailable");
             return response.json();
           })
-          .then(renderHealth)
+          .then((data) => renderHealth(data, true, stream))
           .catch(() => {
             lastHealthData = null;
             if (terminalReady()) unavailable();
@@ -1755,7 +1779,7 @@
         if (command && !command.textContent) command.textContent = command.dataset.commandText || "";
         panel.querySelector("[data-terminal-result]")?.removeAttribute("hidden");
         clusterPeekTrigger?.setAttribute("aria-expanded", "true");
-        fetchHealth();
+        fetchHealth(true);
         if (!healthStarted) {
           healthStarted = true;
           window.setInterval(fetchHealth, 60000);
@@ -1763,6 +1787,7 @@
       }
 
       function resetClusterOutput(panel) {
+        clearOutputTimers();
         panel.querySelectorAll("[data-pod-rows], [data-node-rows]").forEach((container) => {
           container.textContent = "";
         });
