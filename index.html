@@ -533,10 +533,8 @@
       text-transform: uppercase;
     }
     .lab-status-strip {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 8px 14px;
+      display: grid;
+      gap: 8px;
       border-top: 1px solid var(--dark-line);
       border-bottom: 1px solid var(--dark-line);
       background:
@@ -567,11 +565,13 @@
     .lab-status-strip [hidden] {
       display: none !important;
     }
-    .status-title {
+    .status-title,
+    .status-row span {
       color: #f2f8f3;
       font-weight: 900;
     }
     .status-dot {
+      display: inline-block;
       width: 7px;
       height: 7px;
       border: 1px solid currentColor;
@@ -580,19 +580,23 @@
     .status-dot.is-healthy { background: var(--green); }
     .status-dot.is-degraded { background: #d7a855; }
     .status-dot.is-unavailable { background: transparent; }
-    .status-text {
-      color: var(--green);
+    .status-output {
+      display: grid;
+      gap: 4px;
     }
-    .lab-status-strip.is-unavailable .status-text,
-    .lab-status-strip.is-stale .status-text {
-      color: #d7a855;
-    }
-    .status-metric {
+    .status-row {
+      display: grid;
+      grid-template-columns: minmax(110px, 0.36fr) minmax(0, 0.64fr);
+      gap: 12px;
       color: var(--dark-muted);
     }
-    .status-metric strong {
+    .status-row strong {
       color: #eef5ef;
       font-weight: 900;
+    }
+    .lab-status-strip.is-unavailable .status-row strong,
+    .lab-status-strip.is-stale .status-row strong {
+      color: #d7a855;
     }
     .agent-note {
       display: flex;
@@ -811,6 +815,10 @@
         gap: 6px 10px;
         font-size: 11px;
       }
+      .status-row {
+        grid-template-columns: 1fr;
+        gap: 1px;
+      }
       footer {
         display: block;
       }
@@ -991,14 +999,19 @@
               <div class="type-line" data-type-line="load context: private-infrastructure-lab">load context: private-infrastructure-lab</div>
               <div class="type-line" data-type-line="render profile: ready">render profile: ready</div>
               <div class="type-line" data-type-line="loading live cluster-data:">loading live cluster-data:</div>
+              <div class="type-line" data-type-line="kubectl get nodes,pods -A --context=bytegeist-****">kubectl get nodes,pods -A --context=bytegeist-****</div>
             </div>
             <section class="lab-status-strip is-unavailable" aria-label="Bytegeist lab status" data-lab-status-strip>
               <span class="status-title">BYTEGEIST LAB STATUS</span>
-              <span class="status-dot is-unavailable" aria-hidden="true" data-status-dot></span>
-              <span class="status-text" data-status-text>telemetry unavailable</span>
-              <span class="status-metric" data-status-nodes hidden>nodes <strong data-nodes>- / -</strong></span>
-              <span class="status-metric" data-status-targets hidden>targets <strong data-targets>- / -</strong></span>
-              <span class="status-metric" data-status-updated hidden>updated <strong data-updated-age>-</strong></span>
+              <div class="status-output" data-status-output>
+                <div class="status-row">
+                  <span>cluster</span>
+                  <strong><span class="status-dot is-unavailable" aria-hidden="true" data-status-dot></span> <span data-cluster-state>telemetry unavailable</span></strong>
+                </div>
+                <div class="status-row" data-status-nodes hidden><span>nodes ready</span><strong data-nodes>- / -</strong></div>
+                <div class="status-row" data-status-pods hidden><span>pods ready</span><strong data-pods>- / -</strong></div>
+                <div class="status-row" data-status-updated hidden><span>updated</span><strong data-updated-age>-</strong></div>
+              </div>
             </section>
             <div class="context-output">
               <section class="context-row">
@@ -1327,12 +1340,12 @@
 
       const labStatus = document.querySelector("[data-lab-status-strip]");
       const statusDot = document.querySelector("[data-status-dot]");
-      const statusText = document.querySelector("[data-status-text]");
+      const clusterState = document.querySelector("[data-cluster-state]");
       const nodesMetric = document.querySelector("[data-status-nodes]");
-      const targetsMetric = document.querySelector("[data-status-targets]");
+      const podsMetric = document.querySelector("[data-status-pods]");
       const updatedMetric = document.querySelector("[data-status-updated]");
       const nodes = document.querySelector("[data-nodes]");
-      const targets = document.querySelector("[data-targets]");
+      const pods = document.querySelector("[data-pods]");
       const updatedAge = document.querySelector("[data-updated-age]");
 
       function ratio(up, total) {
@@ -1358,8 +1371,8 @@
 
       function unavailable() {
         setStatusClass("unavailable");
-        if (statusText) statusText.textContent = "telemetry unavailable";
-        [nodesMetric, targetsMetric, updatedMetric].forEach((metric) => {
+        if (clusterState) clusterState.textContent = "telemetry unavailable";
+        [nodesMetric, podsMetric, updatedMetric].forEach((metric) => {
           if (metric) metric.hidden = true;
         });
       }
@@ -1372,20 +1385,20 @@
         const maxAge = Number.isFinite(data.maxAgeSeconds) ? data.maxAgeSeconds : 300;
         const stale = !updated || Number.isNaN(updated.valueOf()) || ageSeconds > maxAge;
         const nodeRatio = ratio(data.nodesReady, data.nodesTotal);
-        const targetRatio = ratio(data.targetsUp, data.targetsTotal);
+        const podRatio = ratio(data.podsReady, data.podsTotal);
 
-        if (stale || data.status === "unavailable" || !nodeRatio || !targetRatio) {
+        if (stale || data.status === "unavailable" || !nodeRatio || !podRatio) {
           unavailable();
           return;
         }
 
         const normalizedStatus = data.status === "healthy" ? "healthy" : "degraded";
         setStatusClass(normalizedStatus);
-        if (statusText) statusText.textContent = normalizedStatus === "healthy" ? "cluster healthy" : "cluster degraded";
+        if (clusterState) clusterState.textContent = normalizedStatus === "healthy" ? "healthy" : "degraded";
         if (nodes) nodes.textContent = nodeRatio;
-        if (targets) targets.textContent = targetRatio;
+        if (pods) pods.textContent = podRatio;
         if (updatedAge) updatedAge.textContent = `${secondsText(ageSeconds)} ago`;
-        [nodesMetric, targetsMetric, updatedMetric].forEach((metric) => {
+        [nodesMetric, podsMetric, updatedMetric].forEach((metric) => {
           if (metric) metric.hidden = false;
         });
       }
