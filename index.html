@@ -610,6 +610,18 @@
     .cluster-peek .detail-meta {
       color: var(--green);
     }
+    .cluster-peek h3,
+    .cluster-peek p {
+      color: #8fa099;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 650;
+      line-height: 1.45;
+      text-wrap: auto;
+    }
+    .cluster-peek p {
+      max-width: 520px;
+    }
     .cluster-bash-copy {
       border: 1px solid var(--dark-line);
       background:
@@ -1262,10 +1274,10 @@
               <section class="context-row cluster-peek" data-cluster-peek>
                 <div>
                   <span class="detail-meta">optional live check</span>
-                  <h3>run this command to take a sanitized peek into my live-cluster.</h3>
+                  <h3>sneak peek into my homelab-cluster</h3>
                 </div>
                 <div>
-                  <p>The terminal is built client-side; the output stays hidden until the command is bashed.</p>
+                  <p>the terminal is animated and grabs 5-minute-cached data to display live (max age 5min)</p>
                 </div>
                 <div class="lab-status-strip is-unavailable" id="cluster-peek-output" aria-label="Bytegeist lab status" data-lab-status-strip>
                   <div class="terminal-titlebar" aria-hidden="true">
