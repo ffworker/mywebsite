@@ -1006,8 +1006,7 @@
             <div class="context-terminal" aria-label="Private lab context build">
               <div class="type-line" data-type-line="load context: private-infrastructure-lab"></div>
               <div class="type-line" data-type-line="render profile: ready"></div>
-              <div class="type-line" data-type-line="loading live cluster-data:"></div>
-              <div class="type-line" data-type-line="kubectl get nodes,pods -A --context=bytegeist-****"></div>
+              <div class="type-line" data-type-line="loading real-time cluster-data: kubectl get nodes,pods -A --context=bytegeist-****"></div>
               <div class="lab-status-strip is-unavailable" aria-label="Bytegeist lab status" data-lab-status-strip>
                 <span class="status-title">BYTEGEIST LAB STATUS</span>
                 <div class="status-output" data-status-output>
@@ -1109,7 +1108,7 @@
       ];
       const buildTimers = [];
       const contextTimers = [];
-      const DETAIL_TYPE_SPEED = 24;
+      const DETAIL_TYPE_SPEED = 21;
       const DETAIL_LINE_PAUSE = 90;
       const DETAIL_ROW_DELAY = 70;
       const HOVER_INTENT_DELAY = 150;
@@ -1161,6 +1160,8 @@
 
       function setActive(side) {
         if (!copy[side]) return;
+        const nextPanel = panels.find((panel) => panel.dataset.panel === side);
+        if (detailBuildAvailable || reduceMotion) resetContextPanel(nextPanel);
         stage?.setAttribute("data-active", side);
         if (kicker) kicker.textContent = copy[side].kicker;
         if (title) title.textContent = copy[side].title;
@@ -1277,6 +1278,17 @@
         document.querySelectorAll(".type-line.is-typing").forEach((line) => line.classList.remove("is-typing"));
       }
 
+      function resetContextPanel(panel) {
+        if (!panel) return;
+        panel.dataset.contextBuilt = "false";
+        panel.querySelectorAll("[data-type-line]").forEach((line) => {
+          line.textContent = "";
+          line.classList.remove("is-typing");
+        });
+        panel.querySelectorAll(".context-row").forEach((row) => row.classList.remove("is-visible"));
+        panel.querySelector("[data-lab-status-strip]")?.classList.remove("is-visible");
+      }
+
       function wait(ms, buildId) {
         return new Promise((resolve) => {
           const timer = window.setTimeout(() => {
@@ -1300,7 +1312,6 @@
       async function startContextBuild(side) {
         const panel = panels.find((item) => item.dataset.panel === side);
         if (!panel) return;
-        if (currentContextSide === side && panel.dataset.contextBuilt === "true") return;
 
         clearContextTimers();
         contextBuildId += 1;
@@ -1311,9 +1322,7 @@
         const rows = Array.from(panel.querySelectorAll(".context-row"));
         const statusStrip = panel.querySelector("[data-lab-status-strip]");
 
-        panel.dataset.contextBuilt = "false";
-        rows.forEach((row) => row.classList.remove("is-visible"));
-        statusStrip?.classList.remove("is-visible");
+        resetContextPanel(panel);
 
         if (reduceMotion) {
           lines.forEach((line) => {
@@ -1330,7 +1339,7 @@
           const fullText = line.dataset.typeLine || line.textContent;
           await typeLine(line, fullText, buildId);
           if (buildId !== contextBuildId) return;
-          if (side === "lab" && line.dataset.typeLine === "kubectl get nodes,pods -A --context=bytegeist-****") {
+          if (side === "lab" && line.dataset.typeLine === "loading real-time cluster-data: kubectl get nodes,pods -A --context=bytegeist-****") {
             statusStrip?.classList.add("is-visible");
           }
           if (side !== "lab") rows[index]?.classList.add("is-visible");
