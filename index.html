@@ -811,15 +811,6 @@
       color: #d7a855;
       font-weight: 900;
     }
-    .agent-note {
-      display: flex;
-      align-items: baseline;
-      justify-content: center;
-      gap: 12px;
-      padding: 18px clamp(20px, 4vw, 48px);
-      color: #dce8df;
-      background: var(--dark);
-    }
     .note-label {
       color: var(--green);
       font-size: 12px;
@@ -827,19 +818,28 @@
       letter-spacing: 0.12em;
       text-transform: uppercase;
     }
-    .agent-note p {
-      max-width: 900px;
-      font-size: clamp(16px, 1.35vw, 18px);
-      line-height: 1.45;
-    }
     footer {
-      display: flex;
-      justify-content: space-between;
-      gap: 18px;
+      display: grid;
+      grid-template-columns: minmax(170px, 0.75fr) minmax(260px, 1.35fr) minmax(140px, 0.55fr);
+      align-items: center;
+      gap: 22px;
       border-top: 1px solid var(--line);
       padding: 20px clamp(20px, 4vw, 48px) 28px;
       color: var(--muted);
       font-size: 13px;
+    }
+    .footer-agent {
+      text-align: center;
+    }
+    .footer-agent p {
+      max-width: 760px;
+      margin: 5px auto 0;
+      color: var(--ink);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+    .footer-contact {
+      text-align: right;
     }
     footer a {
       color: var(--ink);
@@ -852,7 +852,6 @@
     .cv-js.cv-build-pending .side .fact,
     .cv-js.cv-build-pending .side .actions,
     .cv-js.cv-build-pending .detail-stage,
-    .cv-js.cv-build-pending .agent-note,
     .cv-js.cv-build-pending footer {
       opacity: 0;
       transform: translateY(10px);
@@ -941,9 +940,7 @@
       transform: translateY(0);
       transition: opacity 360ms var(--ease), transform 440ms var(--ease);
     }
-    .cv-js.cv-build-step-agent .agent-note,
     .cv-js.cv-build-step-agent footer,
-    .cv-js.cv-build-complete .agent-note,
     .cv-js.cv-build-complete footer {
       opacity: 1;
       transform: translateY(0);
@@ -999,13 +996,6 @@
       .lab {
         min-height: 72svh;
       }
-      .agent-note {
-        grid-template-columns: 1fr;
-        justify-content: flex-start;
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 8px;
-      }
     }
     @media (max-width: 560px) {
       .side,
@@ -1037,11 +1027,17 @@
         grid-template-columns: minmax(54px, 0.55fr) minmax(0, 1fr) minmax(42px, 0.38fr) minmax(58px, 0.56fr) minmax(38px, 0.3fr) minmax(78px, 0.7fr);
       }
       footer {
-        display: block;
+        grid-template-columns: 1fr;
+        text-align: left;
       }
-      footer span:last-child {
-        display: block;
-        margin-top: 8px;
+      .footer-agent {
+        text-align: left;
+      }
+      .footer-agent p {
+        margin-inline: 0;
+      }
+      .footer-contact {
+        text-align: left;
       }
     }
     @media (prefers-reduced-motion: reduce) {
@@ -1057,7 +1053,6 @@
       .cv-js.cv-build-pending .side .fact,
       .cv-js.cv-build-pending .side .actions,
       .cv-js.cv-build-pending .detail-stage,
-      .cv-js.cv-build-pending .agent-note,
       .cv-js.cv-build-pending footer,
       .cv-js.cv-build-pending .detail-card,
       .cv-js.cv-build-pending .selector,
@@ -1311,16 +1306,15 @@
         </article>
       </div>
     </section>
-
-    <aside class="agent-note">
-      <span class="note-label">From Dennis' daily AI agent</span>
-      <p>I know more commands. Dennis knows which machine we meant. The logs decide which one of us misunderstood the problem.</p>
-    </aside>
   </main>
 
   <footer id="contact">
     <span>Dennis Kappel - System Administrator with private infrastructure projects</span>
-    <span><a href="mailto:denniskappel@gmx.net">Email</a> / <a href="https://github.com/ffworker" target="_blank" rel="noopener noreferrer">GitHub</a></span>
+    <span class="footer-agent">
+      <span class="note-label">From Dennis' daily AI agent</span>
+      <p>I know more commands. Dennis knows which machine we meant. The logs decide which one of us misunderstood the problem.</p>
+    </span>
+    <span class="footer-contact"><a href="mailto:denniskappel@gmx.net">Email</a> / <a href="https://github.com/ffworker" target="_blank" rel="noopener noreferrer">GitHub</a></span>
   </footer>
   <script>
     (() => {
