@@ -1,76 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects Overview</title>
-    <!-- Bootstrap CSS from CDN -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">    
-    <link href="../styles.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dennis Kappel | Lab Projects</title>
+  <meta name="description" content="A transparent overview of Dennis Kappel's private infrastructure lab projects and Raspberry Pi services." />
+  <link href="../styles.css" rel="stylesheet" />
 </head>
 <body>
-    <header>
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" href="#">My Projects</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a class="nav-link" href="../index.html">Back to Mainpage</a></li>
-                <li class="nav-item"><a class="nav-link" href="skills.html">Skills</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="../index.html">Dennis Kappel</a>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="../index.html">CV</a>
+        <a href="projects.html" aria-current="page">Projects</a>
+        <a href="skills.html">Skills</a>
+      </nav>
     </header>
-<!-- Main Content -->
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-8">
-            <section id="welcome">
-                <h2>Projects Overview</h2>
-                <p class="mb-4">Transparent list of what I really run and test in my lab.</p>
-                <div class="card-deck">
-                    <div class="card mb-3 shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title">Raspberry Pi 4 (mixed services)</h5>
-                            <p class="card-text mb-2">Hosts practical services like Surveillance-Cam-Controller, FTP/Samba, Paperless-ngx, Portainer, Node-RED, Grafana, and InfluxDB 1.8.</p>
-                            <p class="card-text"><strong>Private part:</strong> this same host also runs a torrent/*arr media stack. I keep only the logic public: isolated networking, strict update routine, and monitoring for stability.</p>
-                        </div>
-                    </div>
-                    <div class="card mb-3 shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title">Raspberry Pi 3 (watering automation)</h5>
-                            <p class="card-text">Automated watering setup with DHT22 + hygrometer sensor monitoring and control actions based on conditions.</p>
-                        </div>
-                    </div>
-                    <div class="card mb-3 shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title">Pi Zero W (public surveillance camera)</h5>
-                            <p class="card-text">Lightweight camera project exposed publicly as a simple, real-world networking and uptime exercise.</p>
-                        </div>
-                    </div>
-                </div>
+
+    <main>
+      <section class="tool-hero" aria-label="Projects overview">
+        <div class="hero-panel">
+          <span class="label">Private lab</span>
+          <h1>Projects Overview</h1>
+          <p class="hero-copy">A practical list of what actually runs in the lab: services, sensors, cameras, monitoring and the operational lessons around them.</p>
+          <div class="button-row">
+            <a class="button primary" href="../index.html#lab">CV lab context</a>
+            <a class="button" href="skills.html">Skills matrix</a>
+          </div>
+        </div>
+        <div class="hero-panel dark">
+          <span class="label">Runtime snapshot</span>
+          <div class="fact-list">
+            <span class="fact"><span>Pi 4</span><span>mixed services and monitoring</span></span>
+            <span class="fact"><span>Pi 3</span><span>watering automation</span></span>
+            <span class="fact"><span>Pi Zero W</span><span>public camera exercise</span></span>
+            <span class="fact"><span>Public notes</span><span>architecture logic only</span></span>
+          </div>
+        </div>
+      </section>
+
+      <div class="status-strip">
+        <span>lab inventory / public-safe notes / real services behind private boundaries</span>
+      </div>
+
+      <section class="detail-stage" aria-label="Project details">
+        <aside class="detail-rail">
+          <div>
+            <span class="label">Inventory</span>
+            <h2>Small machines, real operating constraints.</h2>
+            <p class="rail-note">This is intentionally concrete: hardware, services, exposure model and what each system is for.</p>
+          </div>
+          <div class="terminal" aria-label="Project terminal">
+            <span class="terminal-line">load context: private-infrastructure-lab</span>
+            <span class="terminal-line">render projects: ready</span>
+          </div>
+        </aside>
+
+        <div class="detail-body">
+          <div class="context-output">
+            <section class="context-row">
+              <div>
+                <span class="detail-meta">primary node</span>
+                <h3><span class="tech linux">raspberry-pi-4</span> / mixed-services</h3>
+              </div>
+              <div>
+                <p>Hosts practical services that are useful enough to keep alive and messy enough to teach real operations work.</p>
+                <ul class="context-list">
+                  <li>Surveillance-Cam-Controller, FTP/Samba, <span class="tech paperless">Paperless-ngx</span> and Portainer</li>
+                  <li><span class="tech node">Node-RED</span>, <span class="tech grafana">Grafana</span> and <span class="tech influx">InfluxDB 1.8</span></li>
+                  <li>private torrent/*arr media stack stays private; only the isolation, update and monitoring logic is documented publicly</li>
+                </ul>
+              </div>
             </section>
-            
-        </div>
 
-        <div class="col-md-4">
-            <img src="../img/meme-itgoogle.jpg" alt="meme-itgoogle" class="meme-sysadmin-img">
-        </div>
-    </div>
-</div>
-<footer class="mt-5">
-    <div class="container">
-        <p>denniskappel@gmx.net // <a href="https://github.com/ffworker">https://github.com/ffworker</a></p>
-    </div>
-</footer>
-<!-- Bootstrap JS and dependencies from CDN -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <section class="context-row">
+              <div>
+                <span class="detail-meta">automation node</span>
+                <h3>raspberry-pi-3 / watering-control</h3>
+              </div>
+              <div>
+                <p>Automated watering setup using sensor input and condition-based control actions.</p>
+                <ul class="context-list">
+                  <li>DHT22 temperature/humidity readings</li>
+                  <li>hygrometer-based soil moisture checks</li>
+                  <li>automation logic tested as a physical feedback loop, not just a script demo</li>
+                </ul>
+              </div>
+            </section>
 
+            <section class="context-row">
+              <div>
+                <span class="detail-meta">edge node</span>
+                <h3>pi-zero-w / public-camera</h3>
+              </div>
+              <div>
+                <p>Lightweight surveillance camera project used as a public networking and uptime exercise.</p>
+                <ul class="context-list">
+                  <li>small-device constraints: storage, thermals, network stability and recovery</li>
+                  <li>useful for practicing external access, monitoring and service checks</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="context-row dark-row">
+              <div>
+                <span class="detail-meta">operating rule</span>
+                <h3>public-docs / private-boundaries</h3>
+              </div>
+              <div>
+                <p>Public pages explain the architecture and operational thinking. Sensitive service details, private endpoints and personal media paths stay out of the public surface.</p>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>Dennis Kappel - private infrastructure lab projects</span>
+      <span class="footer-agent">
+        <span class="note-label">Operational note</span>
+        <p>Useful homelab documentation says what exists, what is exposed, and where the private boundary starts.</p>
+      </span>
+      <span class="footer-contact"><a href="mailto:denniskappel@gmx.net">Email</a> / <a href="https://github.com/ffworker" target="_blank" rel="noopener noreferrer">GitHub</a></span>
+    </footer>
+  </div>
 </body>
 </html>
