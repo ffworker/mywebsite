@@ -60,8 +60,6 @@
     .is-private .skill-label { color: #bff6d2; }
     .skill-text { color: var(--ink); }
     .is-private .skill-text { color: var(--dark-text); }
-    code { font-family: var(--mono); font-size: .92em; background: rgba(22,130,93,.08); border: 1px solid rgba(22,130,93,.16); padding: 1px 4px; }
-    .is-private code { color: #d7ffe4; background: rgba(191,246,210,.08); border-color: rgba(191,246,210,.18); }
     .skill-note { display: block; margin-top: 4px; color: var(--muted); font-size: 14px; }
     .is-private .skill-note { color: var(--dark-muted); }
     .project-section { border-top: 1px solid var(--line); padding-top: clamp(24px, 4vw, 46px); }
@@ -88,15 +86,9 @@
     <nav class="nav" aria-label="Hauptnavigation"><a href="/de/index.html">CV</a><a href="/skills.html">English</a><a href="https://bytegeist.dev" target="_blank" rel="noopener noreferrer">Bytegeist</a><a href="https://tools.bytegeist.dev" target="_blank" rel="noopener noreferrer">Tools</a><a href="https://demos.bytegeist.dev" target="_blank" rel="noopener noreferrer">Demos</a></nav>
   </header>
   <main>
-    <section class="hero">
-      <span class="eyebrow">Optionale Detailseite</span>
-      <h1>Detaillierte Skills & Systeme</h1>
-      <p>Kompakte Notizen zu Tools, Befehlen, Systemen und Troubleshooting-Mustern, die ich tatsächlich verwende.</p>
-    </section>
+    <section class="hero"><span class="eyebrow">Optionale Detailseite</span><h1>Detaillierte Skills & Systeme</h1><p>Kompakte Notizen zu Systemen, Tools und operativen Mustern, die ich tatsächlich verwende.</p></section>
     <div class="skill-layout">
-      <section class="skill-band is-professional">
-        <div class="band-heading"><span class="eyebrow">Professionelle IT</span><h2>Professionelle IT</h2><p>Helle Seite: Arbeitsplatzsysteme, Administration, nutzernahe Operations und stabile Business-Services.</p></div>
-        <div class="skill-columns">
+      <section class="skill-band is-professional"><div class="band-heading"><span class="eyebrow">Professionelle IT</span><h2>Professionelle IT</h2><p>Helle Seite: Arbeitsplatzsysteme, Administration, nutzernahe Operations und stabile Business-Services.</p></div><div class="skill-columns">
         <section class="skill-column">
           <h3>Workplace-Plattformen</h3>
           <p>Produkte und Umgebungen, die ich in echten operativen Kontexten unterstütze.</p>
@@ -109,29 +101,26 @@
         </section>
         <section class="skill-column">
           <h3>Operatives Troubleshooting</h3>
-          <p>Konkrete Tools und Muster, die ich nutze, wenn etwas unklar oder kaputt ist.</p>
+          <p>Wie ich an kaputte oder unklare Systeme herangehe, ohne daraus eine Befehlsliste zu machen.</p>
           <div class="skill-matrix">
-            <div class="skill-row"><div class="skill-label">HTTP / APIs</div><div class="skill-text"><code>curl</code> · Header · Statuscodes · Redirects · Health-Endpunkte<span class="skill-note">Schnelle Checks, bevor man einen Browser öffnet oder die falsche Schicht verdächtigt.</span></div></div>
-            <div class="skill-row"><div class="skill-label">DNS / Netzwerk</div><div class="skill-text"><code>dig</code> · <code>nslookup</code> · <code>ping</code> · <code>traceroute</code> · Ports und Erreichbarkeit<span class="skill-note">Vom Nutzersymptom bis zur Service-Abhängigkeit dem Pfad folgen.</span></div></div>
-            <div class="skill-row"><div class="skill-label">Linux-Services</div><div class="skill-text"><code>systemctl</code> · <code>journalctl</code> · <code>ps</code> · Unit-Status · laufende Prozesse · fehlgeschlagene Dienste<span class="skill-note">Evidenz direkt von der Maschine, bevor geraten wird.</span></div></div>
-            <div class="skill-row"><div class="skill-label">Text / Logs</div><div class="skill-text"><code>grep</code> · Config-Diffs · Fehlermuster suchen<span class="skill-note">Aus lautem Output eine sinnvolle nächste Aktion machen.</span></div></div>
-            <div class="skill-row"><div class="skill-label">User / Rechte</div><div class="skill-text">User-Management · Gruppen · ACL · <code>chmod</code> · <code>chown</code> · Ownership prüfen<span class="skill-note">Praktische Rechte-Fixes, ohne jedes Zugriffsproblem künstlich groß zu machen.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Diagnose</div><div class="skill-text">Logs · Eventmeldungen · Servicezustände · Fehlermuster · Health Checks<span class="skill-note">Evidenz vor Vermutung.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Connectivity</div><div class="skill-text">DNS-Grundlagen · Routing-Checks · Ports · HTTP-Status · Erreichbarkeitstests<span class="skill-note">Vom Nutzersymptom bis zur Service-Abhängigkeit dem Pfad folgen.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Services</div><div class="skill-text">Prozessverständnis · Servicezustand · fehlgeschlagene Dienste · Restart-Auswirkung<span class="skill-note">Schauen, was läuft, was kaputt ist und was ein Fix unterbrechen könnte.</span></div></div>
+            <div class="skill-row"><div class="skill-label">User / Rechte</div><div class="skill-text">User-Management · Gruppen · ACL · Datei-Ownership · Rechte-Fixes<span class="skill-note">Praktische Access-Fixes, ohne jedes Rechteproblem künstlich groß zu machen.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Validierung</div><div class="skill-text">Vorher/Nachher-Checks · Rollout-Status · Smoke Tests · Rollback-Bewusstsein<span class="skill-note">Kleine Änderungen, danach Ergebnis prüfen.</span></div></div>
           </div>
         </section>
-        </div>
-      </section>
-      <section class="skill-band is-private">
-        <div class="band-heading"><span class="eyebrow">Privates Infrastruktur-Lab</span><h2>Privates Infrastruktur-Lab</h2><p>Dunkle Seite: Self-hosted Systeme, Automatisierung, Monitoring, lokale LLM-Experimente und Infrastrukturlernen durch echten Betrieb.</p></div>
-        <div class="skill-columns">
+      </div></section>
+      <section class="skill-band is-private"><div class="band-heading"><span class="eyebrow">Privates Infrastruktur-Lab</span><h2>Privates Infrastruktur-Lab</h2><p>Dunkle Seite: Self-hosted Systeme, Automatisierung, Monitoring, lokale LLM-Experimente und Infrastrukturlernen durch echten Betrieb.</p></div><div class="skill-columns">
         <section class="skill-column">
           <h3>Self-hosted Systeme</h3>
           <p>Infrastruktur, die ich privat betreibe und pflege.</p>
           <div class="skill-matrix">
-            <div class="skill-row"><div class="skill-label">Hosts</div><div class="skill-text">Linux-Server · VPS-Systeme · Raspberry Pi · <code>ssh</code>/<code>scp</code> · <code>systemd</code> · <code>ufw</code> · User-Management<span class="skill-note">Kleine echte Flotte, auf der Dienste laufen.</span></div></div>
-            <div class="skill-row"><div class="skill-label">Container</div><div class="skill-text">Docker · Compose · <code>docker logs</code> · <code>docker inspect</code> · <code>docker compose</code> · Health Checks<span class="skill-note">Services betreiben und reparieren, ohne sich hinter Dashboards zu verstecken.</span></div></div>
-            <div class="skill-row"><div class="skill-label">Kubernetes</div><div class="skill-text">k3s · <code>kubectl</code> · <code>kubectl describe</code> · <code>kubectl logs</code> · <code>kubectl rollout</code> · <code>kustomize</code><span class="skill-note">Praktische Clusterarbeit von Deployment bis Live-Validierung.</span></div></div>
-            <div class="skill-row"><div class="skill-label">Edge & Zugriff</div><div class="skill-text">Cloudflare Tunnel · NetBird · DNS · Public/Private Routing · HTTP-Probes mit <code>curl</code><span class="skill-note">Nur öffentlich machen, was öffentlich sein soll; Administration privat halten.</span></div></div>
-            <div class="skill-row"><div class="skill-label">Storage</div><div class="skill-text">NAS · Samba · NFS · WebDAV · <code>df</code> · <code>du</code> · <code>lsblk</code> · <code>mount</code>/<code>fstab</code> · ACL · Share-Migration<span class="skill-note">Genug Storage-Arbeit, um zu wissen: Cutovers brauchen Geduld.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Hosts</div><div class="skill-text">Linux-Server · VPS-Systeme · Raspberry Pi · SSH · systemd · Firewall-Grundlagen · User-Management<span class="skill-note">Kleine echte Flotte, auf der Dienste laufen.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Container</div><div class="skill-text">Docker · Compose · Logs · Inspection · Health Checks · Konfigurations-Diffs<span class="skill-note">Services betreiben und reparieren, ohne sich hinter Dashboards zu verstecken.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Kubernetes</div><div class="skill-text">k3s · Kubernetes · kubectl · Kustomize · Manifeste · Ingress · Services · Rollouts<span class="skill-note">Praktische Clusterarbeit von Deployment bis Live-Validierung.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Edge & Zugriff</div><div class="skill-text">Cloudflare Tunnel · NetBird · DNS · Public/Private Routing · HTTP-Probes<span class="skill-note">Nur öffentlich machen, was öffentlich sein soll; Administration privat halten.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Storage</div><div class="skill-text">NAS · Samba · NFS · WebDAV · Mounts · Filesystem-Auslastung · ACL · Share-Migration<span class="skill-note">Genug Storage-Arbeit, um zu wissen: Cutovers brauchen Geduld.</span></div></div>
             <div class="skill-row"><div class="skill-label">Monitoring</div><div class="skill-text">Prometheus · Grafana · node-exporter · Blackbox Checks · Dashboard-Triage<span class="skill-note">Observer-Monitoring mit Fokus auf echte Probleme.</span></div></div>
           </div>
         </section>
@@ -141,29 +130,14 @@
           <div class="skill-matrix">
             <div class="skill-row"><div class="skill-label">Automation</div><div class="skill-text">Ansible-Rollen · Inventories · konservative Bootstrap-Tasks · wiederholbares Host-Setup<span class="skill-note">Wiederverwendbares Setup ohne destruktive Annahmen.</span></div></div>
             <div class="skill-row"><div class="skill-label">GitOps-ish</div><div class="skill-text">Git-basierte Configs · Diffs · Commits · Deployment-Notizen · Public-Edge-Sync<span class="skill-note">Kein reines GitOps-Theater, sondern nachvollziehbare Infrastrukturänderungen.</span></div></div>
-            <div class="skill-row"><div class="skill-label">Recovery</div><div class="skill-text">Backups · <code>restic</code> · <code>rsync</code> · Restore-Denken · Rollback-Pfade · Migrationspläne<span class="skill-note">Davon ausgehen, dass etwas schiefgeht, und den langweiligen Ausweg vorbereiten.</span></div></div>
-            <div class="skill-row"><div class="skill-label">Lokale LLMs</div><div class="skill-text"><code>llama.cpp</code> · kleine/angepasste Modelle · lokale Inferenz · Command-Helper · Privacy-first Experimente<span class="skill-note">Praktische Erfahrung mit lokalen Modellen, nicht nur mit gehosteten Chat-Tools.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Recovery</div><div class="skill-text">Backups · restic · rsync · Restore-Denken · Rollback-Pfade · Migrationspläne<span class="skill-note">Davon ausgehen, dass etwas schiefgeht, und den langweiligen Ausweg vorbereiten.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Lokale LLMs</div><div class="skill-text">llama.cpp · kleine/angepasste Modelle · lokale Inferenz · Command-Helper · Privacy-first Experimente<span class="skill-note">Praktische Erfahrung mit lokalen Modellen, nicht nur mit gehosteten Chat-Tools.</span></div></div>
             <div class="skill-row"><div class="skill-label">Lernen</div><div class="skill-text">Kubernetes/CKA-Pfad · Cluster-Observability · Storage-Migration · Netzwerk<span class="skill-note">Lernen an Systemen, die trotzdem funktionieren müssen.</span></div></div>
           </div>
         </section>
-        </div>
-      </section>
-      <section class="project-section">
-        <div class="band-heading"><span class="eyebrow">Honorable GitHub Projects</span><h2>Honorable GitHub Projects</h2><p>Kleine Projekte, die erwähnenswert sind, ohne die Seite in eine Portfolio-Wand zu verwandeln.</p></div>
-        <div class="project-grid">
-        <article class="project-card">
-          <h3>nl2sh</h3>
-          <p>Local-first Natural-Language-to-Shell-Experiment mit <code>llama.cpp</code> und <code>whatisit</code>, um aus normaler Sprache Shell-Command-Vorschläge zu erzeugen. Zeigt praktische lokale LLM-Nutzung, Command-UX-Denken und Small-Tool-Building.</p>
-          <div class="project-meta">local LLM · Shell UX · llama.cpp</div>
-        </article>
-        </div>
-      </section>
-      <section class="working-style">
-        <div class="band-heading"><span class="eyebrow">Arbeitsweise</span><h2>Arbeitsweise</h2><p>Evidenz zuerst · echte Tools statt Buzzwords · kleine reversible Änderungen · Services langweilig halten · Entscheidungen dokumentieren · live validieren · KI-Hilfe menschlich prüfen</p></div>
-        <div class="style-strip">
-          <span class="style-pill">Evidenz zuerst</span><span class="style-pill">echte Tools statt Buzzwords</span><span class="style-pill">kleine reversible Änderungen</span><span class="style-pill">Services langweilig halten</span><span class="style-pill">Entscheidungen dokumentieren</span><span class="style-pill">live validieren</span><span class="style-pill">KI-Hilfe menschlich prüfen</span>
-        </div>
-      </section>
+      </div></section>
+      <section class="project-section"><div class="band-heading"><span class="eyebrow">Honorable GitHub Projects</span><h2>Honorable GitHub Projects</h2><p>Kleine Projekte, die erwähnenswert sind, ohne die Seite in eine Portfolio-Wand zu verwandeln.</p></div><div class="project-grid"><article class="project-card"><h3>nl2sh</h3><p>Local-first Natural-Language-to-Shell-Experiment mit llama.cpp und whatisit, um aus normaler Sprache Shell-Command-Vorschläge zu erzeugen. Zeigt praktische lokale LLM-Nutzung, Command-UX-Denken und Small-Tool-Building.</p><div class="project-meta">local LLM · Shell UX · llama.cpp</div></article></div></section>
+      <section class="working-style"><div class="band-heading"><span class="eyebrow">Arbeitsweise</span><h2>Arbeitsweise</h2><p>Evidenz zuerst · echte Tools statt Buzzwords · kleine reversible Änderungen · Services langweilig halten · Entscheidungen dokumentieren · live validieren · KI-Hilfe menschlich prüfen</p></div><div class="style-strip"><span class="style-pill">Evidenz zuerst</span><span class="style-pill">echte Tools statt Buzzwords</span><span class="style-pill">kleine reversible Änderungen</span><span class="style-pill">Services langweilig halten</span><span class="style-pill">Entscheidungen dokumentieren</span><span class="style-pill">live validieren</span><span class="style-pill">KI-Hilfe menschlich prüfen</span></div></section>
     </div>
   </main>
   <footer>Optionale textbasierte Detailseite.</footer>
