@@ -6,7 +6,7 @@
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
   <link rel="shortcut icon" href="/assets/favicon.svg" />
   <title>Dennis Kappel | Detailed Skills</title>
-  <meta name="description" content="A compact optional skills matrix for Dennis Kappel: professional IT operations, private infrastructure, Kubernetes, networking, monitoring, automation, and documentation." />
+  <meta name="description" content="A compact optional skills matrix for Dennis Kappel: professional IT operations, private infrastructure, Kubernetes, networking, monitoring, local LLM tooling, automation, and documentation." />
   <meta name="robots" content="index, follow" />
   <style>
     *, *::before, *::after { box-sizing: border-box; }
@@ -30,15 +30,15 @@
     body { background: var(--paper); color: var(--ink); font-family: var(--ui); line-height: 1.5; -webkit-font-smoothing: antialiased; }
     a { color: inherit; }
     .topbar { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 18px clamp(18px, 4vw, 56px); border-bottom: 1px solid var(--line); }
-    .brand, .nav, .eyebrow, .skill-label, .style-pill { font-family: var(--mono); }
+    .brand, .nav, .eyebrow, .skill-label, .style-pill, .project-meta { font-family: var(--mono); }
     .brand { font-weight: 900; letter-spacing: .08em; text-decoration: none; text-transform: uppercase; }
     .nav { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; }
     .nav a { text-decoration: none; }
-    main { padding: clamp(34px, 6vw, 88px) clamp(18px, 5vw, 82px); }
-    .hero { max-width: 980px; margin-bottom: clamp(34px, 5vw, 64px); }
+    main { padding: clamp(26px, 4vw, 56px) clamp(18px, 5vw, 82px); }
+    .hero { max-width: 760px; margin-bottom: clamp(26px, 4vw, 44px); }
     .eyebrow { color: var(--green); font-size: 12px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
-    h1 { max-width: 840px; margin-top: 16px; font-size: clamp(40px, 6vw, 78px); line-height: .94; letter-spacing: -.018em; text-wrap: balance; }
-    .hero p { max-width: 820px; margin-top: 22px; color: var(--muted); font-size: clamp(17px, 1.5vw, 21px); }
+    h1 { max-width: 720px; margin-top: 10px; font-size: clamp(32px, 4.2vw, 54px); line-height: .98; letter-spacing: -.016em; text-wrap: balance; }
+    .hero p { max-width: 680px; margin-top: 14px; color: var(--muted); font-size: clamp(15px, 1.2vw, 18px); }
     .skill-layout { display: grid; gap: 24px; }
     .skill-band { border-top: 1px solid var(--line); padding: clamp(24px, 4vw, 46px) 0 0; animation: professionalIn .65s ease-out both; }
     .skill-band.is-private { margin-inline: calc(clamp(18px, 5vw, 82px) * -1); padding: clamp(34px, 5vw, 64px) clamp(18px, 5vw, 82px); border-top: 0; background: var(--dark); color: var(--dark-text); animation-name: privateIn; animation-delay: .08s; }
@@ -60,8 +60,16 @@
     .is-private .skill-label { color: #bff6d2; }
     .skill-text { color: var(--ink); }
     .is-private .skill-text { color: var(--dark-text); }
+    code { font-family: var(--mono); font-size: .92em; background: rgba(22,130,93,.08); border: 1px solid rgba(22,130,93,.16); padding: 1px 4px; }
+    .is-private code { color: #d7ffe4; background: rgba(191,246,210,.08); border-color: rgba(191,246,210,.18); }
     .skill-note { display: block; margin-top: 4px; color: var(--muted); font-size: 14px; }
     .is-private .skill-note { color: var(--dark-muted); }
+    .project-section { border-top: 1px solid var(--line); padding-top: clamp(24px, 4vw, 46px); }
+    .project-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 18px; }
+    .project-card { border: 1px solid var(--line); background: rgba(255,255,255,.38); padding: 18px; }
+    .project-card h3 { font-size: 20px; }
+    .project-card p { margin-top: 8px; color: var(--muted); }
+    .project-meta { margin-top: 12px; color: var(--green); font-size: 12px; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; }
     .working-style { border-top: 1px solid var(--line); padding-top: clamp(24px, 4vw, 46px); }
     .style-strip { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
     .style-pill { border: 1px solid var(--line); background: rgba(255,255,255,.38); padding: 10px 12px; color: var(--ink); font-size: 13px; font-weight: 800; }
@@ -69,7 +77,7 @@
     @keyframes professionalIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
     @keyframes privateIn { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; } }
-    @media (max-width: 920px) { .topbar { align-items: flex-start; flex-direction: column; } .skill-columns { grid-template-columns: 1fr; } }
+    @media (max-width: 920px) { .topbar { align-items: flex-start; flex-direction: column; } .skill-columns, .project-grid { grid-template-columns: 1fr; } }
     @media (max-width: 620px) { .skill-row { grid-template-columns: 1fr; gap: 4px; } }
 
   </style>
@@ -83,7 +91,7 @@
     <section class="hero">
       <span class="eyebrow">Optional detail page</span>
       <h1>Detailed Skills & Systems</h1>
-      <p>A compact skill matrix for people who want more depth than the main CV. Practical focus: systems I support, operate, troubleshoot, document, or run myself.</p>
+      <p>Compact notes on tools, commands, systems, and troubleshooting patterns I actually use.</p>
     </section>
     <div class="skill-layout">
       <section class="skill-band is-professional">
@@ -101,48 +109,59 @@
         </section>
         <section class="skill-column">
           <h3>Operational Troubleshooting</h3>
-          <p>How I approach broken or unclear systems.</p>
+          <p>Concrete tools and patterns I reach for when something is unclear or broken.</p>
           <div class="skill-matrix">
-            <div class="skill-row"><div class="skill-label">Diagnosis</div><div class="skill-text">Logs · event messages · service states · error patterns · health checks<span class="skill-note">Evidence before guessing.</span></div></div>
-            <div class="skill-row"><div class="skill-label">Connectivity</div><div class="skill-text">DNS basics · routing checks · ports · HTTP status · reachability tests<span class="skill-note">Follow the path from user symptom to service dependency.</span></div></div>
-            <div class="skill-row"><div class="skill-label">Validation</div><div class="skill-text">Before/after checks · rollout status · smoke tests · rollback awareness<span class="skill-note">Small changes, then verify the result.</span></div></div>
-            <div class="skill-row"><div class="skill-label">Communication</div><div class="skill-text">Clear escalation context · user impact · concise findings · next action<span class="skill-note">Make problems understandable for people who need to decide or help.</span></div></div>
+            <div class="skill-row"><div class="skill-label">HTTP / APIs</div><div class="skill-text"><code>curl</code> · headers · status codes · redirects · health endpoints · JSON with <code>jq</code><span class="skill-note">Fast checks before opening a browser or blaming the wrong layer.</span></div></div>
+            <div class="skill-row"><div class="skill-label">DNS / network</div><div class="skill-text"><code>dig</code> · <code>nslookup</code> · <code>ping</code> · <code>traceroute</code>/<code>mtr</code> · ports and reachability<span class="skill-note">Follow the path from user symptom to service dependency.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Linux services</div><div class="skill-text"><code>systemctl</code> · <code>journalctl</code> · <code>ss</code> · unit status · listening sockets · failed services<span class="skill-note">Evidence from the machine before guessing.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Text / logs</div><div class="skill-text"><code>grep</code> · <code>awk</code> · <code>sed</code> · <code>jq</code> · config diffs · error pattern searches<span class="skill-note">Turn noisy output into a useful next action.</span></div></div>
+            <div class="skill-row"><div class="skill-label">TLS / checks</div><div class="skill-text"><code>openssl s_client</code> · certificate chain checks · smoke tests · before/after validation<span class="skill-note">Small changes, then verify the result.</span></div></div>
           </div>
         </section>
         </div>
       </section>
       <section class="skill-band is-private">
-        <div class="band-heading"><span class="eyebrow">Private Infrastructure Lab</span><h2>Private Infrastructure Lab</h2><p>Dark side: self-hosted systems, experiments, automation, monitoring, and infrastructure learning by actually running things.</p></div>
+        <div class="band-heading"><span class="eyebrow">Private Infrastructure Lab</span><h2>Private Infrastructure Lab</h2><p>Dark side: self-hosted systems, automation, monitoring, local LLM experiments, and infrastructure learning by actually running things.</p></div>
         <div class="skill-columns">
         <section class="skill-column">
           <h3>Self-hosted Systems</h3>
           <p>Infrastructure I run and maintain privately.</p>
           <div class="skill-matrix">
-            <div class="skill-row"><div class="skill-label">Hosts</div><div class="skill-text">Linux servers · VPS systems · Raspberry Pi · SSH · systemd · firewalls<span class="skill-note">Small real fleet with services depending on it.</span></div></div>
-            <div class="skill-row"><div class="skill-label">Containers</div><div class="skill-text">Docker · Compose · logs · health checks · config diffs · rollbacks<span class="skill-note">Operate and repair services without hiding behind dashboards.</span></div></div>
-            <div class="skill-row"><div class="skill-label">Kubernetes</div><div class="skill-text">k3s · kubectl · Kustomize · manifests · ingress · services · rollouts<span class="skill-note">Practical cluster work from deployment to live validation.</span></div></div>
-            <div class="skill-row"><div class="skill-label">Edge & access</div><div class="skill-text">Cloudflare Tunnel · NetBird · DNS · public/private routing<span class="skill-note">Expose only what should be public; keep administration private.</span></div></div>
-            <div class="skill-row"><div class="skill-label">Storage</div><div class="skill-text">NAS · Samba · NFS · mounts · share planning · migration paths<span class="skill-note">Enough storage work to know that cutovers need patience.</span></div></div>
-            <div class="skill-row"><div class="skill-label">Monitoring</div><div class="skill-text">Prometheus · Grafana · node-exporter · blackbox checks · dashboards<span class="skill-note">Observer-style monitoring focused on finding actual problems.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Hosts</div><div class="skill-text">Linux servers · VPS systems · Raspberry Pi · <code>ssh</code>/<code>scp</code> · <code>systemd</code> · <code>ufw</code><span class="skill-note">Small real fleet with services depending on it.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Containers</div><div class="skill-text">Docker · Compose · <code>docker logs</code> · <code>docker inspect</code> · <code>docker compose</code> · health checks<span class="skill-note">Operate and repair services without hiding behind dashboards.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Kubernetes</div><div class="skill-text">k3s · <code>kubectl</code> · <code>kubectl describe</code> · <code>kubectl logs</code> · <code>kubectl rollout</code> · <code>kustomize</code><span class="skill-note">Practical cluster work from deployment to live validation.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Edge & access</div><div class="skill-text">Cloudflare Tunnel · NetBird · DNS · public/private routing · HTTP probes with <code>curl</code><span class="skill-note">Expose only what should be public; keep administration private.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Storage</div><div class="skill-text">NAS · Samba · NFS · <code>df</code> · <code>du</code> · <code>lsblk</code> · <code>mount</code>/<code>fstab</code> · share migration<span class="skill-note">Enough storage work to know that cutovers need patience.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Monitoring</div><div class="skill-text">Prometheus · Grafana · node-exporter · blackbox checks · dashboard triage<span class="skill-note">Observer-style monitoring focused on finding actual problems.</span></div></div>
           </div>
         </section>
         <section class="skill-column">
-          <h3>Lab Automation & Recovery</h3>
+          <h3>Lab Automation, Local LLMs & Recovery</h3>
           <p>Tools and habits that make the lab repeatable instead of random.</p>
           <div class="skill-matrix">
-            <div class="skill-row"><div class="skill-label">Automation</div><div class="skill-text">Ansible roles · inventories · conservative bootstrap tasks<span class="skill-note">Reusable setup without destructive assumptions.</span></div></div>
-            <div class="skill-row"><div class="skill-label">GitOps-ish</div><div class="skill-text">Git-backed configs · diffs · commits · deployment notes<span class="skill-note">Not pure GitOps theater, just traceable infrastructure changes.</span></div></div>
-            <div class="skill-row"><div class="skill-label">Recovery</div><div class="skill-text">Backups · rsync · restore thinking · rollback paths · migration plans<span class="skill-note">Assume something will go wrong and prepare the boring escape hatch.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Automation</div><div class="skill-text">Ansible roles · inventories · conservative bootstrap tasks · repeatable host setup<span class="skill-note">Reusable setup without destructive assumptions.</span></div></div>
+            <div class="skill-row"><div class="skill-label">GitOps-ish</div><div class="skill-text">Git-backed configs · diffs · commits · deployment notes · public-edge sync<span class="skill-note">Not pure GitOps theater, just traceable infrastructure changes.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Recovery</div><div class="skill-text">Backups · <code>rsync</code> · restore thinking · rollback paths · migration plans<span class="skill-note">Assume something will go wrong and prepare the boring escape hatch.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Local LLMs</div><div class="skill-text"><code>llama.cpp</code> · small/tuned models · local inference · command helpers · privacy-first experiments<span class="skill-note">Hands-on experience with local models beyond just using hosted chat tools.</span></div></div>
             <div class="skill-row"><div class="skill-label">Learning</div><div class="skill-text">Kubernetes/CKA path · cluster observability · storage migration · networking<span class="skill-note">Learning through systems that actually have to keep working.</span></div></div>
-            <div class="skill-row"><div class="skill-label">AI-assisted ops</div><div class="skill-text">Drafts · checks · summaries · implementation help · human validation<span class="skill-note">Use AI for speed, keep review and live evidence as the safety boundary.</span></div></div>
           </div>
         </section>
         </div>
       </section>
+      <section class="project-section">
+        <div class="band-heading"><span class="eyebrow">Honorable GitHub Projects</span><h2>Honorable GitHub Projects</h2><p>Small projects worth mentioning without turning the page into a portfolio wall.</p></div>
+        <div class="project-grid">
+        <article class="project-card">
+          <h3>nl2sh</h3>
+          <p>Local-first natural-language-to-shell experiment using <code>llama.cpp</code> and <code>whatisit</code> to generate shell command suggestions from plain language. Shows practical local LLM usage, command UX thinking, and small-tool building.</p>
+          <div class="project-meta">local LLM · shell UX · llama.cpp</div>
+        </article>
+        </div>
+      </section>
       <section class="working-style">
-        <div class="band-heading"><span class="eyebrow">Working style</span><h2>Working style</h2><p>Evidence first · small reversible changes · keep services boring · document decisions · validate live · human-reviewed AI assistance</p></div>
+        <div class="band-heading"><span class="eyebrow">Working style</span><h2>Working style</h2><p>Evidence first · real tools over buzzwords · small reversible changes · keep services boring · document decisions · validate live · human-reviewed AI assistance</p></div>
         <div class="style-strip">
-          <span class="style-pill">Evidence first</span><span class="style-pill">small reversible changes</span><span class="style-pill">keep services boring</span><span class="style-pill">document decisions</span><span class="style-pill">validate live</span><span class="style-pill">human-reviewed AI assistance</span>
+          <span class="style-pill">Evidence first</span><span class="style-pill">real tools over buzzwords</span><span class="style-pill">small reversible changes</span><span class="style-pill">keep services boring</span><span class="style-pill">document decisions</span><span class="style-pill">validate live</span><span class="style-pill">human-reviewed AI assistance</span>
         </div>
       </section>
     </div>
