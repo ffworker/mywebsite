@@ -289,6 +289,163 @@
       background: var(--dark-text);
       color: var(--dark);
     }
+
+    .language-note {
+      display: inline-flex;
+      width: fit-content;
+      margin-top: 18px;
+      border: 1px solid rgba(22, 130, 93, 0.34);
+      padding: 8px 10px;
+      color: var(--green);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+    .lab .language-note { border-color: rgba(220, 235, 227, 0.24); }
+    .public-systems,
+    .real-day-skills {
+      padding: clamp(42px, 6vw, 82px) clamp(24px, 5vw, 82px);
+      border-top: 1px solid var(--line);
+      background: var(--paper-2);
+    }
+    .section-heading {
+      display: grid;
+      gap: 12px;
+      max-width: 860px;
+      margin-bottom: 28px;
+    }
+    .section-heading h2 {
+      font-size: clamp(32px, 4vw, 58px);
+      line-height: 0.96;
+      letter-spacing: -0.015em;
+      text-wrap: balance;
+    }
+    .section-heading p {
+      max-width: 760px;
+      color: var(--muted);
+      font-size: clamp(17px, 1.3vw, 20px);
+    }
+    .system-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .system-card {
+      min-height: 210px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.38);
+      padding: 22px;
+      color: inherit;
+      text-decoration: none;
+      transition: transform 220ms var(--ease), border-color 220ms var(--ease), background-color 220ms var(--ease);
+    }
+    .system-card:hover,
+    .system-card:focus-visible {
+      transform: translateY(-4px);
+      border-color: rgba(22, 130, 93, 0.55);
+      background: rgba(255, 255, 255, 0.58);
+    }
+    .system-card h3,
+    .skill-terminal summary,
+    .skill-chip {
+      font-family: var(--mono);
+    }
+    .system-card h3 {
+      font-size: 15px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .system-card p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+    .system-card span:last-child {
+      color: var(--green);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .real-day-skills {
+      background: var(--dark);
+      color: var(--dark-text);
+    }
+    .real-day-skills .section-heading p { color: var(--dark-muted); }
+    .skill-terminal {
+      border: 1px solid var(--dark-line);
+      background: #090e0c;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+    }
+    .skill-terminal summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 62px;
+      padding: 0 20px;
+      color: #bff6d2;
+      cursor: pointer;
+      list-style: none;
+    }
+    .skill-terminal summary::-webkit-details-marker { display: none; }
+    .skill-terminal summary::after {
+      content: "spawn";
+      border: 1px solid rgba(191, 246, 210, 0.38);
+      padding: 7px 10px;
+      color: var(--dark-muted);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .skill-terminal[open] summary::after { content: "close"; }
+    .skill-terminal-body {
+      border-top: 1px solid var(--dark-line);
+      padding: 22px;
+    }
+    .skill-terminal-intro {
+      margin-bottom: 18px;
+      color: var(--dark-muted);
+      font-family: var(--mono);
+      font-size: 13px;
+    }
+    .skill-groups {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .skill-group {
+      border: 1px solid var(--dark-line);
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.025);
+    }
+    .skill-group h3 {
+      margin-bottom: 12px;
+      color: #f7fff9;
+      font-size: 18px;
+    }
+    .skill-group ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 0;
+      list-style: none;
+    }
+    .skill-chip {
+      border: 1px solid rgba(191, 246, 210, 0.22);
+      padding: 7px 9px;
+      color: #dcebe3;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .skill-chip.is-core { border-color: rgba(22, 130, 93, 0.76); color: #bff6d2; }
     .detail-stage {
       min-height: 86svh;
       display: grid;
@@ -1036,6 +1193,17 @@
         margin-top: 3px;
         text-align: left;
       }
+
+      .system-grid,
+      .skill-groups {
+        grid-template-columns: 1fr;
+      }
+      .skill-terminal summary {
+        align-items: flex-start;
+        flex-direction: column;
+        justify-content: center;
+        padding-block: 14px;
+      }
       .selector {
         width: 100%;
       }
@@ -1119,6 +1287,8 @@
       <a href="#professional">Professional</a>
       <a href="#lab">Private lab</a>
       <a href="#contact">Contact</a>
+      <a href="#public-systems">Public systems</a>
+      <a href="#real-day-skills">Skills</a>
       <span class="language-switch" aria-label="Language switch"><a href="/" aria-current="true">EN</a><span>/</span><a href="/de/index.html" lang="de">DE</a></span>
     </nav>
   </header>
@@ -1138,6 +1308,7 @@
         <span class="actions">
           <a class="button" href="mailto:denniskappel@gmx.net">Contact</a>
           <a class="button" href="https://github.com/ffworker" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a class="language-note" href="/de/index.html" lang="de">Auch auf Deutsch verfügbar</a>
         </span>
       </article>
 
@@ -1331,6 +1502,68 @@
           </div>
         </article>
       </div>
+    </section>
+
+    <section class="public-systems" id="public-systems" aria-label="Public Bytegeist systems">
+      <div class="section-heading">
+        <span class="label">Public systems</span>
+        <h2>Public pages backed by the same infrastructure mindset.</h2>
+        <p>These links point to the visible side of the lab: the CV, small tools, and the demo cluster. They are useful entry points for people who want to see more than a static profile.</p>
+      </div>
+      <div class="system-grid">
+        <a class="system-card" href="https://bytegeist.dev" target="_blank" rel="noopener noreferrer">
+          <div><h3>Bytegeist</h3><p>Main public landing page and project identity.</p></div>
+          <span>open site →</span>
+        </a>
+        <a class="system-card" href="https://tools.bytegeist.dev" target="_blank" rel="noopener noreferrer">
+          <div><h3>Tools</h3><p>Small public tools and practical experiments, kept separate from the CV.</p></div>
+          <span>open tools →</span>
+        </a>
+        <a class="system-card" href="https://demos.bytegeist.dev" target="_blank" rel="noopener noreferrer">
+          <div><h3>Demos</h3><p>Demo workloads served from the training/demo k3s environment.</p></div>
+          <span>open demos →</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="real-day-skills" id="real-day-skills" aria-label="Real day skills terminal">
+      <div class="section-heading">
+        <span class="label">Real Day Skills</span>
+        <h2>A deeper, practical inventory without turning the CV into buzzword soup.</h2>
+        <p>Spawn the terminal-style list for technologies I maintain, use, troubleshoot, or have worked with in real environments.</p>
+      </div>
+      <details class="skill-terminal">
+        <summary><span>$ cv skills --mode real-world --grouped</span></summary>
+        <div class="skill-terminal-body">
+          <p class="skill-terminal-intro">output: grouped by real context, not certification keywords</p>
+          <div class="skill-groups">
+            <section class="skill-group">
+              <h3>private-live / currently maintained</h3>
+              <ul>
+                <li class="skill-chip is-core">Linux hosts</li><li class="skill-chip is-core">Docker</li><li class="skill-chip is-core">k3s</li><li class="skill-chip">Cloudflare Tunnel</li><li class="skill-chip">NetBird</li><li class="skill-chip">Prometheus</li><li class="skill-chip">Grafana</li><li class="skill-chip">nginx / Caddy / Traefik</li><li class="skill-chip">NAS / Samba / NFS</li><li class="skill-chip">Git-backed runbooks</li>
+              </ul>
+            </section>
+            <section class="skill-group">
+              <h3>private-used / learned through operation</h3>
+              <ul>
+                <li class="skill-chip">OpenMediaVault</li><li class="skill-chip">Pi-hole</li><li class="skill-chip">Uptime Kuma</li><li class="skill-chip">Ansible</li><li class="skill-chip">VPS hardening</li><li class="skill-chip">backup / restore drills</li><li class="skill-chip">service migration</li><li class="skill-chip">DNS and routing</li>
+              </ul>
+            </section>
+            <section class="skill-group">
+              <h3>professional-current / daily ground</h3>
+              <ul>
+                <li class="skill-chip is-core">Omnissa Horizon / VDI</li><li class="skill-chip is-core">Microsoft 365</li><li class="skill-chip is-core">Exchange</li><li class="skill-chip is-core">Windows infrastructure</li><li class="skill-chip">Veeam-backed paths</li><li class="skill-chip">incidents</li><li class="skill-chip">handover notes</li><li class="skill-chip">user support</li>
+              </ul>
+            </section>
+            <section class="skill-group">
+              <h3>professional-used / operational support</h3>
+              <ul>
+                <li class="skill-chip">golden images</li><li class="skill-chip">snapshots</li><li class="skill-chip">UAG / Connection Server</li><li class="skill-chip">troubleshooting</li><li class="skill-chip">documentation</li><li class="skill-chip">change validation</li><li class="skill-chip">service continuity</li>
+              </ul>
+            </section>
+          </div>
+        </div>
+      </details>
     </section>
   </main>
 
