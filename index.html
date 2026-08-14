@@ -122,7 +122,7 @@
     .split-hero {
       position: relative;
       width: 100%;
-      min-height: 100svh;
+      min-height: clamp(420px, 36svh, 520px);
       display: grid;
       grid-template-columns: 1fr 1fr;
       transition: grid-template-columns 520ms var(--ease);
@@ -141,11 +141,11 @@
     }
     .side {
       min-width: 0;
-      min-height: 100svh;
+      min-height: clamp(420px, 36svh, 520px);
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: clamp(82px, 9vw, 132px) clamp(24px, 5vw, 82px) clamp(42px, 6vw, 82px);
+      padding: clamp(72px, 7vw, 96px) clamp(24px, 5vw, 82px) clamp(34px, 4vw, 56px);
       border: 0;
       color: inherit;
       text-align: left;
@@ -1019,7 +1019,7 @@
         min-height: auto;
       }
       .lab {
-        min-height: 72svh;
+        min-height: clamp(320px, 40svh, 440px);
       }
     }
     @media (max-width: 560px) {
