@@ -30,7 +30,7 @@
     body { background: var(--paper); color: var(--ink); font-family: var(--ui); line-height: 1.5; -webkit-font-smoothing: antialiased; }
     a { color: inherit; }
     .topbar { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 18px clamp(18px, 4vw, 56px); border-bottom: 1px solid var(--line); }
-    .brand, .nav, .eyebrow, .skill-label, .style-pill, .project-meta { font-family: var(--mono); }
+    .brand, .nav, .eyebrow, .skill-label, .style-pill, .project-meta, .skill-chip { font-family: var(--mono); }
     .brand { font-weight: 900; letter-spacing: .08em; text-decoration: none; text-transform: uppercase; }
     .nav { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; }
     .nav a { text-decoration: none; }
@@ -62,6 +62,20 @@
     .is-private .skill-text { color: var(--dark-text); }
     code { font-family: var(--mono); font-size: .92em; background: rgba(22,130,93,.08); border: 1px solid rgba(22,130,93,.16); padding: 1px 4px; }
     .is-private code { color: #d7ffe4; background: rgba(191,246,210,.08); border-color: rgba(191,246,210,.18); }
+    .skill-chip { display: inline-block; margin: 1px 2px 1px 0; border: 1px solid var(--chip-border, rgba(22,130,93,.18)); background: var(--chip-bg, rgba(22,130,93,.08)); color: var(--chip-fg, inherit); padding: 1px 5px; font-size: .88em; font-weight: 800; white-space: nowrap; }
+    .chip-k8s { --chip-bg: rgba(68,150,220,.13); --chip-border: rgba(68,150,220,.35); --chip-fg: #1766a6; }
+    .chip-git { --chip-bg: rgba(245,170,35,.16); --chip-border: rgba(245,170,35,.38); --chip-fg: #946011; }
+    .chip-grafana { --chip-bg: rgba(255,196,35,.17); --chip-border: rgba(255,196,35,.42); --chip-fg: #8a6200; }
+    .chip-prometheus, .chip-cloudflare, .chip-netbird { --chip-bg: rgba(242,113,28,.14); --chip-border: rgba(242,113,28,.38); --chip-fg: #a44508; }
+    .chip-llm { --chip-bg: rgba(139,92,246,.14); --chip-border: rgba(139,92,246,.38); --chip-fg: #6d28d9; }
+    .chip-storage { --chip-bg: rgba(20,184,166,.13); --chip-border: rgba(20,184,166,.34); --chip-fg: #0f766e; }
+    .chip-linux { --chip-bg: rgba(96,108,118,.13); --chip-border: rgba(96,108,118,.3); --chip-fg: #374151; }
+    .is-private .chip-k8s { --chip-fg: #a7d8ff; }
+    .is-private .chip-git, .is-private .chip-grafana { --chip-fg: #ffd66e; }
+    .is-private .chip-prometheus, .is-private .chip-cloudflare, .is-private .chip-netbird { --chip-fg: #ffbd8a; }
+    .is-private .chip-llm { --chip-fg: #d8c4ff; }
+    .is-private .chip-storage { --chip-fg: #9af3e6; }
+    .is-private .chip-linux { --chip-fg: #d1d5db; }
     .skill-note { display: block; margin-top: 4px; color: var(--muted); font-size: 14px; }
     .is-private .skill-note { color: var(--dark-muted); }
     .project-section { border-top: 1px solid var(--line); padding-top: clamp(24px, 4vw, 46px); }
@@ -111,11 +125,11 @@
           <h3>Operational Troubleshooting</h3>
           <p>Concrete tools and patterns I reach for when something is unclear or broken.</p>
           <div class="skill-matrix">
-            <div class="skill-row"><div class="skill-label">HTTP / APIs</div><div class="skill-text"><code>curl</code> · headers · status codes · redirects · health endpoints · JSON with <code>jq</code><span class="skill-note">Fast checks before opening a browser or blaming the wrong layer.</span></div></div>
-            <div class="skill-row"><div class="skill-label">DNS / network</div><div class="skill-text"><code>dig</code> · <code>nslookup</code> · <code>ping</code> · <code>traceroute</code>/<code>mtr</code> · ports and reachability<span class="skill-note">Follow the path from user symptom to service dependency.</span></div></div>
-            <div class="skill-row"><div class="skill-label">Linux services</div><div class="skill-text"><code>systemctl</code> · <code>journalctl</code> · <code>ss</code> · unit status · listening sockets · failed services<span class="skill-note">Evidence from the machine before guessing.</span></div></div>
-            <div class="skill-row"><div class="skill-label">Text / logs</div><div class="skill-text"><code>grep</code> · <code>awk</code> · <code>sed</code> · <code>jq</code> · config diffs · error pattern searches<span class="skill-note">Turn noisy output into a useful next action.</span></div></div>
-            <div class="skill-row"><div class="skill-label">TLS / checks</div><div class="skill-text"><code>openssl s_client</code> · certificate chain checks · smoke tests · before/after validation<span class="skill-note">Small changes, then verify the result.</span></div></div>
+            <div class="skill-row"><div class="skill-label">HTTP / APIs</div><div class="skill-text"><code>curl</code> · headers · status codes · redirects · health endpoints<span class="skill-note">Fast checks before opening a browser or blaming the wrong layer.</span></div></div>
+            <div class="skill-row"><div class="skill-label">DNS / network</div><div class="skill-text"><code>dig</code> · <code>nslookup</code> · <code>ping</code> · <code>traceroute</code> · ports and reachability<span class="skill-note">Follow the path from user symptom to service dependency.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Linux services</div><div class="skill-text"><code>systemctl</code> · <code>journalctl</code> · <code>ps</code> · unit status · running processes · failed services<span class="skill-note">Evidence from the machine before guessing.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Text / logs</div><div class="skill-text"><code>grep</code> · config <span class="skill-chip chip-git">diffs</span> · error pattern searches<span class="skill-note">Turn noisy output into a useful next action.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Users / permissions</div><div class="skill-text">user management · groups · ACL · <code>chmod</code> · <code>chown</code> · ownership checks<span class="skill-note">Practical permission fixes without pretending every access problem is magic.</span></div></div>
           </div>
         </section>
         </div>
@@ -127,12 +141,12 @@
           <h3>Self-hosted Systems</h3>
           <p>Infrastructure I run and maintain privately.</p>
           <div class="skill-matrix">
-            <div class="skill-row"><div class="skill-label">Hosts</div><div class="skill-text">Linux servers · VPS systems · Raspberry Pi · <code>ssh</code>/<code>scp</code> · <code>systemd</code> · <code>ufw</code><span class="skill-note">Small real fleet with services depending on it.</span></div></div>
-            <div class="skill-row"><div class="skill-label">Containers</div><div class="skill-text">Docker · Compose · <code>docker logs</code> · <code>docker inspect</code> · <code>docker compose</code> · health checks<span class="skill-note">Operate and repair services without hiding behind dashboards.</span></div></div>
-            <div class="skill-row"><div class="skill-label">Kubernetes</div><div class="skill-text">k3s · <code>kubectl</code> · <code>kubectl describe</code> · <code>kubectl logs</code> · <code>kubectl rollout</code> · <code>kustomize</code><span class="skill-note">Practical cluster work from deployment to live validation.</span></div></div>
-            <div class="skill-row"><div class="skill-label">Edge & access</div><div class="skill-text">Cloudflare Tunnel · NetBird · DNS · public/private routing · HTTP probes with <code>curl</code><span class="skill-note">Expose only what should be public; keep administration private.</span></div></div>
-            <div class="skill-row"><div class="skill-label">Storage</div><div class="skill-text">NAS · Samba · NFS · <code>df</code> · <code>du</code> · <code>lsblk</code> · <code>mount</code>/<code>fstab</code> · share migration<span class="skill-note">Enough storage work to know that cutovers need patience.</span></div></div>
-            <div class="skill-row"><div class="skill-label">Monitoring</div><div class="skill-text">Prometheus · Grafana · node-exporter · blackbox checks · dashboard triage<span class="skill-note">Observer-style monitoring focused on finding actual problems.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Hosts</div><div class="skill-text"><span class="skill-chip chip-linux">Linux</span> servers · VPS systems · Raspberry Pi · <code>ssh</code>/<code>scp</code> · <code>systemd</code> · <code>ufw</code> · user management<span class="skill-note">Small real fleet with services depending on it.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Containers</div><div class="skill-text"><span class="skill-chip chip-linux">Docker</span> · <span class="skill-chip chip-linux">Compose</span> · <code>docker logs</code> · <code>docker inspect</code> · <code>docker compose</code> · health checks<span class="skill-note">Operate and repair services without hiding behind dashboards.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Kubernetes</div><div class="skill-text"><span class="skill-chip chip-k8s">k3s</span> · <code><span class="skill-chip chip-k8s">kubectl</span></code> · <code><span class="skill-chip chip-k8s">kubectl</span> describe</code> · <code><span class="skill-chip chip-k8s">kubectl</span> logs</code> · <code><span class="skill-chip chip-k8s">kubectl</span> rollout</code> · <code><span class="skill-chip chip-k8s">kustomize</span></code><span class="skill-note">Practical cluster work from deployment to live validation.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Edge & access</div><div class="skill-text"><span class="skill-chip chip-cloudflare">Cloudflare Tunnel</span> · <span class="skill-chip chip-netbird">NetBird</span> · DNS · public/private routing · HTTP probes with <code>curl</code><span class="skill-note">Expose only what should be public; keep administration private.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Storage</div><div class="skill-text"><span class="skill-chip chip-storage">NAS</span> · <span class="skill-chip chip-storage">Samba</span> · <span class="skill-chip chip-storage">NFS</span> · <span class="skill-chip chip-storage">WebDAV</span> · <code>df</code> · <code>du</code> · <code>lsblk</code> · <code>mount</code>/<code>fstab</code> · ACL · share migration<span class="skill-note">Enough storage work to know that cutovers need patience.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Monitoring</div><div class="skill-text"><span class="skill-chip chip-prometheus">Prometheus</span> · <span class="skill-chip chip-grafana">Grafana</span> · node-exporter · blackbox checks · dashboard triage<span class="skill-note">Observer-style monitoring focused on finding actual problems.</span></div></div>
           </div>
         </section>
         <section class="skill-column">
@@ -140,10 +154,10 @@
           <p>Tools and habits that make the lab repeatable instead of random.</p>
           <div class="skill-matrix">
             <div class="skill-row"><div class="skill-label">Automation</div><div class="skill-text">Ansible roles · inventories · conservative bootstrap tasks · repeatable host setup<span class="skill-note">Reusable setup without destructive assumptions.</span></div></div>
-            <div class="skill-row"><div class="skill-label">GitOps-ish</div><div class="skill-text">Git-backed configs · diffs · commits · deployment notes · public-edge sync<span class="skill-note">Not pure GitOps theater, just traceable infrastructure changes.</span></div></div>
-            <div class="skill-row"><div class="skill-label">Recovery</div><div class="skill-text">Backups · <code>rsync</code> · restore thinking · rollback paths · migration plans<span class="skill-note">Assume something will go wrong and prepare the boring escape hatch.</span></div></div>
-            <div class="skill-row"><div class="skill-label">Local LLMs</div><div class="skill-text"><code>llama.cpp</code> · small/tuned models · local inference · command helpers · privacy-first experiments<span class="skill-note">Hands-on experience with local models beyond just using hosted chat tools.</span></div></div>
-            <div class="skill-row"><div class="skill-label">Learning</div><div class="skill-text">Kubernetes/CKA path · cluster observability · storage migration · networking<span class="skill-note">Learning through systems that actually have to keep working.</span></div></div>
+            <div class="skill-row"><div class="skill-label">GitOps-ish</div><div class="skill-text"><span class="skill-chip chip-git">Git-backed</span> configs · <span class="skill-chip chip-git">diffs</span> · <span class="skill-chip chip-git">commits</span> · deployment notes · public-edge sync<span class="skill-note">Not pure GitOps theater, just traceable infrastructure changes.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Recovery</div><div class="skill-text">Backups · <code><span class="skill-chip chip-storage">restic</span></code> · <code>rsync</code> · restore thinking · rollback paths · migration plans<span class="skill-note">Assume something will go wrong and prepare the boring escape hatch.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Local LLMs</div><div class="skill-text"><code><span class="skill-chip chip-llm">llama.cpp</span></code> · small/tuned models · <span class="skill-chip chip-llm">local inference</span> · command helpers · privacy-first experiments<span class="skill-note">Hands-on experience with local models beyond just using hosted chat tools.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Learning</div><div class="skill-text"><span class="skill-chip chip-k8s">Kubernetes</span>/CKA path · cluster observability · storage migration · networking<span class="skill-note">Learning through systems that actually have to keep working.</span></div></div>
           </div>
         </section>
         </div>
@@ -153,8 +167,8 @@
         <div class="project-grid">
         <article class="project-card">
           <h3>nl2sh</h3>
-          <p>Local-first natural-language-to-shell experiment using <code>llama.cpp</code> and <code>whatisit</code> to generate shell command suggestions from plain language. Shows practical local LLM usage, command UX thinking, and small-tool building.</p>
-          <div class="project-meta">local LLM · shell UX · llama.cpp</div>
+          <p>Local-first natural-language-to-shell experiment using <code><span class="skill-chip chip-llm">llama.cpp</span></code> and <code>whatisit</code> to generate shell command suggestions from plain language. Shows practical <span class="skill-chip chip-llm">local LLM</span> usage, command UX thinking, and small-tool building.</p>
+          <div class="project-meta"><span class="skill-chip chip-llm">local LLM</span> · shell UX · <span class="skill-chip chip-llm">llama.cpp</span></div>
         </article>
         </div>
       </section>
