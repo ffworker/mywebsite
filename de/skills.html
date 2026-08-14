@@ -64,18 +64,17 @@
     .is-private code { color: #d7ffe4; background: rgba(191,246,210,.08); border-color: rgba(191,246,210,.18); }
     .skill-chip { display: inline-block; margin: 1px 2px 1px 0; border: 1px solid var(--chip-border, rgba(22,130,93,.18)); background: var(--chip-bg, rgba(22,130,93,.08)); color: var(--chip-fg, inherit); padding: 1px 5px; font-size: .88em; font-weight: 800; white-space: nowrap; }
     .chip-k8s { --chip-bg: rgba(68,150,220,.13); --chip-border: rgba(68,150,220,.35); --chip-fg: #1766a6; }
-    .chip-git { --chip-bg: rgba(245,170,35,.16); --chip-border: rgba(245,170,35,.38); --chip-fg: #946011; }
     .chip-grafana { --chip-bg: rgba(255,196,35,.17); --chip-border: rgba(255,196,35,.42); --chip-fg: #8a6200; }
     .chip-prometheus, .chip-cloudflare, .chip-netbird { --chip-bg: rgba(242,113,28,.14); --chip-border: rgba(242,113,28,.38); --chip-fg: #a44508; }
     .chip-llm { --chip-bg: rgba(139,92,246,.14); --chip-border: rgba(139,92,246,.38); --chip-fg: #6d28d9; }
-    .chip-storage { --chip-bg: rgba(20,184,166,.13); --chip-border: rgba(20,184,166,.34); --chip-fg: #0f766e; }
-    .chip-linux { --chip-bg: rgba(96,108,118,.13); --chip-border: rgba(96,108,118,.3); --chip-fg: #374151; }
+    .chip-ansible { --chip-bg: rgba(220,38,38,.12); --chip-border: rgba(220,38,38,.34); --chip-fg: #b91c1c; }
+    .chip-restic { --chip-bg: rgba(20,184,166,.13); --chip-border: rgba(20,184,166,.34); --chip-fg: #0f766e; }
     .is-private .chip-k8s { --chip-fg: #a7d8ff; }
-    .is-private .chip-git, .is-private .chip-grafana { --chip-fg: #ffd66e; }
+    .is-private .chip-grafana { --chip-fg: #ffd66e; }
     .is-private .chip-prometheus, .is-private .chip-cloudflare, .is-private .chip-netbird { --chip-fg: #ffbd8a; }
     .is-private .chip-llm { --chip-fg: #d8c4ff; }
-    .is-private .chip-storage { --chip-fg: #9af3e6; }
-    .is-private .chip-linux { --chip-fg: #d1d5db; }
+    .is-private .chip-ansible { --chip-fg: #ffb4b4; }
+    .is-private .chip-restic { --chip-fg: #9af3e6; }
     .skill-note { display: block; margin-top: 4px; color: var(--muted); font-size: 14px; }
     .is-private .skill-note { color: var(--dark-muted); }
     .project-section { border-top: 1px solid var(--line); padding-top: clamp(24px, 4vw, 46px); }
@@ -141,22 +140,22 @@
           <h3>Self-hosted Systeme</h3>
           <p>Infrastruktur, die ich privat betreibe und pflege.</p>
           <div class="skill-matrix">
-            <div class="skill-row"><div class="skill-label">Hosts</div><div class="skill-text"><span class="skill-chip chip-linux">Linux</span>-Server · VPS-Systeme · Raspberry Pi · <code>ssh</code>/<code>scp</code> · <code>systemd</code> · <code>ufw</code> · User-Management<span class="skill-note">Kleine echte Flotte, auf der Dienste laufen.</span></div></div>
-            <div class="skill-row"><div class="skill-label">Container</div><div class="skill-text"><span class="skill-chip chip-linux">Docker</span> · <span class="skill-chip chip-linux">Compose</span> · <code>docker logs</code> · <code>docker inspect</code> · <code>docker compose</code> · Health Checks<span class="skill-note">Services betreiben und reparieren, ohne sich hinter Dashboards zu verstecken.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Hosts</div><div class="skill-text">Linux-Server · VPS-Systeme · Raspberry Pi · <code>ssh</code>/<code>scp</code> · <code>systemd</code> · <code>ufw</code> · User-Management<span class="skill-note">Kleine echte Flotte, auf der Dienste laufen.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Container</div><div class="skill-text">Docker · Compose · <code>docker logs</code> · <code>docker inspect</code> · <code>docker compose</code> · Health Checks<span class="skill-note">Services betreiben und reparieren, ohne sich hinter Dashboards zu verstecken.</span></div></div>
             <div class="skill-row"><div class="skill-label">Kubernetes</div><div class="skill-text"><span class="skill-chip chip-k8s">k3s</span> · <code><span class="skill-chip chip-k8s">kubectl</span></code> · <code><span class="skill-chip chip-k8s">kubectl</span> describe</code> · <code><span class="skill-chip chip-k8s">kubectl</span> logs</code> · <code><span class="skill-chip chip-k8s">kubectl</span> rollout</code> · <code><span class="skill-chip chip-k8s">kustomize</span></code><span class="skill-note">Praktische Clusterarbeit von Deployment bis Live-Validierung.</span></div></div>
             <div class="skill-row"><div class="skill-label">Edge & Zugriff</div><div class="skill-text"><span class="skill-chip chip-cloudflare">Cloudflare Tunnel</span> · <span class="skill-chip chip-netbird">NetBird</span> · DNS · Public/Private Routing · HTTP-Probes mit <code>curl</code><span class="skill-note">Nur öffentlich machen, was öffentlich sein soll; Administration privat halten.</span></div></div>
-            <div class="skill-row"><div class="skill-label">Storage</div><div class="skill-text"><span class="skill-chip chip-storage">NAS</span> · <span class="skill-chip chip-storage">Samba</span> · <span class="skill-chip chip-storage">NFS</span> · <span class="skill-chip chip-storage">WebDAV</span> · <code>df</code> · <code>du</code> · <code>lsblk</code> · <code>mount</code>/<code>fstab</code> · ACL · Share-Migration<span class="skill-note">Genug Storage-Arbeit, um zu wissen: Cutovers brauchen Geduld.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Storage</div><div class="skill-text">NAS · Samba · NFS · WebDAV · <code>df</code> · <code>du</code> · <code>lsblk</code> · <code>mount</code>/<code>fstab</code> · ACL · Share-Migration<span class="skill-note">Genug Storage-Arbeit, um zu wissen: Cutovers brauchen Geduld.</span></div></div>
             <div class="skill-row"><div class="skill-label">Monitoring</div><div class="skill-text"><span class="skill-chip chip-prometheus">Prometheus</span> · <span class="skill-chip chip-grafana">Grafana</span> · node-exporter · Blackbox Checks · Dashboard-Triage<span class="skill-note">Observer-Monitoring mit Fokus auf echte Probleme.</span></div></div>
           </div>
         </section>
         <section class="skill-column">
-          <h3>Lab-Automation, <span class="skill-chip chip-llm">lokale LLM</span>s & Recovery</h3>
+          <h3>Lab-Automation, lokale LLMs & Recovery</h3>
           <p>Tools und Gewohnheiten, die das Lab wiederholbar statt zufällig machen.</p>
           <div class="skill-matrix">
-            <div class="skill-row"><div class="skill-label">Automation</div><div class="skill-text">Ansible-Rollen · Inventories · konservative Bootstrap-Tasks · wiederholbares Host-Setup<span class="skill-note">Wiederverwendbares Setup ohne destruktive Annahmen.</span></div></div>
-            <div class="skill-row"><div class="skill-label">GitOps-ish</div><div class="skill-text"><span class="skill-chip chip-git">Git-basierte</span> Configs · Diffs · Commits · Deployment-Notizen · Public-Edge-Sync<span class="skill-note">Kein reines GitOps-Theater, sondern nachvollziehbare Infrastrukturänderungen.</span></div></div>
-            <div class="skill-row"><div class="skill-label">Recovery</div><div class="skill-text">Backups · <code><span class="skill-chip chip-storage">restic</span></code> · <code>rsync</code> · Restore-Denken · Rollback-Pfade · Migrationspläne<span class="skill-note">Davon ausgehen, dass etwas schiefgeht, und den langweiligen Ausweg vorbereiten.</span></div></div>
-            <div class="skill-row"><div class="skill-label">Lokale LLMs</div><div class="skill-text"><code><span class="skill-chip chip-llm">llama.cpp</span></code> · kleine/angepasste Modelle · <span class="skill-chip chip-llm">lokale Inferenz</span> · Command-Helper · Privacy-first Experimente<span class="skill-note">Praktische Erfahrung mit lokalen Modellen, nicht nur mit gehosteten Chat-Tools.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Automation</div><div class="skill-text"><span class="skill-chip chip-ansible">Ansible</span>-Rollen · Inventories · konservative Bootstrap-Tasks · wiederholbares Host-Setup<span class="skill-note">Wiederverwendbares Setup ohne destruktive Annahmen.</span></div></div>
+            <div class="skill-row"><div class="skill-label">GitOps-ish</div><div class="skill-text">Git-basierte Configs · Diffs · Commits · Deployment-Notizen · Public-Edge-Sync<span class="skill-note">Kein reines GitOps-Theater, sondern nachvollziehbare Infrastrukturänderungen.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Recovery</div><div class="skill-text">Backups · <code><span class="skill-chip chip-restic">restic</span></code> · <code>rsync</code> · Restore-Denken · Rollback-Pfade · Migrationspläne<span class="skill-note">Davon ausgehen, dass etwas schiefgeht, und den langweiligen Ausweg vorbereiten.</span></div></div>
+            <div class="skill-row"><div class="skill-label">Lokale LLMs</div><div class="skill-text"><code><span class="skill-chip chip-llm">llama.cpp</span></code> · kleine/angepasste Modelle · lokale Inferenz · Command-Helper · Privacy-first Experimente<span class="skill-note">Praktische Erfahrung mit lokalen Modellen, nicht nur mit gehosteten Chat-Tools.</span></div></div>
             <div class="skill-row"><div class="skill-label">Lernen</div><div class="skill-text"><span class="skill-chip chip-k8s">Kubernetes</span>/CKA-Pfad · Cluster-Observability · Storage-Migration · Netzwerk<span class="skill-note">Lernen an Systemen, die trotzdem funktionieren müssen.</span></div></div>
           </div>
         </section>
@@ -167,8 +166,8 @@
         <div class="project-grid">
         <article class="project-card">
           <h3>nl2sh</h3>
-          <p>Local-first Natural-Language-to-Shell-Experiment mit <code><span class="skill-chip chip-llm">llama.cpp</span></code> und <code>whatisit</code>, um aus normaler Sprache Shell-Command-Vorschläge zu erzeugen. Zeigt praktische <span class="skill-chip chip-llm">lokale LLM</span>-Nutzung, Command-UX-Denken und Small-Tool-Building.</p>
-          <div class="project-meta"><span class="skill-chip chip-llm">local LLM</span> · Shell UX · <span class="skill-chip chip-llm">llama.cpp</span></div>
+          <p>Local-first Natural-Language-to-Shell-Experiment mit <code><span class="skill-chip chip-llm">llama.cpp</span></code> und <code>whatisit</code>, um aus normaler Sprache Shell-Command-Vorschläge zu erzeugen. Zeigt praktische lokale LLM-Nutzung, Command-UX-Denken und Small-Tool-Building.</p>
+          <div class="project-meta">local LLM · Shell UX · <span class="skill-chip chip-llm">llama.cpp</span></div>
         </article>
         </div>
       </section>
