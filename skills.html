@@ -17,7 +17,12 @@
       --muted: #59636c;
       --paper: #f4f6f1;
       --paper-2: #e7ece4;
+      --dark: #0c1210;
+      --dark-2: #141c19;
+      --dark-text: #eef5ef;
+      --dark-muted: #9facaa;
       --line: rgba(16, 20, 24, 0.16);
+      --dark-line: rgba(226, 232, 240, 0.16);
       --ui: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       --mono: "JetBrains Mono", "Fira Code", "Cascadia Code", ui-monospace, SFMono-Regular, Menlo, monospace;
     }
@@ -34,18 +39,32 @@
     .label { color: var(--green); font-size: 12px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
     h1 { max-width: 840px; margin-top: 16px; font-size: clamp(40px, 6vw, 78px); line-height: .94; letter-spacing: -.018em; text-wrap: balance; }
     .hero p { max-width: 820px; margin-top: 22px; color: var(--muted); font-size: clamp(17px, 1.5vw, 21px); }
-    .skill-layout { display: grid; gap: 22px; }
-    .skill-section { display: grid; grid-template-columns: minmax(220px, .55fr) minmax(0, 1.45fr); gap: 22px; border-top: 1px solid var(--line); padding-top: 24px; }
-    .skill-section h2 { font-size: clamp(24px, 3vw, 38px); line-height: 1; letter-spacing: -.01em; }
-    .skill-section .intro { margin-top: 12px; color: var(--muted); }
-    .skill-list { display: grid; gap: 14px; }
-    .skill-item { border: 1px solid var(--line); background: rgba(255,255,255,.35); padding: 16px; }
-    .skill-item h3 { font-size: 18px; }
+    .skill-layout { display: grid; gap: 24px; }
+    .skill-band { border-top: 1px solid var(--line); padding: clamp(24px, 4vw, 46px) 0 0; }
+    .skill-band.is-private { margin-inline: calc(clamp(18px, 5vw, 82px) * -1); padding: clamp(34px, 5vw, 64px) clamp(18px, 5vw, 82px); border-top: 0; background: var(--dark); color: var(--dark-text); }
+    .band-heading { max-width: 860px; margin-bottom: 22px; }
+    .band-heading h2 { margin-top: 10px; font-size: clamp(26px, 3.4vw, 46px); line-height: 1; letter-spacing: -.012em; }
+    .band-heading p { max-width: 760px; margin-top: 12px; color: var(--muted); }
+    .is-private .band-heading p { color: var(--dark-muted); }
+    .skill-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; align-items: start; }
+    .skill-column { border: 1px solid var(--line); background: rgba(255,255,255,.36); padding: clamp(18px, 2.4vw, 26px); }
+    .is-private .skill-column { border-color: var(--dark-line); background: var(--dark-2); }
+    .skill-column h3 { font-size: clamp(24px, 2.8vw, 36px); line-height: 1; letter-spacing: -.01em; }
+    .skill-column .intro { margin-top: 10px; color: var(--muted); }
+    .is-private .skill-column .intro { color: var(--dark-muted); }
+    .skill-list { display: grid; gap: 14px; margin-top: 18px; }
+    .skill-item { border: 1px solid var(--line); background: rgba(255,255,255,.45); padding: 16px; }
+    .is-private .skill-item { border-color: var(--dark-line); background: rgba(255,255,255,.035); }
+    .skill-item h4 { font-size: 18px; }
     .skill-item p { margin-top: 6px; color: var(--muted); }
+    .is-private .skill-item p { color: var(--dark-muted); }
     .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
     .tag { border: 1px solid rgba(22,130,93,.28); padding: 5px 7px; color: var(--green); font-size: 12px; font-weight: 800; }
+    .is-private .tag { border-color: rgba(191,246,210,.24); color: #bff6d2; }
+    .working-style { border-top: 1px solid var(--line); padding-top: clamp(24px, 4vw, 46px); }
+    .working-style .skill-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     footer { padding: 24px clamp(18px, 5vw, 82px); border-top: 1px solid var(--line); color: var(--muted); }
-    @media (max-width: 820px) { .topbar { align-items: flex-start; flex-direction: column; } .skill-section { grid-template-columns: 1fr; } }
+    @media (max-width: 900px) { .topbar { align-items: flex-start; flex-direction: column; } .skill-columns, .working-style .skill-list { grid-template-columns: 1fr; } }
 
   </style>
 </head>
@@ -61,140 +80,143 @@
       <p>A boring, optional list for people who want depth. It is intentionally practical: what I operate, support, troubleshoot, document, or have used in real environments.</p>
     </section>
     <div class="skill-layout">
-      <section class="skill-section">
-        <div>
-          <span class="label">Professional / current</span>
-          <h2>Professional / current</h2>
+      <section class="skill-band is-professional">
+        <div class="band-heading"><span class="label">Professional</span><h2>Professional</h2><p>Light background for the work/job side of the profile.</p></div>
+        <div class="skill-columns">
+        <section class="skill-column">
+          <h3>Professional / current</h3>
           <p class="intro">Daily operational ground.</p>
-        </div>
-        <div class="skill-list">
-          <article class="skill-item">
-            <h3>Omnissa Horizon / VDI</h3>
-            <p>Built and maintained the VDI environment together with a colleague, including the platform around user access and lifecycle work.</p>
-            <div class="tags"><span class="tag">UAG</span><span class="tag">Connection Server</span><span class="tag">golden images</span><span class="tag">snapshots</span><span class="tag">image lifecycle</span></div>
-          </article>
-          <article class="skill-item">
-            <h3>Microsoft 365</h3>
-            <p>Administration and support work around users, services, and day-to-day operational issues.</p>
-            <div class="tags"><span class="tag">administration</span><span class="tag">support</span><span class="tag">troubleshooting</span></div>
-          </article>
-          <article class="skill-item">
-            <h3>Exchange</h3>
-            <p>Operational support in business environments, focused on continuity and practical issue resolution.</p>
-            <div class="tags"><span class="tag">mail flow</span><span class="tag">support</span><span class="tag">operations</span></div>
-          </article>
-          <article class="skill-item">
-            <h3>Windows infrastructure</h3>
-            <p>Troubleshooting and support under real constraints, with users and services depending on the result.</p>
-            <div class="tags"><span class="tag">Windows</span><span class="tag">incidents</span><span class="tag">service continuity</span></div>
-          </article>
-          <article class="skill-item">
-            <h3>Veeam-backed paths</h3>
-            <p>Backup-related infrastructure paths around the systems I help operate.</p>
-            <div class="tags"><span class="tag">backup paths</span><span class="tag">restore awareness</span><span class="tag">infrastructure</span></div>
-          </article>
+          <div class="skill-list">
+            <article class="skill-item">
+              <h4>Omnissa Horizon / VDI</h4>
+              <p>Built and maintained the VDI environment together with a colleague, including the platform around user access and lifecycle work.</p>
+              <div class="tags"><span class="tag">UAG</span><span class="tag">Connection Server</span><span class="tag">golden images</span><span class="tag">snapshots</span><span class="tag">image lifecycle</span></div>
+            </article>
+            <article class="skill-item">
+              <h4>Microsoft 365</h4>
+              <p>Administration and support work around users, services, and day-to-day operational issues.</p>
+              <div class="tags"><span class="tag">administration</span><span class="tag">support</span><span class="tag">troubleshooting</span></div>
+            </article>
+            <article class="skill-item">
+              <h4>Exchange</h4>
+              <p>Operational support in business environments, focused on continuity and practical issue resolution.</p>
+              <div class="tags"><span class="tag">mail flow</span><span class="tag">support</span><span class="tag">operations</span></div>
+            </article>
+            <article class="skill-item">
+              <h4>Windows infrastructure</h4>
+              <p>Troubleshooting and support under real constraints, with users and services depending on the result.</p>
+              <div class="tags"><span class="tag">Windows</span><span class="tag">incidents</span><span class="tag">service continuity</span></div>
+            </article>
+          </div>
+        </section>
+        <section class="skill-column">
+          <h3>Professional / experience</h3>
+          <p class="intro">Related operational experience and supporting work.</p>
+          <div class="skill-list">
+            <article class="skill-item">
+              <h4>Veeam-backed paths</h4>
+              <p>Backup-related infrastructure paths around the systems I help operate.</p>
+              <div class="tags"><span class="tag">backup paths</span><span class="tag">restore awareness</span><span class="tag">infrastructure</span></div>
+            </article>
+          </div>
+        </section>
         </div>
       </section>
-      <section class="skill-section">
-        <div>
-          <span class="label">Private / currently maintained</span>
-          <h2>Private / currently maintained</h2>
+      <section class="skill-band is-private">
+        <div class="band-heading"><span class="label">Private infrastructure lab</span><h2>Private infrastructure lab</h2><p>Dark background for the private hands-on systems side.</p></div>
+        <div class="skill-columns">
+        <section class="skill-column">
+          <h3>Private / currently maintained</h3>
           <p class="intro">Systems I run or maintain for my own infrastructure.</p>
-        </div>
-        <div class="skill-list">
-          <article class="skill-item">
-            <h3>Linux servers and VPS systems</h3>
-            <p>Small practical fleet across VPS and Raspberry Pi systems, managed through SSH, Git notes, and runbooks.</p>
-            <div class="tags"><span class="tag">Linux</span><span class="tag">SSH</span><span class="tag">systemd</span><span class="tag">updates</span></div>
-          </article>
-          <article class="skill-item">
-            <h3>Docker and Compose</h3>
-            <p>Services deployed, inspected, migrated, and repaired through container logs, health checks, and configuration diffs.</p>
-            <div class="tags"><span class="tag">Docker</span><span class="tag">Compose</span><span class="tag">logs</span><span class="tag">rollbacks</span></div>
-          </article>
-          <article class="skill-item">
-            <h3>k3s / Kubernetes</h3>
-            <p>Practical cluster work around manifests, ingress, services, rollouts, events, and validation.</p>
-            <div class="tags"><span class="tag">k3s</span><span class="tag">kubectl</span><span class="tag">kustomize</span><span class="tag">ingress</span><span class="tag">rollouts</span></div>
-          </article>
-          <article class="skill-item">
-            <h3>Private access and public edge</h3>
-            <p>Private administration via NetBird and public service exposure through Cloudflare Tunnel where appropriate.</p>
-            <div class="tags"><span class="tag">NetBird</span><span class="tag">Cloudflare Tunnel</span><span class="tag">DNS</span><span class="tag">routing</span></div>
-          </article>
-          <article class="skill-item">
-            <h3>Monitoring</h3>
-            <p>Observer-style monitoring with Prometheus and Grafana for hosts, NAS, clusters, probes, and dashboards.</p>
-            <div class="tags"><span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">node-exporter</span><span class="tag">blackbox</span></div>
-          </article>
-          <article class="skill-item">
-            <h3>Storage and NAS</h3>
-            <p>NAS-style service work around shares, mounts, Samba, NFS, and migration planning.</p>
-            <div class="tags"><span class="tag">Samba</span><span class="tag">NFS</span><span class="tag">mounts</span><span class="tag">storage</span></div>
-          </article>
-        </div>
-      </section>
-      <section class="skill-section">
-        <div>
-          <span class="label">Private / used or experimented with</span>
-          <h2>Private / used or experimented with</h2>
+          <div class="skill-list">
+            <article class="skill-item">
+              <h4>Linux servers and VPS systems</h4>
+              <p>Small practical fleet across VPS and Raspberry Pi systems, managed through SSH, Git notes, and runbooks.</p>
+              <div class="tags"><span class="tag">Linux</span><span class="tag">SSH</span><span class="tag">systemd</span><span class="tag">updates</span></div>
+            </article>
+            <article class="skill-item">
+              <h4>Docker and Compose</h4>
+              <p>Services deployed, inspected, migrated, and repaired through container logs, health checks, and configuration diffs.</p>
+              <div class="tags"><span class="tag">Docker</span><span class="tag">Compose</span><span class="tag">logs</span><span class="tag">rollbacks</span></div>
+            </article>
+            <article class="skill-item">
+              <h4>k3s / Kubernetes</h4>
+              <p>Practical cluster work around manifests, ingress, services, rollouts, events, and validation.</p>
+              <div class="tags"><span class="tag">k3s</span><span class="tag">kubectl</span><span class="tag">kustomize</span><span class="tag">ingress</span><span class="tag">rollouts</span></div>
+            </article>
+            <article class="skill-item">
+              <h4>Private access and public edge</h4>
+              <p>Private administration via NetBird and public service exposure through Cloudflare Tunnel where appropriate.</p>
+              <div class="tags"><span class="tag">NetBird</span><span class="tag">Cloudflare Tunnel</span><span class="tag">DNS</span><span class="tag">routing</span></div>
+            </article>
+            <article class="skill-item">
+              <h4>Monitoring</h4>
+              <p>Observer-style monitoring with Prometheus and Grafana for hosts, NAS, clusters, probes, and dashboards.</p>
+              <div class="tags"><span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">node-exporter</span><span class="tag">blackbox</span></div>
+            </article>
+            <article class="skill-item">
+              <h4>Storage and NAS</h4>
+              <p>NAS-style service work around shares, mounts, Samba, NFS, and migration planning.</p>
+              <div class="tags"><span class="tag">Samba</span><span class="tag">NFS</span><span class="tag">mounts</span><span class="tag">storage</span></div>
+            </article>
+          </div>
+        </section>
+        <section class="skill-column">
+          <h3>Private / used or experimented with</h3>
           <p class="intro">Tools and patterns I have used while learning or maintaining my lab.</p>
-        </div>
-        <div class="skill-list">
-          <article class="skill-item">
-            <h3>OpenMediaVault</h3>
-            <p>Used as part of the home NAS setup and migration planning.</p>
-            <div class="tags"><span class="tag">OMV</span><span class="tag">NAS</span><span class="tag">shares</span></div>
-          </article>
-          <article class="skill-item">
-            <h3>Pi-hole</h3>
-            <p>Used in homelab DNS/ad-blocking context.</p>
-            <div class="tags"><span class="tag">DNS</span><span class="tag">homelab</span></div>
-          </article>
-          <article class="skill-item">
-            <h3>Uptime Kuma</h3>
-            <p>Used previously for uptime-style checks before the monitoring stack matured.</p>
-            <div class="tags"><span class="tag">uptime</span><span class="tag">HTTP checks</span></div>
-          </article>
-          <article class="skill-item">
-            <h3>Ansible</h3>
-            <p>Used for conservative bootstrap roles and repeatable host setup patterns.</p>
-            <div class="tags"><span class="tag">playbooks</span><span class="tag">roles</span><span class="tag">inventory</span></div>
-          </article>
-          <article class="skill-item">
-            <h3>Backup and restore drills</h3>
-            <p>Practical recovery thinking: test, document, and keep changes reversible.</p>
-            <div class="tags"><span class="tag">rsync</span><span class="tag">restore</span><span class="tag">runbooks</span></div>
-          </article>
+          <div class="skill-list">
+            <article class="skill-item">
+              <h4>OpenMediaVault</h4>
+              <p>Used as part of the home NAS setup and migration planning.</p>
+              <div class="tags"><span class="tag">OMV</span><span class="tag">NAS</span><span class="tag">shares</span></div>
+            </article>
+            <article class="skill-item">
+              <h4>Pi-hole</h4>
+              <p>Used in homelab DNS/ad-blocking context.</p>
+              <div class="tags"><span class="tag">DNS</span><span class="tag">homelab</span></div>
+            </article>
+            <article class="skill-item">
+              <h4>Uptime Kuma</h4>
+              <p>Used previously for uptime-style checks before the monitoring stack matured.</p>
+              <div class="tags"><span class="tag">uptime</span><span class="tag">HTTP checks</span></div>
+            </article>
+            <article class="skill-item">
+              <h4>Ansible</h4>
+              <p>Used for conservative bootstrap roles and repeatable host setup patterns.</p>
+              <div class="tags"><span class="tag">playbooks</span><span class="tag">roles</span><span class="tag">inventory</span></div>
+            </article>
+            <article class="skill-item">
+              <h4>Backup and restore drills</h4>
+              <p>Practical recovery thinking: test, document, and keep changes reversible.</p>
+              <div class="tags"><span class="tag">rsync</span><span class="tag">restore</span><span class="tag">runbooks</span></div>
+            </article>
+          </div>
+        </section>
         </div>
       </section>
-      <section class="skill-section">
-        <div>
-          <span class="label">Working style</span>
-          <h2>Working style</h2>
-          <p class="intro">How I try to make changes safer and easier to review.</p>
-        </div>
+      <section class="working-style">
+        <div class="band-heading"><span class="label">Working style</span><h2>Working style</h2><p>How I try to make changes safer and easier to review.</p></div>
         <div class="skill-list">
-          <article class="skill-item">
-            <h3>Evidence-led troubleshooting</h3>
-            <p>Logs, metrics, status commands, diffs, and health checks before guessing.</p>
-            <div class="tags"><span class="tag">logs</span><span class="tag">metrics</span><span class="tag">diffs</span><span class="tag">health checks</span></div>
-          </article>
-          <article class="skill-item">
-            <h3>Reversible changes</h3>
-            <p>Prefer small changes, rollouts, backups, and clear rollback paths.</p>
-            <div class="tags"><span class="tag">rollback</span><span class="tag">git</span><span class="tag">small steps</span></div>
-          </article>
-          <article class="skill-item">
-            <h3>Documentation and handover</h3>
-            <p>Write down decisions, commands, and context so future investigation is easier.</p>
-            <div class="tags"><span class="tag">notes</span><span class="tag">handover</span><span class="tag">runbooks</span></div>
-          </article>
-          <article class="skill-item">
-            <h3>AI-assisted, human-validated</h3>
-            <p>Use AI to accelerate drafts and implementation, while keeping human review and live validation as the safety boundary.</p>
-            <div class="tags"><span class="tag">AI-assisted</span><span class="tag">review</span><span class="tag">validation</span></div>
-          </article>
+            <article class="skill-item">
+              <h4>Evidence-led troubleshooting</h4>
+              <p>Logs, metrics, status commands, diffs, and health checks before guessing.</p>
+              <div class="tags"><span class="tag">logs</span><span class="tag">metrics</span><span class="tag">diffs</span><span class="tag">health checks</span></div>
+            </article>
+            <article class="skill-item">
+              <h4>Reversible changes</h4>
+              <p>Prefer small changes, rollouts, backups, and clear rollback paths.</p>
+              <div class="tags"><span class="tag">rollback</span><span class="tag">git</span><span class="tag">small steps</span></div>
+            </article>
+            <article class="skill-item">
+              <h4>Documentation and handover</h4>
+              <p>Write down decisions, commands, and context so future investigation is easier.</p>
+              <div class="tags"><span class="tag">notes</span><span class="tag">handover</span><span class="tag">runbooks</span></div>
+            </article>
+            <article class="skill-item">
+              <h4>AI-assisted, human-validated</h4>
+              <p>Use AI to accelerate drafts and implementation, while keeping human review and live validation as the safety boundary.</p>
+              <div class="tags"><span class="tag">AI-assisted</span><span class="tag">review</span><span class="tag">validation</span></div>
+            </article>
         </div>
       </section>
     </div>
