@@ -1796,7 +1796,7 @@
       }
 
       function fetchHealth(stream = false) {
-        return fetch("lab-health.json", { cache: "no-store" })
+        return fetch("/lab-health.json", { cache: "no-store" })
           .then((response) => {
             if (!response.ok) throw new Error("health unavailable");
             return response.json();
